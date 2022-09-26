@@ -1,6 +1,7 @@
 package com.cmj.wanandroid.network
 
 import android.util.Log
+import com.cmj.wanandroid.network.kt.check
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.*
@@ -20,17 +21,9 @@ import java.lang.reflect.Type
  * 的 Converter 类型与方法的返回值的 bean 类型不同的场景。
  *
  */
-class SafeResultCallAdapterFactory<R, T>(
-    private val callHandler: ResultCallHandler<R, T>,
-    private val targetConvertType: Type? = null
-) : CallAdapter.Factory() {
+abstract class AbsSafeResultCallAdapterFactory<R, T>() : CallAdapter.Factory() {
 
-    interface ResultCallHandler<R, T> {
-        fun onResponse(response: Response<R>): Result<T>
-        fun onFailure(t: Throwable): Result<T>
-    }
-
-    private class WrapDataType(
+    protected class WrapDataType(
         private val wrapType: Type,
         private val dataType: Type
     ) : ParameterizedType {
@@ -39,11 +32,16 @@ class SafeResultCallAdapterFactory<R, T>(
         override fun getOwnerType(): Type? = null
     }
 
+    abstract fun onResponse(response: Response<R>): Result<T>
+
+    abstract fun onFailure(t: Throwable): Result<T>
+
     override fun get(
         returnType: Type,
         annotations: Array<out Annotation>,
         retrofit: Retrofit
     ): CallAdapter<R, Call<Result<T>>>? {
+        if (SkipSafeCallAdapter::class.java.check(annotations)) return null
         if (getRawType(returnType) != Call::class.java) return null
         if (returnType !is ParameterizedType) return null
 
@@ -53,12 +51,12 @@ class SafeResultCallAdapterFactory<R, T>(
         ) return null
 
         val dataType = getParameterUpperBound(0, resultType)
-        var responseType = if (targetConvertType != null) {
-            WrapDataType(targetConvertType, dataType)
-        } else {
-            dataType
-        }
+        val responseType = checkResultParameterUpperBound(dataType) ?: return null
         return SafeResultCallAdapter(responseType)
+    }
+
+    protected open fun checkResultParameterUpperBound(type: Type): Type? {
+        return type
     }
 
     inner class SafeResultCallAdapter(
@@ -75,11 +73,11 @@ class SafeResultCallAdapterFactory<R, T>(
         override fun enqueue(callback: Callback<Result<T>>) {
             delegate.enqueue(object : Callback<R> {
                 override fun onResponse(call: Call<R>, response: Response<R>) {
-                    callback.onResponse(this@SafeResultCall, Response.success(callHandler.onResponse(response)))
+                    callback.onResponse(this@SafeResultCall, Response.success(onResponse(response)))
                 }
 
                 override fun onFailure(call: Call<R>, t: Throwable) {
-                    callback.onResponse(this@SafeResultCall, Response.success(callHandler.onFailure(t)))
+                    callback.onResponse(this@SafeResultCall, Response.success(onFailure(t)))
                 }
             })
         }
@@ -87,9 +85,9 @@ class SafeResultCallAdapterFactory<R, T>(
         override fun clone(): Call<Result<T>> = SafeResultCall(delegate)
         override fun execute(): Response<Result<T>> {
             return try {
-                Response.success(callHandler.onResponse(delegate.execute()))
+                Response.success(onResponse(delegate.execute()))
             } catch (e: Exception) {
-                Response.success(callHandler.onFailure(e))
+                Response.success(onFailure(e))
             }
         }
 

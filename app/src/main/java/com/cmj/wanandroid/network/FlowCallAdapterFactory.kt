@@ -15,35 +15,35 @@ import java.lang.reflect.Type
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
+import kotlin.coroutines.resumeWithException
 
 class FlowCallAdapterFactory : Factory() {
 
-    override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
+    override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<Any, Flow<Any>>? {
         val returnRawType = getRawType(returnType)
         if (returnRawType != Flow::class.java) {
             return null
         }
         val flowParameterizedType = getParameterUpperBound(0, returnType as ParameterizedType)
-        val rawFlowParameterizedType = getRawType(flowParameterizedType)
-        return FlowCallAdapter(rawFlowParameterizedType)
+        return FlowCallAdapter(flowParameterizedType)
     }
 
-    class FlowCallAdapter(private val responseType: Type) : CallAdapter<Any, Flow<*>> {
+    class FlowCallAdapter(private val responseType: Type) : CallAdapter<Any, Flow<Any>> {
 
         override fun responseType() = responseType
 
-        override fun adapt(call: Call<Any>): Flow<*> {
+        override fun adapt(call: Call<Any>): Flow<Any> {
             return flow {
                 try {
                     emit(suspendCancellableCoroutine {
-                        call.enqueue(object : Callback<Any?> {
-                            override fun onResponse(call: Call<Any?>, response: Response<Any?>) {
-                                val body = response.body()
+                        call.enqueue(object : Callback<Any> {
+                            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                                val body = response.body()!!
                                 it.resume(body, null)
                             }
 
-                            override fun onFailure(call: Call<Any?>, t: Throwable) {
-                                it.resume(null, null)
+                            override fun onFailure(call: Call<Any>, t: Throwable) {
+                                it.resumeWithException(t)
                             }
                         })
                     })

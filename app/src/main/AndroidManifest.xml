@@ -14,7 +14,7 @@
         android:name=".App"
         android:theme="@style/Theme.WanAndroid">
         <activity
-            android:name=".TestActivity"
+            android:name=".test.TestActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

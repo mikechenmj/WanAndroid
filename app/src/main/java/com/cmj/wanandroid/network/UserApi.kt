@@ -19,24 +19,15 @@ interface UserApi {
     @FormUrlEncoded
     suspend fun loginSuspend(@Field("username") userName: String, @Field("password") password: String): Response<String>
 
-    @POST("/user/login")
-    @FormUrlEncoded
-    fun login(@Field("username") userName: String, @Field("password") password: String): Call<String>
-
-//    @POST("/user/login")
-//    @FormUrlEncoded
-//    suspend fun loginTest(@Field("username") userName: String, @Field("password") password: String): Result<WAndroidResponse<User>>
-
-    @POST("/user/login")
-    @FormUrlEncoded
-    suspend fun loginTest(@Field("username") userName: String, @Field("password") password: String): Result<User>
-
     @POST("/user/register")
     @FormUrlEncoded
-    suspend fun registerSuspend(@Field("username") userName: String,
-                                @Field("password") password: String,
-                                @Field("repassword") rePassword: String): Response<String>
+    suspend fun registerSuspend(
+        @Field("username") userName: String,
+        @Field("password") password: String,
+        @Field("repassword") rePassword: String
+    ): Response<String>
 
     @GET("/user/logout/json")
     suspend fun logoutSuspend(): Response<String>
+
 }

@@ -15,21 +15,22 @@ open class WAndroidResponse<T>(
 
     data class Ok<T>(override val data: T) : WAndroidResponse<T>()
 
-    data class ServiceError<T>(override val errorCode: Int, override val errorMsg: String) : WAndroidResponse<T>()
-
-    data class ThrowableError<T>(val throwable: Throwable) : WAndroidResponse<T>()
+    data class Error<T>(val throwable: Throwable) : WAndroidResponse<T>()
 
     fun getOrNull(): T? = when (this) {
         is Ok -> data
-        is ServiceError, is ThrowableError -> null
+        is Error -> null
         else -> data
     }
 
     fun getOrThrow(): T = when (this) {
         is Ok -> data
-        is ServiceError -> throw ServiceException(errorCode, errorMsg)
-        is ThrowableError -> throw throwable
+        is Error -> throw throwable
         else -> data!!
+    }
+
+    override fun toString(): String {
+        return "WAndroidResponse(data=$data, errorCode=$errorCode, errorMsg='$errorMsg')"
     }
 
     class ServiceException(val errorCode: Int, private val errorMsg: String) : RuntimeException(errorMsg)

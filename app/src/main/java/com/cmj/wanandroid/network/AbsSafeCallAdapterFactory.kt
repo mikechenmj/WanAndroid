@@ -1,5 +1,6 @@
 package com.cmj.wanandroid.network
 
+import com.cmj.wanandroid.network.kt.check
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
@@ -18,21 +19,17 @@ import java.lang.reflect.Type
  * 只有当返回类型为 Call<T> 时才会生效， suspend 方法返回类型为 T
  * 只有当 T 与 targetResponseType 一致时才生效。
  */
-class SafeCallAdapterFactory<T>(
-    private val callHandler: CallHandler<T>,
-    private val targetResponseType: Type
-) : CallAdapter.Factory() {
+abstract class AbsSafeCallAdapterFactory<T>(private val targetResponseType: Type) : CallAdapter.Factory() {
 
-    interface CallHandler<T> {
-        fun onResponse(response: Response<T>): T
-        fun onFailure(t: Throwable): T
-    }
+   abstract fun onResponse(response: Response<T>): T
+    abstract fun onFailure(t: Throwable): T
 
     override fun get(
         returnType: Type,
         annotations: Array<out Annotation>,
         retrofit: Retrofit
     ): CallAdapter<T, Call<T>>? {
+        if (SkipSafeCallAdapter::class.java.check(annotations)) return null
         if (getRawType(returnType) != Call::class.java) return null
         check(returnType is ParameterizedType)
 
@@ -50,11 +47,11 @@ class SafeCallAdapterFactory<T>(
         val retrofit: Retrofit,
     ) : CallAdapter<T, Call<T>> {
         override fun responseType(): Type = responseType
-        override fun adapt(call: Call<T>): Call<T> = WAndroidResponseCall(call)
+        override fun adapt(call: Call<T>): Call<T> = SafeResponseCall(call)
 
     }
 
-    inner class WAndroidResponseCall(
+    inner class SafeResponseCall(
         private val delegate: Call<T>,
     ) : Call<T> {
 
@@ -62,21 +59,21 @@ class SafeCallAdapterFactory<T>(
             callback: Callback<T>
         ): Unit = delegate.enqueue(object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
-                callback.onResponse(this@WAndroidResponseCall, Response.success(callHandler.onResponse(response)))
+                callback.onResponse(this@SafeResponseCall, Response.success(onResponse(response)))
             }
 
             override fun onFailure(call: Call<T>, t: Throwable) {
-                callback.onResponse(this@WAndroidResponseCall, Response.success(callHandler.onFailure(t)))
+                callback.onResponse(this@SafeResponseCall, Response.success(onFailure(t)))
             }
         })
 
-        override fun clone(): Call<T> = WAndroidResponseCall(delegate)
+        override fun clone(): Call<T> = SafeResponseCall(delegate)
 
         override fun execute(): Response<T> {
             return try {
-                Response.success(callHandler.onResponse(delegate.execute()))
+                Response.success(onResponse(delegate.execute()))
             } catch (e: Exception) {
-                Response.success(callHandler.onFailure(e))
+                Response.success(onFailure(e))
             }
         }
 
