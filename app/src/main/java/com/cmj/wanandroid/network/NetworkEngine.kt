@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 object NetworkEngine {
 
     private val TAG = NetworkEngine::class.java.simpleName
-    private const val DEFAULT_TIMEOUT = 30000L
+    private const val DEFAULT_TIMEOUT = 30L
     const val BASE_URL = "https://www.wanandroid.com"
 
     val okhttp = createOkhttpClient()
@@ -34,13 +34,14 @@ object NetworkEngine {
                         .build()
                 )
             )
+            // 通过操作符对 Retrofit 操作结果进行异常捕获和 Bean 转换， 参考 Retrofit.kt，因此不使用以下 CallAdapterFactory
 //            .addCallAdapterFactory(LiveDataResponseCallAdapterFactory())
 //            .addCallAdapterFactory(LiveDataCallAdapterFactory())
 //            .addCallAdapterFactory(FlowResponseCallAdapterFactory())
 //            .addCallAdapterFactory(FlowCallAdapterFactory())
-            .addCallAdapterFactory(WABodySafeResultFactory())
-            .addCallAdapterFactory(WASafeResultFactory())
-            .addCallAdapterFactory(WASafeFactory())
+//            .addCallAdapterFactory(WABodySafeResultFactory())
+//            .addCallAdapterFactory(WASafeResultFactory())
+//            .addCallAdapterFactory(WASafeFactory())
             .client(okhttp)
             .build()
     }

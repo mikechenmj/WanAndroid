@@ -12,10 +12,10 @@ class WABodySafeResultFactory : AbsSafeResultCallAdapterFactory<WAndroidResponse
         return try {
             if (response.isSuccessful) {
                 val body = response.body()!!
-                if (body.errorCode == WAndroidResponse.CODE_SUCCESS) {
+                if (body.code == WAndroidResponse.CODE_SUCCESS) {
                     Result.success(body.getOrThrow())
                 } else {
-                    Result.failure(ServiceException(body.errorCode, body.errorMsg))
+                    Result.failure(ServiceException(body.code, body.msg))
                 }
             } else {
                 val throwable = HttpException(response)

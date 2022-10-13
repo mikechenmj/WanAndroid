@@ -1,10 +1,12 @@
 package com.cmj.wanandroid.network
 
+import com.squareup.moshi.Json
+
 //如果 retrofit 通过正常的 Call 作为返回值调用的话，会导致不管成功还是失败，都会回调 onResponse
 open class WAndroidResponse<T>(
     open val data: T? = null,
-    open val errorCode: Int = 0,
-    open val errorMsg: String = ""
+    @Json(name = "errorCode") open val code: Int = CODE_FAILED,
+    @Json(name = "errorMsg") open val msg: String = ""
 ) {
 
     companion object {
@@ -20,17 +22,29 @@ open class WAndroidResponse<T>(
     fun getOrNull(): T? = when (this) {
         is Ok -> data
         is Error -> null
-        else -> data
+        else -> {
+            if (code == CODE_SUCCESS) {
+                 data
+            } else {
+                null
+            }
+        }
     }
 
     fun getOrThrow(): T = when (this) {
         is Ok -> data
         is Error -> throw throwable
-        else -> data!!
+        else -> {
+            if (code == CODE_SUCCESS) {
+                 data!!
+            } else {
+                throw ServiceException(code, msg)
+            }
+        }
     }
 
     override fun toString(): String {
-        return "WAndroidResponse(data=$data, errorCode=$errorCode, errorMsg='$errorMsg')"
+        return "WAndroidResponse(data=$data, errorCode=$code, errorMsg='$msg')"
     }
 
     class ServiceException(val errorCode: Int, private val errorMsg: String) : RuntimeException(errorMsg)

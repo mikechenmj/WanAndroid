@@ -12,6 +12,9 @@ import com.cmj.wanandroid.network.User
 import com.cmj.wanandroid.network.WAndroidResponse
 import com.cmj.wanandroid.network.kt.flow
 import com.cmj.wanandroid.network.kt.responseFlow
+import com.cmj.wanandroid.network.kt.resultCall
+import com.cmj.wanandroid.network.kt.resultWABodyCall
+import com.cmj.wanandroid.network.kt.safeWACall
 import com.cmj.wanandroid.network.kt.suspendAwait
 import com.cmj.wanandroid.network.kt.suspendAwaitResponse
 import com.cmj.wanandroid.network.test.TestApi
@@ -20,7 +23,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import java.lang.Exception
+import retrofit2.await
+import kotlin.Exception
 
 class TestActivity : AppCompatActivity() {
 
@@ -35,18 +39,28 @@ class TestActivity : AppCompatActivity() {
         findViewById<Button>(id.register).setOnClickListener { testRegisterApi() }
         findViewById<Button>(id.login).setOnClickListener { testLoginApi() }
         findViewById<Button>(id.logout).setOnClickListener { testLogoutApi() }
-        findViewById<Button>(id.test).setOnClickListener {
+        findViewById<Button>(id.test1).setOnClickListener {
+            // 需要在 NetworkEngine 中添加对应的CallAdapterFactory，否则无法捕获网络报错或者转换失败
             lifecycleScope.launch {
                 val api = NetworkEngine.testApi
                 testWA(api)
                 testWAResult(api)
                 testWAResultBody(api)
-//                testWAFlow(api)
-//                testWALiveData(api)
+                testWAFlow(api)
+                testWALiveData(api)
                 testCallAwait(api)
                 testCallFlow(api)
             }
         }
+        findViewById<Button>(id.test2).setOnClickListener {
+            lifecycleScope.launch {
+                // 测试通过操作符对 Call 进行转换
+                val api = NetworkEngine.testApi
+                testCallSafeResult(api)
+            }
+        }
+
+
     }
 
     private suspend fun testWA(api: TestApi) {
@@ -149,7 +163,8 @@ class TestActivity : AppCompatActivity() {
         api.testWAResult(USER_NAME, USER_PASSWORD).suspendAwait().also { Log.i("MCJ", "testWAResult await $it") }
         api.testWAResult(USER_NAME, USER_PASSWORD).suspendAwaitResponse().also { Log.i("MCJ", "testWAResult awaitResponse ${it.body()}") }
         api.testWAResultBody(USER_NAME, USER_PASSWORD).suspendAwait().also { Log.i("MCJ", "testWAResultBody await $it") }
-        api.testWAResultBody(USER_NAME, USER_PASSWORD).suspendAwaitResponse().also { Log.i("MCJ", "testWAResultBody awaitResponse ${it.body()}") }
+        api.testWAResultBody(USER_NAME, USER_PASSWORD).suspendAwaitResponse()
+            .also { Log.i("MCJ", "testWAResultBody awaitResponse ${it.body()}") }
     }
 
     private suspend fun testCallFlow(api: TestApi) {
@@ -158,7 +173,63 @@ class TestActivity : AppCompatActivity() {
         api.testWAResult(USER_NAME, USER_PASSWORD).flow().collect { Log.i("MCJ", "testWAResult asFlow $it") }
         api.testWAResult(USER_NAME, USER_PASSWORD).responseFlow().collect { Log.i("MCJ", "testWAResult awaitResponse ${it.body()}") }
         api.testWAResultBody(USER_NAME, USER_PASSWORD).flow().collect { Log.i("MCJ", "testWAResultBody asFlow $it") }
-        api.testWAResultBody(USER_NAME, USER_PASSWORD).responseFlow().collect { Log.i("MCJ", "testWAResultBody awaitResponse ${it.body()}") }
+        api.testWAResultBody(USER_NAME, USER_PASSWORD).responseFlow()
+            .collect { Log.i("MCJ", "testWAResultBody awaitResponse ${it.body()}") }
+    }
+
+    private suspend fun testCallSafeResult(api: TestApi) {
+        Log.i("MCJ", "testCallSafeResult")
+        withContext(Dispatchers.IO) {
+            try {
+                Log.i(
+                    "MCJ", "safeResultCall await: ${
+                        api.testWA(USER_NAME, USER_PASSWORD)
+                            .resultCall().await().getOrThrow().getOrThrow()
+                    }"
+                )
+            } catch (e: Exception) {
+                Log.w("MCJ", "safeResultCall await e: $e")
+            }
+            try {
+                api.testWA(USER_NAME, USER_PASSWORD).resultCall().flow().collect {
+                    Log.i("MCJ", "testCallSafeResult flow: ${it.getOrThrow().getOrThrow()}")
+                }
+            } catch (e: Exception) {
+                Log.w("MCJ", "testCallSafeResult flow e: $e")
+            }
+
+            try {
+                Log.i(
+                    "MCJ", "safeResultCall await: ${
+                        api.testWA(USER_NAME, USER_PASSWORD)
+                            .resultWABodyCall().await().getOrThrow()
+                    }"
+                )
+            } catch (e: Exception) {
+                Log.w("MCJ", "safeResultCall await e: $e")
+            }
+            try {
+                api.testWA(USER_NAME, USER_PASSWORD).resultWABodyCall().flow().collect {
+                    Log.i("MCJ", "testCallSafeResult flow: ${it.getOrThrow()}")
+                }
+            } catch (e: Exception) {
+                Log.w("MCJ", "testCallSafeResult flow e: $e")
+            }
+
+            try {
+                Log.i("MCJ", "safeWACall await: ${api.testWA(USER_NAME, USER_PASSWORD).safeWACall().await()}")
+            } catch (e: Exception) {
+                Log.w("MCJ", "safeWACall await e: $e")
+            }
+            try {
+                api.testWA(USER_NAME, USER_PASSWORD).safeWACall().flow().collect {
+                    Log.i("MCJ", "safeWACall flow: $it")
+                }
+            } catch (e: Exception) {
+                Log.w("MCJ", "safeWACall flow e: $e")
+            }
+        }
+
     }
 
     private fun testLoginApi() {

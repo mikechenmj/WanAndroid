@@ -9,5 +9,4 @@ data class User(
     @Json(name = "coinCount") val coin: Long,
     val icon: String,
     val email: String,
-//    val email1: String,
 )
