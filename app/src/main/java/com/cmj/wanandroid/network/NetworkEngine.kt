@@ -1,11 +1,16 @@
 package com.cmj.wanandroid.network
 
+import android.util.Log
 import com.cmj.wanandroid.App
 import com.cmj.wanandroid.network.test.TestApi
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,6 +25,14 @@ object NetworkEngine {
     private val TAG = NetworkEngine::class.java.simpleName
     private const val DEFAULT_TIMEOUT = 30L
     const val BASE_URL = "https://www.wanandroid.com"
+
+
+    private val cookieJar = WanAndroidCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(App.get()))
+
+    val isLoggerIn : Boolean
+        get() {
+            return cookieJar.isLoggedIn()
+        }
 
     val okhttp = createOkhttpClient()
 
@@ -57,7 +70,7 @@ object NetworkEngine {
     private fun createOkhttpClient(): OkHttpClient {
         val maxSize = 1024 * 1024
         return OkHttpClient.Builder()
-            .cookieJar(WanAndroidCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(App.get())))
+            .cookieJar(cookieJar)
             .cache(Cache(App.get().cacheDir, maxSize.toLong()))
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
