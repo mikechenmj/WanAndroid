@@ -81,4 +81,10 @@ dependencies {
 
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
+    //leakcanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+
+    //blockcanary 版本过久不维护，在高 Android 版本已经无法弹出通知
+    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+    releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
 }
