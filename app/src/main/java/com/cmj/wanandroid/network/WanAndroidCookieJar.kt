@@ -1,6 +1,5 @@
 package com.cmj.wanandroid.network
 
-import android.util.Log
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.CookieCache
 import com.franmontiel.persistentcookiejar.persistence.CookiePersistor

@@ -11,17 +11,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".App"
+        android:name=".WanAndroidApp"
         android:theme="@style/Theme.WanAndroid">
         <activity
-            android:name=".test.TestActivity"
+            android:name=".start.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.cmj.wanandroid.user.UserActivity" />
+        <activity android:name=".main.MainActivity" />
+
+
     </application>
 
 </manifest>

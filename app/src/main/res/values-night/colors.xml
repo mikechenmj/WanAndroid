@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_primary">@color/color_f44336</color>
+    <color name="color_primary_dark">@color/color_ff5722</color>
+    <color name="color_on_primary">@color/black</color>
+    <color name="text_color_secondary">@color/color_f44336</color>
+    <color name="window_background_color">@color/black</color>
+
+</resources>

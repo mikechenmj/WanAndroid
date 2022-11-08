@@ -1,4 +1,4 @@
-package com.gree.controller.kt
+package com.cmj.wanandroid.kt
 
 import android.app.Activity
 import androidx.activity.ComponentActivity
@@ -14,8 +14,8 @@ import java.lang.reflect.Type
 /**
  * 查找泛型中的 ViewModel
  */
-fun <VM : ViewModel> findViewModelClass(clazz: Class<*>): Class<VM> {
-    val viewModelClass = findViewModelClassOrNull<VM>(clazz)
+fun <VM : ViewModel> findViewModelClass(clazz: Class<*>, index: Int = -1): Class<VM> {
+    val viewModelClass = findViewModelClassOrNull<VM>(clazz, index)
     if (viewModelClass != null) {
         return viewModelClass
     }
@@ -23,14 +23,26 @@ fun <VM : ViewModel> findViewModelClass(clazz: Class<*>): Class<VM> {
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <VM : ViewModel> findViewModelClassOrNull(clazz: Class<*>): Class<VM>? {
+fun <VM : ViewModel> findViewModelClassOrNull(clazz: Class<*>, index: Int = -1): Class<VM>? {
     val types: Array<Type>? = (clazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
     if (!types.isNullOrEmpty()) {
-        for (type in types) {
-            val typeClazz = (type as? Class<*>) ?: continue
-            if (ViewModel::class.java.isAssignableFrom(typeClazz)) {
-                return type as Class<VM>
+        if (index < 0) {
+            for (type in types) {
+                val typeClazz = (type as? Class<*>) ?: continue
+                if (typeClazz.isAssignableFrom(ViewModel::class.java)) {
+                    return EmptyViewModel::class.java as Class<VM>
+                } else if (ViewModel::class.java.isAssignableFrom(typeClazz)) {
+                    return type as Class<VM>
+                }
             }
+            return null
+        }
+
+        val typeClazz = (types[index] as? Class<*>) ?: return null
+        if (typeClazz.isAssignableFrom(ViewModel::class.java)) {
+            return EmptyViewModel::class.java as Class<VM>
+        } else if (ViewModel::class.java.isAssignableFrom(typeClazz)) {
+            return types[index] as Class<VM>
         }
     }
     return null
@@ -133,9 +145,10 @@ fun <VM : ViewModel> ComponentActivity.genericViewModels(
 fun <VM : ViewModel> Fragment.genericViewModels(
     ownerProducer: () -> ViewModelStoreOwner = { this },
     factoryProducer: (() -> ViewModelProvider.Factory)? = null,
-    onInitialized: ((viewModel: VM) -> Boolean)? = null
+    onInitialized: ((viewModel: VM) -> Boolean)? = null,
+    index: Int = -1
 ) = createViewModelLazy(
-    findViewModelClass(this.javaClass),
+    findViewModelClass(this.javaClass, index),
     { ownerProducer().viewModelStore },
     factoryProducer,
     onInitialized
@@ -162,9 +175,10 @@ fun <VM : ViewModel> Fragment.genericViewModels(
 @MainThread
 fun <VM : ViewModel> Fragment.genericActivityViewModels(
     factoryProducer: (() -> ViewModelProvider.Factory)? = null,
-    onInitialized: ((viewModel: VM) -> Boolean)? = null
+    onInitialized: ((viewModel: VM) -> Boolean)? = null,
+    index: Int = -1
 ) = createViewModelLazy(
-    findViewModelClass(this.javaClass),
+    findViewModelClass(this.javaClass, index),
     { requireActivity().viewModelStore },
     factoryProducer ?: { requireActivity().defaultViewModelProviderFactory },
     onInitialized
@@ -184,3 +198,5 @@ fun <VM : ViewModel> Fragment.createViewModelLazy(
     val factoryPromise = factoryProducer ?: { defaultViewModelProviderFactory }
     return ViewModelLazy(viewModelClass, storeProducer, factoryPromise, onInitialized)
 }
+
+private class EmptyViewModel : ViewModel()

@@ -1,9 +1,9 @@
 package com.cmj.wanandroid.network.kt
 
-import android.util.Log
-import com.cmj.wanandroid.network.SkipSafeCallAdapter
-import com.cmj.wanandroid.network.WAndroidResponse
-import com.cmj.wanandroid.network.WAndroidResponse.ServiceException
+import com.cmj.wanandroid.kt.failureAndLogDebug
+import com.cmj.wanandroid.network.factory.SkipSafeCallAdapter
+import com.cmj.wanandroid.network.bean.WAndroidResponse
+import com.cmj.wanandroid.network.bean.WAndroidResponse.ServiceException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +17,6 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Request
 import okio.Timeout
 import java.lang.Exception
-import kotlin.Result.Companion
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.reflect.full.primaryConstructor
@@ -145,16 +144,16 @@ fun Class<SkipSafeCallAdapter>.check(annotations: Array<out Annotation>): Boolea
     return false
 }
 
-fun <T : Any> Call<T>.resultCall(): Call<Result<T>> {
-    return SafeResultCall(this).apply { Log.i("MCJ", "resultCall clone: ${clone()}") }
+fun <T> Call<T>.resultCall(): Call<Result<T>> {
+    return SafeResultCall(this)
 }
 
-fun <T : Any> Call<WAndroidResponse<T>>.resultWABodyCall(): Call<Result<T>> {
-    return SafeResultWABodyCall(this).apply { Log.i("MCJ", "resultWABodyCall clone: ${clone()}") }
+fun <T> Call<WAndroidResponse<T>>.resultWABodyCall(): Call<Result<T>> {
+    return SafeResultWABodyCall(this)
 }
 
-fun <T : Any> Call<WAndroidResponse<T>>.safeWACall(): Call<WAndroidResponse<T>> {
-    return SafeWACall(this).apply { Log.i("MCJ", "safeWACall clone: ${clone()}") }
+fun <T> Call<WAndroidResponse<T>>.safeWACall(): Call<WAndroidResponse<T>> {
+    return SafeWACall(this)
 }
 
 // 不管失败还是成功，都通过 callback.onResponse 将结果回调，主要是为了方便协程处理。
@@ -200,15 +199,15 @@ class SafeResultCall<T>(delegate: Call<T>) : AbsDelegateCall<T, Result<T>>(deleg
                 Result.success(body)
             } else {
                 val throwable = HttpException(response)
-                Result.failure(throwable)
+                Result.failureAndLogDebug(throwable)
             }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failureAndLogDebug(e)
         }
     }
 
     override fun onFailure(t: Throwable): Result<T> {
-        return Result.failure(t)
+        return Result.failureAndLogDebug(t)
     }
 }
 
@@ -221,19 +220,19 @@ class SafeResultWABodyCall<T>(delegate: Call<WAndroidResponse<T>>) : AbsDelegate
                 if (body.code == WAndroidResponse.CODE_SUCCESS) {
                     Result.success(body.getOrThrow())
                 } else {
-                    Result.failure(ServiceException(body.code, body.msg))
+                    Result.failureAndLogDebug(ServiceException(body.code, body.msg))
                 }
             } else {
                 val throwable = HttpException(response)
-                Result.failure(throwable)
+                Result.failureAndLogDebug(throwable)
             }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failureAndLogDebug(e)
         }
     }
 
     override fun onFailure(t: Throwable): Result<T> {
-        return Result.failure(t)
+        return Result.failureAndLogDebug(t)
     }
 }
 

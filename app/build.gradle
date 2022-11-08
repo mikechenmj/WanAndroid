@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.cmj.wanandroid"
-        minSdk 29
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -84,7 +85,13 @@ dependencies {
     //leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
-    //blockcanary 版本过久不维护，在高 Android 版本已经无法弹出通知
+    //blockCanary 版本过久不维护，在高 Android 版本已经无法弹出通知
     debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
     releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
+
+    // util
+    implementation 'com.blankj:utilcode:1.30.6'
+
+    //mmkv
+    implementation 'com.tencent:mmkv:1.2.13'
 }

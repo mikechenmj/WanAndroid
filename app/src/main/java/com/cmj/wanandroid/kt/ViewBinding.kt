@@ -1,4 +1,4 @@
-package com.gree.themestore.viewbinding
+package com.cmj.wanandroid.kt
 
 import android.content.Context
 import android.view.LayoutInflater

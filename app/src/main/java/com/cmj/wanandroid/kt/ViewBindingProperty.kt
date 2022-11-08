@@ -1,4 +1,4 @@
-package com.gree.themestore.viewbinding
+package com.cmj.wanandroid.kt
 
 
 import android.app.Activity
@@ -14,6 +14,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle.Event
+import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
@@ -98,8 +100,7 @@ fun <VB : ViewBinding> Fragment.genericBinding(): ReadOnlyProperty<Any, VB> {
 }
 
 @Suppress("UNCHECKED_CAST")
-class ViewBindingProperty<VB : ViewBinding>(private val viewProvider: (() -> View?)?, private val viewBindingClass: Class<VB>) :
-    ReadOnlyProperty<Any, VB> {
+class ViewBindingProperty<VB : ViewBinding>(private val viewProvider: (() -> View?)?, private val viewBindingClass: Class<VB>) : ReadOnlyProperty<Any, VB> {
 
     /**
      * Cache static method `ViewBinding.bind(View)`
@@ -115,11 +116,35 @@ class ViewBindingProperty<VB : ViewBinding>(private val viewProvider: (() -> Vie
         viewBindingClass.getMethod("inflate", LayoutInflater::class.java)
     }
 
+    private var thisRef: Any? = null
     private var viewBinding: VB? = null
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val lifecycleObserver = object : LifecycleEventObserver {
+        override fun onStateChanged(source: LifecycleOwner, event: Event) {
+            if (event == ON_DESTROY) {
+                source.lifecycle.removeObserver(this)
+                mainHandler.post { viewBinding = null }
+            }
+        }
+    }
 
     @MainThread
     override fun getValue(thisRef: Any, property: KProperty<*>): VB {
         this.viewBinding?.let { return it }
+        this.thisRef = thisRef
+
+        when (thisRef) {
+            is Fragment -> thisRef.viewLifecycleOwner.lifecycle
+            is ComponentActivity -> thisRef.lifecycle
+            is LifecycleOwner -> thisRef.lifecycle
+            else -> null
+        }?.let {
+            if (it.currentState == Lifecycle.State.DESTROYED) {
+                mainHandler.post { viewBinding = null }
+            } else {
+                it.addObserver(lifecycleObserver)
+            }
+        }
 
         val view = viewProvider?.invoke()
         Log.d("ViewBindingProperty", "view: $view  thisRef: $thisRef"/*, Throwable()*/)
