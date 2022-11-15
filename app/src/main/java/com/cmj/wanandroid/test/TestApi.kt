@@ -1,7 +1,7 @@
 package com.cmj.wanandroid.test
 
 import androidx.lifecycle.LiveData
-import com.cmj.wanandroid.network.bean.User
+import com.cmj.wanandroid.network.bean.LoginInfo
 import com.cmj.wanandroid.network.bean.WAndroidResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
@@ -17,21 +17,21 @@ interface TestApi {
     fun testWA(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Call<WAndroidResponse<User>>
+    ): Call<WAndroidResponse<LoginInfo>>
 
     @POST("/user/login")
     @FormUrlEncoded
     suspend fun testWASuspend(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): WAndroidResponse<User>
+    ): WAndroidResponse<LoginInfo>
 
     @POST("/user/login")
     @FormUrlEncoded
     suspend fun testWAResponseSuspend(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Response<WAndroidResponse<User>>
+    ): Response<WAndroidResponse<LoginInfo>>
 
     //------------------- result WAndroidResponse
     @POST("/user/login")
@@ -39,21 +39,21 @@ interface TestApi {
     fun testWAResult(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Call<WAndroidResponse<User>>
+    ): Call<WAndroidResponse<LoginInfo>>
 
     @POST("/user/login")
     @FormUrlEncoded
     suspend fun testWAResultResponseSuspend(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Response<Result<WAndroidResponse<User>>>
+    ): Response<Result<WAndroidResponse<LoginInfo>>>
 
     @POST("/user/login")
     @FormUrlEncoded
     suspend fun testWAResultSuspend(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Result<WAndroidResponse<User>>
+    ): Result<WAndroidResponse<LoginInfo>>
 
     //------------------- ResultBody
     @POST("/user/login")
@@ -61,21 +61,21 @@ interface TestApi {
     fun testWAResultBody(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Call<WAndroidResponse<User>>
+    ): Call<WAndroidResponse<LoginInfo>>
 
     @POST("/user/login")
     @FormUrlEncoded
     suspend fun testWAResultBodySuspend(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Result<WAndroidResponse<User>>
+    ): Result<WAndroidResponse<LoginInfo>>
 
     @POST("/user/login")
     @FormUrlEncoded
     suspend fun testWAResultBodyResponseSuspend(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Response<Result<WAndroidResponse<User>>>
+    ): Response<Result<WAndroidResponse<LoginInfo>>>
 
     //------------------- flow
 
@@ -84,14 +84,14 @@ interface TestApi {
     fun testWAFlow(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Flow<WAndroidResponse<User>>
+    ): Flow<WAndroidResponse<LoginInfo>>
 
     @POST("/user/login")
     @FormUrlEncoded
     fun testWAResponseFlow(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): Flow<Response<WAndroidResponse<User>>>
+    ): Flow<Response<WAndroidResponse<LoginInfo>>>
 
     //------------------- liveData
     @POST("/user/login")
@@ -99,13 +99,13 @@ interface TestApi {
     fun testWALiveData(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): LiveData<WAndroidResponse<User>>
+    ): LiveData<WAndroidResponse<LoginInfo>>
 
     @POST("/user/login")
     @FormUrlEncoded
     fun testWAResponseLiveData(
         @Field("username") userName: String,
         @Field("password") password: String
-    ): LiveData<Response<WAndroidResponse<User>>>
+    ): LiveData<Response<WAndroidResponse<LoginInfo>>>
 
 }

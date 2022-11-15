@@ -26,14 +26,8 @@
         android:text="登出" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/test1"
+        android:id="@+id/home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test1" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/test2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test2" />
+        android:text="主页" />
 </LinearLayout>

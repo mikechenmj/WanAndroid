@@ -2,6 +2,7 @@ package com.cmj.wanandroid.base
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.coroutineScope
 import androidx.viewbinding.ViewBinding
+import com.cmj.wanandroid.base.log.LogMan
 import com.cmj.wanandroid.kt.genericBinding
 import com.cmj.wanandroid.ui.LoadingDialog
 import com.cmj.wanandroid.kt.genericActivityViewModels
@@ -27,9 +29,7 @@ abstract class BaseFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBinding> :
         return@genericActivityViewModels false
     }, index = 1)
 
-    private val dialog by lazy {
-        LoadingDialog()
-    }
+    private var dialog: LoadingDialog? = null  //设置为可空是因为 dialog dismiss 后，leakCanary 会判断 dialog 泄漏。
 
     protected val viewLifecycle: Lifecycle
         get() {
@@ -52,15 +52,22 @@ abstract class BaseFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBinding> :
     }
 
     protected fun showLoading() {
-        if (!dialog.isAdded) {
-            dialog.show(childFragmentManager, this::class.java.name)
+        if (dialog == null) dialog = LoadingDialog()
+        try {
+            dialog!!.show(childFragmentManager, this::class.java.name)
+        } catch (e: Exception) {
+            LogMan.w(this::class.java.simpleName, "hideLoading failed: $e")
         }
     }
 
     protected fun hideLoading() {
-        if (dialog.isAdded) {
-            dialog.dismiss()
+        if (dialog == null) return
+        try {
+            dialog!!.dismiss()
+        } catch (e: Exception) {
+            LogMan.w(this::class.java.simpleName, "hideLoading failed: $e")
         }
+        dialog = null
     }
 
 }

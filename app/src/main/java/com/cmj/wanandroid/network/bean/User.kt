@@ -1,15 +1,31 @@
 package com.cmj.wanandroid.network.bean
 
-import android.os.Parcelable
-import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
 data class User(
-    val id: Long,
-    val username: String,
-    val nickname: String,
-    @Json(name = "coinCount") val coin: Long,
-    val icon: String,
-    val email: String,
-): Parcelable
+    val coinInfo: CoinInfo,
+    val userInfo: UserInfo
+) {
+
+    data class CoinInfo(
+        val userId: Int,
+        val username: String,
+        val nickname: String,
+        val rank: Int,
+        val coinCount: Int,
+        val level: Int,
+    )
+
+    data class UserInfo(
+        val id: Int,
+        val username: String,
+        val nickname: String,
+        val publicName: String,
+        val email: String,
+        val icon: String,
+        val password: String,
+        val token: String,
+        val type: Int,
+        val admin: Boolean,
+        val coinCount: Int,
+        val collectIds: List<Int>,
+    )
+}

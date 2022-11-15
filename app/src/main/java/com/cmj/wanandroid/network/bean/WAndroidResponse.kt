@@ -41,5 +41,5 @@ open class WAndroidResponse<out T>(
         return "WAndroidResponse(data=$data, errorCode=$code, errorMsg='$msg')"
     }
 
-    class ServiceException(val errorCode: Int, private val errorMsg: String) : RuntimeException(errorMsg)
+    class ServiceException(val errorCode: Int, private val errorMsg: String,  val url: String? = null) : RuntimeException(errorMsg)
 }
