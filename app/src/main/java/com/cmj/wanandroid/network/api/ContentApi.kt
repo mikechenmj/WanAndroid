@@ -81,7 +81,7 @@ interface ContentApi {
         @Path("page") page: Int,
         @Query("page_size") pageSize: Int? = null,
         @Query("cid") cid: Int? = null
-    ): Call<WAndroidResponse<List<Tree>>>
+    ): Call<WAndroidResponse<PageModule<Content>>>
 
     @GET("/lg/collect/list/{page}/json")
     fun collectList(
@@ -176,7 +176,7 @@ interface ContentApi {
     fun qAList(
         @Path("page") page: Int,
         @Query("page_size") pageSize: Int? = null
-    ): Call<WAndroidResponse<ShareArticleInfo>>
+    ): Call<WAndroidResponse<PageModule<Content>>>
 
     @GET("/wenda/comments/{id}/json")
     fun qACommentsList(@Path("id") id: Int): Call<WAndroidResponse<PageModule<QAComments>>>

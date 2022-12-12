@@ -2,10 +2,10 @@ package com.cmj.wanandroid.base
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -21,11 +21,15 @@ import com.cmj.wanandroid.kt.inflate
 
 abstract class BaseFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBinding> : Fragment() {
 
-    protected open val viewModel by genericViewModels<VM>(onInitialized = {
+    init {
+        LogMan.i("BaseFragment", "${this::class.java.simpleName} init")
+    }
+
+    protected val viewModel by genericViewModels<VM>(onInitialized = {
         return@genericViewModels false
     })
 
-    protected open val activityViewModel by genericActivityViewModels<AVM>(onInitialized = {
+    protected val activityViewModel by genericActivityViewModels<AVM>(onInitialized = {
         return@genericActivityViewModels false
     }, index = 1)
 
@@ -69,5 +73,6 @@ abstract class BaseFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBinding> :
         }
         dialog = null
     }
-
 }
+
+data class ChildFragment(@StringRes val titleRes: Int, val clazz: Class<out Fragment>)

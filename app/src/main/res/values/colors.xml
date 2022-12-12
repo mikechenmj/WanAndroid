@@ -7,6 +7,8 @@
     <color name="text_color_secondary">@color/color_6c83ff</color>
     <color name="window_background_color">@color/white</color>
 
+    <color name="color_red_tip">@android:color/holo_red_light</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
@@ -18,5 +20,8 @@
 
     <color name="color_f44336">#F44336</color>
     <color name="color_ff5722">#FF5722</color>
+
+    <color name="color_translucent">#66000000</color>
+
 
 </resources>

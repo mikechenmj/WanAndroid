@@ -10,7 +10,7 @@ data class Content(
     val link: String,
     val niceDate: String,
     val niceShareDate: String,
-    val shareDate: Long,
+    val shareDate: Long?,
     val shareUser: String,
     val superChapterId: Int,
     val superChapterName: String,
@@ -29,13 +29,14 @@ data class Content(
     val canEdit: Boolean,
     val chapterId: Int,
     val chapterName: String,
-    val collect: Boolean,
+    var collect: Boolean,
     val courseId: Int,
     val desc: String,
     val descMd: String,
     val envelopePic: String,
     val fresh: Boolean,
     val host: String,
+    @Transient var top: Boolean = false
 ) {
     data class Tag(
         val name: String,

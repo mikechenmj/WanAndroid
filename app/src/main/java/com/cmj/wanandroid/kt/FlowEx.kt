@@ -17,17 +17,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.ClassCastException
 import kotlin.coroutines.ContinuationInterceptor
+import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.coroutines.coroutineContext
 
 suspend fun <T> Flow<T>.collectOldest(action: suspend (value: T) -> Unit) {
     var job: Job? = null
-    val newContext = run {
-        val parentJob = coroutineContext[Job]
-        val parentInterceptor = coroutineContext[ContinuationInterceptor] ?: EmptyCoroutineContext
-        Job(parentJob) + parentInterceptor
-    }
-    val scope = CoroutineScope(newContext)
+    val scope = newChildScope(coroutineContext)
     collect {
         if (job?.isActive == true) {
             return@collect
@@ -99,23 +95,7 @@ fun <F : MutableSharedFlow<T>, T> F.doWhileSubscribed(
     stopTimeoutMillis: Long = 0,
     action: suspend MutableSharedFlow<T>.() -> Unit
 ): F {
-    var job: Job? = null
-    scope.launch {
-        subscriptionCount.collectLatest { count ->
-            if (count > 0) {
-                if (job?.isActive != true) {
-                    job = launch {
-                        action()
-                    }
-                }
-            } else {
-                if (stopTimeoutMillis > 0) {
-                    delay(stopTimeoutMillis)
-                }
-                job?.cancel()
-            }
-        }
-    }
+    doWhileSubscribedWithJob(scope, stopTimeoutMillis, action)
     return this
 }
 
@@ -125,10 +105,12 @@ fun <F : MutableSharedFlow<T>, T> F.doWhileSubscribedWithJob(
     action: suspend MutableSharedFlow<T>.() -> Unit
 ): Job {
     var job: Job? = null
+    var alreadySubscribed = false
     return scope.launch {
         subscriptionCount.collectLatest { count ->
             if (count > 0) {
-                if (job?.isActive != true) {
+                if (!alreadySubscribed) {
+                    alreadySubscribed = true
                     job = launch {
                         action()
                     }
@@ -137,15 +119,15 @@ fun <F : MutableSharedFlow<T>, T> F.doWhileSubscribedWithJob(
                 if (stopTimeoutMillis > 0) {
                     delay(stopTimeoutMillis)
                 }
+                alreadySubscribed = false
                 job?.cancel()
             }
         }
     }
 }
 
-fun CoroutineScope.newChildScope(): CoroutineScope {
+fun newChildScope(parentContext: CoroutineContext): CoroutineScope {
     val newContext = run {
-        val parentContext = this.coroutineContext
         val parentJob = parentContext[Job]
         val parentInterceptor = parentContext[ContinuationInterceptor] ?: EmptyCoroutineContext
         Job(parentJob) + parentInterceptor
@@ -164,8 +146,8 @@ suspend fun buffer(call: () -> Unit) {
 fun View.setOnClickListenerBuffer(
     scope: CoroutineScope,
     bufferDuration: Long = 500L,
-    before: (View) -> Boolean = {true},
-    after: (View) ->  Unit = {},
+    before: (View) -> Boolean = { true },
+    after: (View) -> Unit = {},
     run: (View) -> Unit
 ) {
     val buffer = Buffer<View>(scope, bufferDuration) {

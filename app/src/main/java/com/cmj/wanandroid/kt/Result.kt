@@ -1,11 +1,15 @@
 package com.cmj.wanandroid.kt
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.cmj.wanandroid.BuildConfig
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.log.LogMan
+import com.cmj.wanandroid.network.bean.WAndroidResponse.Companion.CODE_UN_LOGGED_IN
+import com.cmj.wanandroid.network.bean.WAndroidResponse.ServiceException
 import com.cmj.wanandroid.ui.AppToast
+import com.cmj.wanandroid.user.UserActivity
 import java.net.UnknownHostException
 
 fun <T> Result<T>.getOrToastError(
@@ -43,4 +47,31 @@ fun <T> Result.Companion.failureAndLogDebug(exception: Throwable): Result<T> {
         exception.printStackTrace()
     }
     return failure(exception)
+}
+
+
+fun <T> Result<T>.getOrHandleError(context: Context): T? {
+    onFailure {
+        handleIfError(context)
+        return null
+    }
+    return getOrNull()
+}
+
+fun <T> Result<T>.handleIfError(context: Context): Boolean {
+    val exception = exceptionOrNull() ?: return false
+    return handleError(context, exception)
+}
+
+fun handleError(context: Context, exception: Throwable): Boolean {
+    if (exception is ServiceException) {
+        if (exception.errorCode == CODE_UN_LOGGED_IN) {
+            context.startActivity(Intent(context, UserActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            })
+        }
+    }
+    toastError(context, exception)
+    return true
 }

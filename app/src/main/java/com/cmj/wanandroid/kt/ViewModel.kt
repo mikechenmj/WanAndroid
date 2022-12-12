@@ -24,7 +24,7 @@ fun <VM : ViewModel> findViewModelClass(clazz: Class<*>, index: Int = -1): Class
 
 @Suppress("UNCHECKED_CAST")
 fun <VM : ViewModel> findViewModelClassOrNull(clazz: Class<*>, index: Int = -1): Class<VM>? {
-    val types: Array<Type>? = (clazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
+    var types: Array<Type>? = (clazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
     if (!types.isNullOrEmpty()) {
         if (index < 0) {
             for (type in types) {
@@ -37,7 +37,10 @@ fun <VM : ViewModel> findViewModelClassOrNull(clazz: Class<*>, index: Int = -1):
             }
             return null
         }
-
+        while (types!!.size <= index) {
+            types = (clazz.superclass.genericSuperclass as? ParameterizedType)?.actualTypeArguments
+            types ?: return null
+        }
         val typeClazz = (types[index] as? Class<*>) ?: return null
         if (typeClazz.isAssignableFrom(ViewModel::class.java)) {
             return EmptyViewModel::class.java as Class<VM>

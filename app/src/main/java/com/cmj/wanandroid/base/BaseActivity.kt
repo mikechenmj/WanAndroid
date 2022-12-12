@@ -1,19 +1,25 @@
 package com.cmj.wanandroid.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.log.LogMan
 import com.cmj.wanandroid.kt.genericBinding
 import com.cmj.wanandroid.ui.LoadingDialog
 import com.cmj.wanandroid.kt.genericViewModels
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
 
-abstract class BaseActivity<VM : ViewModel, VB : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<VM : ViewModel, VB : ViewBinding> : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+
+    init {
+        LogMan.i("BaseActivity", "${this::class.java.simpleName} init")
+    }
 
     protected val viewModel by genericViewModels<VM> { provideViewModelFactory() ?: defaultViewModelProviderFactory }
     protected val binding by genericBinding<VB>()
@@ -61,5 +67,26 @@ abstract class BaseActivity<VM : ViewModel, VB : ViewBinding> : AppCompatActivit
 
     open fun provideViewModelFactory(): ViewModelProvider.Factory? {
         return null
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this)
+                .setTitle(R.string.need_permission_title)
+                .setRationale(R.string.need_permission_rationale)
+                .build().show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 }

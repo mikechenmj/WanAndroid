@@ -56,14 +56,19 @@ fun <VB : ViewBinding> findViewBindingClass(clazz: Class<*>): Class<VB> {
  */
 @Suppress("UNCHECKED_CAST")
 fun <VB : ViewBinding> findViewBindingClassOrNull(clazz: Class<*>): Class<VB>? {
-    val types: Array<Type>? = (clazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
-    if (!types.isNullOrEmpty()) {
-        for (type in types) {
-            val typeClazz = (type as? Class<*>) ?: continue
-            if (ViewBinding::class.java.isAssignableFrom(typeClazz)) {
-                return type as Class<VB>
+    var types: Array<Type>? = (clazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
+
+    do {
+        if (!types.isNullOrEmpty()) {
+            for (type in types) {
+                val typeClazz = (type as? Class<*>) ?: continue
+                if (ViewBinding::class.java.isAssignableFrom(typeClazz)) {
+                    return type as Class<VB>
+                }
             }
         }
-    }
+        types = (clazz.superclass.genericSuperclass as? ParameterizedType)?.actualTypeArguments
+    } while (types != null)
+
     return null
 }

@@ -2,19 +2,16 @@ package com.cmj.wanandroid.user.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.ViewModel
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseFragment
-import com.cmj.wanandroid.base.log.LogMan
 import com.cmj.wanandroid.databinding.FragmentLoginBinding
 import com.cmj.wanandroid.kt.getOrToastError
+import com.cmj.wanandroid.content.ContentActivity
 import com.cmj.wanandroid.kt.setOnClickListenerBuffer
-import com.cmj.wanandroid.main.MainActivity
 import com.cmj.wanandroid.ui.AppToast
 import com.cmj.wanandroid.user.UserActivity
 import com.cmj.wanandroid.user.UserViewModel
@@ -80,7 +77,7 @@ class LoginFragment : BaseFragment<LoginViewModel, UserViewModel, FragmentLoginB
                 hideLoading()
                 it ?: return@launchWhenResumed
             }
-            startActivity(Intent(requireContext(), MainActivity::class.java))
+            startActivity(Intent(requireContext(), ContentActivity::class.java))
             requireActivity().finish()
         }
     }

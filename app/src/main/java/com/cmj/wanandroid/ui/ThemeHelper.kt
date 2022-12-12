@@ -1,6 +1,5 @@
 package com.cmj.wanandroid.ui
 
-import android.app.Activity
 import android.view.ContextThemeWrapper
 import com.cmj.wanandroid.R
 

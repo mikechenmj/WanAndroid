@@ -1,9 +1,9 @@
 package com.cmj.wanandroid.network.bean
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-//如果 retrofit 通过正常的 Call 作为返回值调用的话，会导致不管成功还是失败，都会回调 onResponse
-open class WAndroidResponse<out T>(
+open class WAndroidResponse<out T> constructor(
     open val data: T? = null,
     @Json(name = "errorCode") open val code: Int = CODE_FAILED,
     @Json(name = "errorMsg") open val msg: String = ""
@@ -13,6 +13,8 @@ open class WAndroidResponse<out T>(
         const val CODE_SUCCESS = 0
         const val CODE_FAILED = -1
         const val CODE_UN_LOGGED_IN = -1001
+
+        const val VISIBLE = 1
     }
 
     data class Ok<T>(override val data: T) : WAndroidResponse<T>()

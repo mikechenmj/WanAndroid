@@ -7,7 +7,7 @@ import android.view.View
 import androidx.viewbinding.ViewBinding
 import com.cmj.wanandroid.base.BaseActivity
 import com.cmj.wanandroid.user.UserActivity
-import com.cmj.wanandroid.main.MainActivity
+import com.cmj.wanandroid.content.ContentActivity
 
 class StartActivity : BaseActivity<StartViewModel, ViewBinding>() {
 
@@ -22,7 +22,7 @@ class StartActivity : BaseActivity<StartViewModel, ViewBinding>() {
 
     private fun start() {
         if (viewModel.isLoggedIn()) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, ContentActivity::class.java))
         } else {
             startActivity(Intent(this, UserActivity::class.java))
         }

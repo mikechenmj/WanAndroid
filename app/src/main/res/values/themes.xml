@@ -12,7 +12,7 @@
 <!--        <item name="android:textColorHint">@color/color_a0a6b1</item>-->
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
         <!-- 控件交互颜色，比如 editText 的游标 -->

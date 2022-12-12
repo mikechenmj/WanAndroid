@@ -1,0 +1,64 @@
+package com.cmj.wanandroid.content
+
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.cmj.wanandroid.network.NetworkEngine
+import com.cmj.wanandroid.network.api.ContentApi
+import com.cmj.wanandroid.network.bean.Content
+import com.cmj.wanandroid.network.bean.PageModule
+import com.cmj.wanandroid.network.kt.resultWABodyCall
+import kotlinx.coroutines.flow.Flow
+import retrofit2.await
+
+object ContentRepository {
+
+    private val api = NetworkEngine.createApi(ContentApi::class.java)
+
+    suspend fun banner() = api.banner().resultWABodyCall().await()
+
+    fun articleListFlow(pageSize: Int = 20, orderType: Int = 0): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                ContentPagingSource(-1) { page ->
+                    if (page == -1) {
+                        val top = api.articleTop().resultWABodyCall().await().getOrThrow()
+                        top.forEach { it.top = true }
+                        PageModule(-1, 0, false, -1, top.size, top.size, top)
+                    } else {
+                        api.articleList(page, pageSize, orderType).resultWABodyCall().await().getOrThrow()
+                    }
+                }
+            }
+        ).flow
+    }
+
+    fun askListFlow(pageSize: Int = 20): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                ContentPagingSource { page ->
+                    api.qAList(page, pageSize).resultWABodyCall().await().getOrThrow()
+                }
+            }
+        ).flow
+    }
+
+    fun shareListFlow(pageSize: Int = 20): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                ContentPagingSource { page ->
+                    api.userArticleList(page, pageSize).resultWABodyCall().await().getOrThrow()
+                }
+            }
+        ).flow
+    }
+
+    suspend fun star(content: Content) = api.collect(content.id).resultWABodyCall().await()
+    suspend fun unStar(content: Content) = api.unCollectOriginId(content.id).resultWABodyCall().await()
+
+    suspend fun projectTree() = api.projectTree().resultWABodyCall().await()
+
+}
