@@ -38,6 +38,7 @@ import com.cmj.wanandroid.ui.RingPageTransformer
 import com.cmj.wanandroid.ui.ScaleInTransformer
 import com.cmj.wanandroid.ui.TabMediator
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -92,13 +93,13 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
                     currentItem = next
                 }
 
-                var job = nextDelay()
+                var job: Job? = null
                 registerOnPageChangeCallback(object : OnPageChangeCallback() {
                     override fun onPageScrollStateChanged(state: Int) {
                         if (state == SCROLL_STATE_IDLE) {
                             job = nextDelay()
                         } else {
-                            job.cancel()
+                            job?.cancel()
                         }
                     }
                 })
@@ -142,7 +143,7 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
                     adapter = BannerAdapter(this@apply).apply {
                         setData(banners)
                     }
-                    if (!job.isActive) {
+                    if (job?.isActive != true) {
                         job = nextDelay()
                     }
                     setCollapsingExpanded(expanded = true, animate = true)
