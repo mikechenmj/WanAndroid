@@ -20,15 +20,16 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.cmj.wanandroid.network.bean.Content
 import com.cmj.wanandroid.network.bean.PageModule
-import kotlinx.coroutines.delay
 
-
-class ContentPagingSource(private val start: Int = 0, private val sourceFun: suspend (Int) -> PageModule<Content>) : PagingSource<Int, Content>() {
+class ContentPagingSource(
+    private val start: Int = 0,
+    private val sourceFun: suspend (Int, Int) -> PageModule<Content>
+) : PagingSource<Int, Content>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
         val page = params.key ?: start
         return try {
-            val module = sourceFun.invoke(page)
+            val module = sourceFun.invoke(page, params.loadSize)
             LoadResult.Page(
                 data = module.datas,
                 prevKey = if (page == start) null else page - 1,

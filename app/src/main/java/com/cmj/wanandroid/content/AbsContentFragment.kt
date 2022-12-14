@@ -1,6 +1,7 @@
 package com.cmj.wanandroid.content
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -22,25 +23,26 @@ abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var tabLayoutMediator: TabMediator? = null
+        var tabLayout: TabLayout? = null
+        var collapsingView: View? = null
         viewLifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                 when (event) {
-                    Lifecycle.Event.ON_RESUME -> {
-                        val tabLayout = getTabLayout()
+                    Lifecycle.Event.ON_CREATE -> {
+                        tabLayout = getTabLayout()
                         tabLayoutMediator = initTabMediator(tabLayout)
-                        val collapsingView = getCollapsingView()
+                        collapsingView = getCollapsingView()
+                    }
+                    Lifecycle.Event.ON_RESUME -> {
                         tabLayoutMediator?.attach()
                         tabLayout?.isVisible = tabLayoutMediator != null
-
                         if (collapsingView != null) {
-                            setCollapsingView(collapsingView)
-                        } else {
-                            clearCollapsingView()
+                            setCollapsingView(collapsingView!!)
                         }
                     }
-
                     Lifecycle.Event.ON_PAUSE -> {
                         tabLayoutMediator?.detach()
+                        clearCollapsingView()
                     }
                 }
             }

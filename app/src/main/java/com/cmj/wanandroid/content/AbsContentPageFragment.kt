@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-abstract class AbsContentPageFragment<VM : ViewModel> : BaseFragment<VM, ContentViewModel, FragmentRefreshRecyclerBinding>() {
+abstract class AbsContentPageFragment<VM : ViewModel, AVM: ContentViewModel> : BaseFragment<VM, AVM, FragmentRefreshRecyclerBinding>() {
 
     private lateinit var pageFlow: Flow<PagingData<Content>>
 

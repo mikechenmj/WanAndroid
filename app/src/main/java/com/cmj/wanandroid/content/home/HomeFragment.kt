@@ -30,7 +30,6 @@ import com.cmj.wanandroid.base.ChildFragment
 import com.cmj.wanandroid.base.log.LogMan
 import com.cmj.wanandroid.databinding.FragmentHomeBinding
 import com.cmj.wanandroid.content.AbsContentFragment
-import com.cmj.wanandroid.content.ContentViewModel
 import com.cmj.wanandroid.content.home.HomeFragment.BannerAdapter.BannerVH
 import com.cmj.wanandroid.databinding.BannerLayoutBinding
 import com.cmj.wanandroid.network.bean.Banner
@@ -46,7 +45,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.internal.filterList
 import kotlin.coroutines.resume
 
-class HomeFragment : AbsContentFragment<ViewModel, ContentViewModel, FragmentHomeBinding>() {
+class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBinding>() {
 
     companion object {
         private val TAG = HomeFragment::class.java.simpleName
@@ -103,7 +102,7 @@ class HomeFragment : AbsContentFragment<ViewModel, ContentViewModel, FragmentHom
                         }
                     }
                 })
-                activityViewModel.bannerFlow.collectLatest {
+                viewModel.bannerFlow.collectLatest {
                     val banners = it.getOrNull()?.filterList {
                         if (isVisible != WAndroidResponse.VISIBLE) return@filterList false
                         suspendCancellableCoroutine { continuation -> //先进行预加载，加载成功的才可见。

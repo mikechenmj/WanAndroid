@@ -21,13 +21,13 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource(-1) { page ->
+                ContentPagingSource(-1) { page, size ->
                     if (page == -1) {
                         val top = api.articleTop().resultWABodyCall().await().getOrThrow()
                         top.forEach { it.top = true }
                         PageModule(-1, 0, false, -1, top.size, top.size, top)
                     } else {
-                        api.articleList(page, pageSize, orderType).resultWABodyCall().await().getOrThrow()
+                        api.articleList(page, size, orderType).resultWABodyCall().await().getOrThrow()
                     }
                 }
             }
@@ -38,8 +38,8 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page ->
-                    api.qAList(page, pageSize).resultWABodyCall().await().getOrThrow()
+                ContentPagingSource { page, size ->
+                    api.qAList(page, size).resultWABodyCall().await().getOrThrow()
                 }
             }
         ).flow
@@ -49,8 +49,8 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page ->
-                    api.userArticleList(page, pageSize).resultWABodyCall().await().getOrThrow()
+                ContentPagingSource { page, size ->
+                    api.userArticleList(page, size).resultWABodyCall().await().getOrThrow()
                 }
             }
         ).flow
