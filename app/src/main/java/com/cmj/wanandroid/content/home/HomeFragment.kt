@@ -105,7 +105,6 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
                 })
                 viewModel.bannerFlow.collectLatest {
                     val banners = it.getOrNull()?.filterList {
-                        if (isVisible != WAndroidResponse.VISIBLE) return@filterList false
                         suspendCancellableCoroutine { continuation -> //先进行预加载，加载成功的才可见。
                             Glide.with(requireContext())
                                 .asBitmap()

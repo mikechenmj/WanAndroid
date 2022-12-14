@@ -13,8 +13,6 @@ open class WAndroidResponse<out T> constructor(
         const val CODE_SUCCESS = 0
         const val CODE_FAILED = -1
         const val CODE_UN_LOGGED_IN = -1001
-
-        const val VISIBLE = 1
     }
 
     data class Ok<T>(override val data: T) : WAndroidResponse<T>()

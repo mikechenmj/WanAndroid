@@ -82,7 +82,7 @@ abstract class AbsContentPageFragment<VM : ViewModel, AVM : ContentViewModel> : 
         viewLifecycleScope.launch {
             viewLifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 pageFlow.collectLatest {
-                    contentAdapter.submitData(it.filter { content -> content.visible == WAndroidResponse.VISIBLE })
+                    contentAdapter.submitData(it)
                 }
             }
         }
