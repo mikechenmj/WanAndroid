@@ -8,6 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
+import androidx.paging.filter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cmj.wanandroid.base.BaseFragment
@@ -16,8 +17,8 @@ import com.cmj.wanandroid.databinding.FragmentRefreshRecyclerBinding
 import com.cmj.wanandroid.kt.handleError
 import com.cmj.wanandroid.kt.handleIfError
 import com.cmj.wanandroid.network.bean.Content
+import com.cmj.wanandroid.network.bean.WAndroidResponse
 import com.cmj.wanandroid.ui.getColorPrimary
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-abstract class AbsContentPageFragment<VM : ViewModel, AVM: ContentViewModel> : BaseFragment<VM, AVM, FragmentRefreshRecyclerBinding>() {
+abstract class AbsContentPageFragment<VM : ViewModel, AVM : ContentViewModel> : BaseFragment<VM, AVM, FragmentRefreshRecyclerBinding>() {
 
     private lateinit var pageFlow: Flow<PagingData<Content>>
 
@@ -81,7 +82,7 @@ abstract class AbsContentPageFragment<VM : ViewModel, AVM: ContentViewModel> : B
         viewLifecycleScope.launch {
             viewLifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 pageFlow.collectLatest {
-                    contentAdapter.submitData(it)
+                    contentAdapter.submitData(it.filter { content -> content.visible == WAndroidResponse.VISIBLE })
                 }
             }
         }
