@@ -34,14 +34,19 @@ abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBind
                         collapsingView = getCollapsingView()
                     }
                     Lifecycle.Event.ON_RESUME -> {
-                        tabLayoutMediator?.attach()
-                        tabLayout?.isVisible = tabLayoutMediator != null
+                        if (tabLayoutMediator != null) {
+                            tabLayoutMediator!!.attach()
+                            tabLayout?.isVisible = true
+                        }
                         if (collapsingView != null) {
                             setCollapsingView(collapsingView!!)
                         }
                     }
                     Lifecycle.Event.ON_PAUSE -> {
-                        tabLayoutMediator?.detach()
+                        if (tabLayoutMediator != null) {
+                            tabLayoutMediator!!.detach()
+                            tabLayout?.isVisible = false
+                        }
                         if (collapsingView != null) {
                             clearCollapsingView()
                         }
