@@ -90,9 +90,10 @@ suspend fun <T> Flow<T>.joinWait() {
     }.join()
 }
 
+const val DEFAULT_SHARED_FLOW_STOP_TIMEOUT_MILLIS = 1000000L
 fun <F : MutableSharedFlow<T>, T> F.doWhileSubscribed(
     scope: CoroutineScope,
-    stopTimeoutMillis: Long = 0,
+    stopTimeoutMillis: Long = DEFAULT_SHARED_FLOW_STOP_TIMEOUT_MILLIS,
     action: suspend MutableSharedFlow<T>.() -> Unit
 ): F {
     doWhileSubscribedWithJob(scope, stopTimeoutMillis, action)

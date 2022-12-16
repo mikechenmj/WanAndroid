@@ -1,6 +1,7 @@
 package com.cmj.wanandroid.content
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
@@ -8,40 +9,43 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.paging.filter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cmj.wanandroid.base.BaseFragment
 import com.cmj.wanandroid.content.home.ContentListAdapter
 import com.cmj.wanandroid.databinding.FragmentRefreshRecyclerBinding
 import com.cmj.wanandroid.kt.handleError
 import com.cmj.wanandroid.kt.handleIfError
 import com.cmj.wanandroid.network.bean.Content
-import com.cmj.wanandroid.network.bean.WAndroidResponse
+import com.cmj.wanandroid.ui.TabMediator
 import com.cmj.wanandroid.ui.getColorPrimary
+import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.sample
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-abstract class AbsContentPageFragment<VM : ViewModel, AVM : ContentViewModel> : BaseFragment<VM, AVM, FragmentRefreshRecyclerBinding>() {
+abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> :
+    AbsContentFragment<VM, AVM, FragmentRefreshRecyclerBinding>() {
 
+    private var refreshByUser = false
     private lateinit var pageFlow: Flow<PagingData<Content>>
+    protected lateinit var contentAdapter: ContentListAdapter
+    private var submitJob : Job? = null
 
     abstract fun getPageFlow(): Flow<PagingData<Content>>
 
     open fun showTag() = false
 
-    private var refreshByUser = false
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pageFlow = getPageFlow()
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        val contentAdapter = getContentAdapter()
+        contentAdapter = initContentAdapter()
         binding.recycler.adapter = contentAdapter
         binding.recycler.itemAnimator = null
         binding.refresh.apply {
@@ -69,7 +73,18 @@ abstract class AbsContentPageFragment<VM : ViewModel, AVM : ContentViewModel> : 
         }
     }
 
-    private fun getContentAdapter(): ContentListAdapter {
+    protected fun submitData() {
+        submitJob?.cancel()
+        submitJob =  viewLifecycleScope.launch {
+            viewLifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                pageFlow.collect {
+                    contentAdapter.submitData(it)
+                }
+            }
+        }
+    }
+
+    private fun initContentAdapter(): ContentListAdapter {
         val contentAdapter = ContentListAdapter(
             requireContext(),
             showTag(),
@@ -79,13 +94,7 @@ abstract class AbsContentPageFragment<VM : ViewModel, AVM : ContentViewModel> : 
             {
                 handleStar(it)
             })
-        viewLifecycleScope.launch {
-            viewLifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                pageFlow.collectLatest {
-                    contentAdapter.submitData(it)
-                }
-            }
-        }
+        submitData()
         viewLifecycleScope.launch {
             viewLifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 handlePageState(contentAdapter)
@@ -134,5 +143,13 @@ abstract class AbsContentPageFragment<VM : ViewModel, AVM : ContentViewModel> : 
             val result = if (content.collect) activityViewModel.unStar(content) else activityViewModel.star(content)
             if (!result.handleIfError(requireContext())) content.collect = !content.collect
         }
+    }
+
+    override fun initTabMediator(tabLayout: TabLayout?): TabMediator? {
+        return null
+    }
+
+    override fun getCollapsingView(): View? {
+        return null
     }
 }

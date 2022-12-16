@@ -35,7 +35,7 @@ interface ContentApi {
     fun articleListWithId(
         @Path("page") page: Int,
         @Query("page_size") pageSize: Int? = null,
-        @Query("cid") cid: Int? = null,
+        @Query("cid") cid: Int,
         @Query("order_type") orderType: Int = 0,//0倒序，1正序
     ): Call<WAndroidResponse<PageModule<Content>>>
 

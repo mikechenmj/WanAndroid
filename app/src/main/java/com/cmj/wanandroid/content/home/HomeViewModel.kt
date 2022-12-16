@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmj.wanandroid.BaseViewModel
 import com.cmj.wanandroid.content.ContentRepository
+import com.cmj.wanandroid.kt.DEFAULT_SHARED_FLOW_STOP_TIMEOUT_MILLIS
 import com.cmj.wanandroid.kt.castAndEmit
 import com.cmj.wanandroid.kt.doWhileSubscribed
 import com.cmj.wanandroid.network.NetworkUtil
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.collectLatest
 class HomeViewModel(app: Application) : BaseViewModel(app) {
 
     val bannerFlow: SharedFlow<Result<List<Banner>>> = MutableSharedFlow<Result<List<Banner>>>(1)
-        .doWhileSubscribed(viewModelScope, stopTimeoutMillis = 60000 * 10) {
+        .doWhileSubscribed(viewModelScope) {
             NetworkUtil.networkConnectedStateFlow.collectLatest {
                 if (it) emit(ContentRepository.banner())
             }

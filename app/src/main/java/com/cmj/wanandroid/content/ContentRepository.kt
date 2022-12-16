@@ -15,6 +15,9 @@ object ContentRepository {
 
     private val api = NetworkEngine.createApi(ContentApi::class.java)
 
+    suspend fun star(content: Content) = api.collect(content.id).resultWABodyCall().await()
+    suspend fun unStar(content: Content) = api.unCollectOriginId(content.id).resultWABodyCall().await()
+
     suspend fun banner() = api.banner().resultWABodyCall().await()
 
     fun articleListFlow(pageSize: Int = 20, orderType: Int = 0): Flow<PagingData<Content>> {
@@ -29,6 +32,17 @@ object ContentRepository {
                     } else {
                         api.articleList(page, size, orderType).resultWABodyCall().await().getOrThrow()
                     }
+                }
+            }
+        ).flow
+    }
+
+    fun articleListWithIdFlow(cid: Int, pageSize: Int = 20, orderType: Int = 0): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                ContentPagingSource { page, size ->
+                    api.articleListWithId(page, size, cid, orderType).resultWABodyCall().await().getOrThrow()
                 }
             }
         ).flow
@@ -56,9 +70,7 @@ object ContentRepository {
         ).flow
     }
 
-    suspend fun star(content: Content) = api.collect(content.id).resultWABodyCall().await()
-    suspend fun unStar(content: Content) = api.unCollectOriginId(content.id).resultWABodyCall().await()
-
+    suspend fun tree() = api.tree().resultWABodyCall().await()
     suspend fun projectTree() = api.projectTree().resultWABodyCall().await()
 
 }

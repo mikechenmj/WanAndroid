@@ -18,6 +18,7 @@ class FillPrimaryCornerDrawable : CornerDrawable() {
     override fun initPaint(): Paint {
         return Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = FILL
+            this.strokeWidth = ConvertUtils.dp2px(1f).toFloat()
             this.color = WanAndroidApp.get().getColor(R.color.color_primary)
         }
     }
@@ -28,6 +29,17 @@ class FillOnPrimaryCornerDrawable : CornerDrawable() {
     override fun initPaint(): Paint {
         return Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = FILL
+            this.strokeWidth = ConvertUtils.dp2px(1f).toFloat()
+            this.color = WanAndroidApp.get().getColor(R.color.color_on_primary)
+        }
+    }
+}
+
+class StrokeOnPrimaryCornerDrawable : CornerDrawable() {
+    override fun initPaint(): Paint {
+        return Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = STROKE
+            this.strokeWidth = ConvertUtils.dp2px(1f).toFloat()
             this.color = WanAndroidApp.get().getColor(R.color.color_on_primary)
         }
     }
