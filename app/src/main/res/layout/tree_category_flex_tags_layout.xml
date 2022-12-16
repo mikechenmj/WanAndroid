@@ -18,42 +18,35 @@
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:padding="@dimen/main_margin_horizontal">
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/first"
                 android:layout_width="2000dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/main_margin_vertical"
-                android:clipToPadding="false"
-                android:padding="@dimen/main_margin_horizontal"
                 app:flexDirection="row"
                 app:flexWrap="wrap" />
         </FrameLayout>
-
     </HorizontalScrollView>
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/sub_margin_vertical"
+        android:text="@string/tree_category_second_label"
+        android:textColor="?attr/colorOnPrimary" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/second"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sub_margin_vertical"
-            android:text="@string/tree_category_second_label"
-            android:textColor="?attr/colorOnPrimary" />
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/second"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:padding="@dimen/main_margin_horizontal"
-            app:flexDirection="row"
-            app:flexWrap="wrap" />
-    </LinearLayout>
+        android:clipToPadding="false"
+        android:padding="@dimen/main_margin_horizontal"
+        app:flexDirection="row"
+        app:flexWrap="wrap" />
 </LinearLayout>
 
 

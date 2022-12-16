@@ -11,10 +11,9 @@ import androidx.paging.PagingData
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.content.AbsContentPagingFragment
 import com.cmj.wanandroid.content.home.ContentListAdapter
-import com.cmj.wanandroid.databinding.WxArticleFlexTagLayoutBinding
+import com.cmj.wanandroid.databinding.ContentFlexTagLayoutBinding
 import com.cmj.wanandroid.kt.getOrHandleError
 import com.cmj.wanandroid.network.bean.Content
-import com.cmj.wanandroid.network.bean.Tree
 import com.cmj.wanandroid.network.bean.WxChapter
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +23,7 @@ import kotlinx.coroutines.launch
 class WxArticleFragment : AbsContentPagingFragment<ViewModel, WxArticleViewModel>() {
 
     override fun getCollapsingView(): View {
-        val binding = WxArticleFlexTagLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)
+        val binding = ContentFlexTagLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)
         binding.root.visibility = View.GONE
         viewLifecycleScope.launch {
             activityViewModel.wxOfficialFlow.collect {

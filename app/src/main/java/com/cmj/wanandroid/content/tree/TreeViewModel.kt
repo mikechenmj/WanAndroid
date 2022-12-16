@@ -43,7 +43,7 @@ class TreeViewModel(app: Application, private val savedStateHandle: SavedStateHa
         get() { return savedStateHandle.get<Int>(CATEGORY_ID_SECOND) ?: -1 }
         set(value) { savedStateHandle.set(CATEGORY_ID_SECOND, value) }
 
-    val articleCidFlow : StateFlow<Int> = MutableStateFlow(cidSecond)
+    private val articleCidFlow : StateFlow<Int> = MutableStateFlow(cidSecond)
     val cidArticleListFlow = MutableSharedFlow<PagingData<Content>>().doWhileSubscribed(viewModelScope) {
         var job : Job? = null
         articleCidFlow.collect { cid ->

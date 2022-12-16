@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.wxarticle
+package com.cmj.wanandroid.content.project
 
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
@@ -12,7 +12,6 @@ import com.cmj.wanandroid.kt.doWhileSubscribed
 import com.cmj.wanandroid.network.NetworkUtil
 import com.cmj.wanandroid.network.bean.Content
 import com.cmj.wanandroid.network.bean.Tree
-import com.cmj.wanandroid.network.bean.WxChapter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,39 +21,39 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class WxArticleViewModel(app: Application, private val savedStateHandle: SavedStateHandle) : ContentViewModel(app) {
+class ProjectViewModel(app: Application, private val savedStateHandle: SavedStateHandle) : ContentViewModel(app) {
 
     companion object {
-        private const val WX_OFFICIAL_ID = "wx_official_id"
+        private const val CATEGORY_PROJECT_ID = "cid_project"
     }
 
-    val wxOfficialFlow: SharedFlow<Result<List<WxChapter>>> = MutableSharedFlow<Result<List<WxChapter>>>(1)
+    val projectTreeCategoryFlow: SharedFlow<Result<List<Tree>>> = MutableSharedFlow<Result<List<Tree>>>(1)
         .doWhileSubscribed(viewModelScope) {
             NetworkUtil.networkConnectedStateFlow.collectLatest {
-                if (it) emit(ContentRepository.wxOfficial())
+                if (it) emit(ContentRepository.projectTree())
             }
         }
 
-    var wxId : Int
-        get() { return savedStateHandle.get<Int>(WX_OFFICIAL_ID) ?: -1 }
-        set(value) { savedStateHandle.set(WX_OFFICIAL_ID, value) }
+    var projectCid : Int
+        get() { return savedStateHandle.get<Int>(CATEGORY_PROJECT_ID) ?: -1 }
+        set(value) { savedStateHandle.set(CATEGORY_PROJECT_ID, value) }
 
-    private val wxIdFlow : StateFlow<Int> = MutableStateFlow(wxId)
-    val wxArticleListFlow = MutableSharedFlow<PagingData<Content>>().doWhileSubscribed(viewModelScope) {
+    private val projectCidFlow : StateFlow<Int> = MutableStateFlow(projectCid)
+    val projectListFlow = MutableSharedFlow<PagingData<Content>>().doWhileSubscribed(viewModelScope) {
         var job : Job? = null
-        wxIdFlow.collect { id ->
+        projectCidFlow.collect { cid ->
             job?.cancel()
             job = viewModelScope.launch {
-                ContentRepository.wxArticleListFlow(id).collect {
+                ContentRepository.projectListFlow(cid).collect {
                     emit(it)
                 }
             }
         }
     }.cachedIn(viewModelScope)
 
-    fun submitId(cid: Int): Job {
+    fun submitCid(cid: Int): Job {
         return viewModelScope.launch {
-            wxIdFlow.castAndEmit(cid)
+            projectCidFlow.castAndEmit(cid)
         }
     }
 }

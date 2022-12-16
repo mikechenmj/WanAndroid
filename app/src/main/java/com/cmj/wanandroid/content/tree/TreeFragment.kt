@@ -62,7 +62,7 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
                                 activityViewModel.cidSecond = secondTree.id
                                 binding.second.forEach { child -> child.isSelected = false }
                                 secondView.isSelected = true
-                                if (activityViewModel.articleCidFlow.value == secondTree.id) return@setOnClickListener
+                                if (activityViewModel.cidSecond == secondTree.id) return@setOnClickListener
                                 viewLifecycleScope.launchWhenResumed {
                                     activityViewModel.submitCid(secondTree.id).join()
                                     submitData()
