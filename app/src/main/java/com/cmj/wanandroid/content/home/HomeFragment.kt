@@ -33,7 +33,6 @@ import com.cmj.wanandroid.content.AbsContentFragment
 import com.cmj.wanandroid.content.home.HomeFragment.BannerAdapter.BannerVH
 import com.cmj.wanandroid.databinding.BannerLayoutBinding
 import com.cmj.wanandroid.network.bean.Banner
-import com.cmj.wanandroid.network.bean.WAndroidResponse
 import com.cmj.wanandroid.ui.RingPageTransformer
 import com.cmj.wanandroid.ui.ScaleInTransformer
 import com.cmj.wanandroid.ui.TabMediator
@@ -86,14 +85,21 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             setPageTransformer(RingPageTransformer())
             viewLifecycleScope.launchWhenResumed {
-                fun nextDelay() = launch {
-                    delay(BANNER_LOOP_DELAY)
+                var job: Job? = null
+                fun nextDelay(delay: Long = BANNER_LOOP_DELAY, smooth: Boolean = true) = launch {
+                    delay(delay)
                     val count = adapter?.itemCount ?: return@launch
                     val next = if (currentItem < count - 1) currentItem + 1 else 0
-                    currentItem = next
+                    setCurrentItem(next, smooth)
                 }
+                viewLifecycle.addObserver(object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                        if (event == Lifecycle.Event.ON_RESUME) {
+                            nextDelay(0, false)
+                        }
+                    }
+                })
 
-                var job: Job? = null
                 registerOnPageChangeCallback(object : OnPageChangeCallback() {
                     override fun onPageScrollStateChanged(state: Int) {
                         if (state == SCROLL_STATE_IDLE) {
