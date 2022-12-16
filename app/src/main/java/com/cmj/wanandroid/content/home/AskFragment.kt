@@ -11,4 +11,8 @@ class AskFragment : AbsContentPagingFragment<ViewModel, AskViewModel>() {
     override fun getPageFlow(): Flow<PagingData<Content>> {
         return activityViewModel.askListFlow()
     }
+
+    override fun contentConfig(): ContentListAdapter.ContentConfig {
+        return ContentListAdapter.ContentConfig(false)
+    }
 }

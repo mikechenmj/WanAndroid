@@ -13,8 +13,4 @@ class RecommendFragment : AbsContentPagingFragment<ViewModel, RecommendViewModel
     override fun getPageFlow(): Flow<PagingData<Content>> {
         return activityViewModel.articleListFlow()
     }
-
-    override fun showTag(): Boolean {
-        return true
-    }
 }

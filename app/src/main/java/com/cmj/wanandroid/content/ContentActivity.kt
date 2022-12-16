@@ -67,7 +67,7 @@ class ContentActivity : BaseActivity<ViewModel, ActivityContentBinding>(), IColl
     }
 
     override fun setCollapsingExpanded(expanded: Boolean, animate: Boolean) {
-        binding.appBar.setExpanded(true, false)
+        binding.appBar.setExpanded(expanded, animate)
     }
 
     override fun getTabLayout(): TabLayout {

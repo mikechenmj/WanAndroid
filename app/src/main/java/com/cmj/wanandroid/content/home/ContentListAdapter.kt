@@ -5,6 +5,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.content_item.view.star
 
 class ContentListAdapter constructor(
     val context: Context,
-    val showTag: Boolean = false,
+    val contentConfig: ContentConfig,
     private val onItemClick: (Content) -> Unit = {},
     private val onStarClick: (Content) -> Unit = {}
 ) : PagingDataAdapter<Content, ContentAdapterHolder>(object : DiffUtil.ItemCallback<Content>() {
@@ -47,26 +48,27 @@ class ContentListAdapter constructor(
             if (item.collect == it.star.isSelected) onStarClick(item)
             it.star.isSelected = !it.star.isSelected
         }
+        binding.tags.isVisible = contentConfig.tags
+        binding.date.isVisible = contentConfig.date
+        binding.authorOrShareUser.isVisible = contentConfig.authorOrShareUser
+        binding.star.isVisible = contentConfig.star
         return holder
     }
 
-    inner class ContentAdapterHolder constructor(private val binding: ContentItemBinding) :
-        ViewHolder(binding.root) {
+    inner class ContentAdapterHolder constructor(private val binding: ContentItemBinding) : ViewHolder(binding.root) {
 
         private val context = binding.root.context
 
         fun bind(content: Content, position: Int) {
             binding.title.text = Html.fromHtml(content.title).toString()
-            binding.star.isSelected = content.collect
-            binding.authorOrShareUser.text = context.getString(
+            if (contentConfig.star) binding.star.isSelected = content.collect
+            if (contentConfig.authorOrShareUser) binding.authorOrShareUser.text = context.getString(
                 R.string.author_label,
                 Html.fromHtml(content.author.ifBlank { content.shareUser }).toString()
             )
-            binding.date.text = context.getString(R.string.date_label,
+            if (contentConfig.date) binding.date.text = context.getString(R.string.date_label,
                 content.niceDate.ifBlank { content.niceShareDate })
-            if (showTag) {
-                handleTag(content, position)
-            }
+            if (contentConfig.tags) handleTag(content, position)
         }
 
         private fun handleTag(content: Content, position: Int) {
@@ -86,7 +88,13 @@ class ContentListAdapter constructor(
                     TextView(context, null, 0, R.style.ColorPrimaryLabelStyle).apply { text = it.name }
                 )
             }
-
         }
     }
+
+    data class ContentConfig(
+        val tags: Boolean = true,
+        val authorOrShareUser: Boolean = true,
+        val date: Boolean = true,
+        val star: Boolean = true,
+    )
 }

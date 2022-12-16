@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.content.AbsContentPagingFragment
+import com.cmj.wanandroid.content.home.ContentListAdapter
 import com.cmj.wanandroid.databinding.WxArticleFlexTagLayoutBinding
 import com.cmj.wanandroid.kt.getOrHandleError
 import com.cmj.wanandroid.network.bean.Content
@@ -51,6 +52,10 @@ class WxArticleFragment : AbsContentPagingFragment<ViewModel, WxArticleViewModel
 
     override fun getPageFlow(): Flow<PagingData<Content>> {
         return activityViewModel.wxArticleListFlow
+    }
+
+    override fun contentConfig(): ContentListAdapter.ContentConfig {
+        return ContentListAdapter.ContentConfig(tags = false, authorOrShareUser = false)
     }
 
     private fun FlexboxLayout.addLabel(wx: WxChapter): View {

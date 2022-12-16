@@ -12,4 +12,8 @@ class ShareFragment : AbsContentPagingFragment<ViewModel, ShareViewModel>() {
     override fun getPageFlow(): Flow<PagingData<Content>> {
         return activityViewModel.shareListFlow()
     }
+
+    override fun contentConfig(): ContentListAdapter.ContentConfig {
+        return ContentListAdapter.ContentConfig(false)
+    }
 }

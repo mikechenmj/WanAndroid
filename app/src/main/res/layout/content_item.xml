@@ -29,10 +29,10 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textSize="@dimen/main_text_size"
+            app:layout_constraintBottom_toTopOf="@id/title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/title"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/authorOrShareUser"
@@ -40,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sub_margin_vertical"
+            android:layout_marginEnd="@dimen/main_margin_horizontal"
             android:text="@string/author_label"
             app:layout_constraintBottom_toTopOf="@id/tags"
             app:layout_constraintStart_toStartOf="@id/title"
@@ -50,21 +51,21 @@
             style="@style/SubContentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/main_margin_horizontal"
             android:text="@string/date_label"
             app:layout_constraintStart_toEndOf="@id/authorOrShareUser"
-            app:layout_constraintTop_toTopOf="@id/authorOrShareUser" />
+            app:layout_constraintTop_toTopOf="@id/authorOrShareUser"
+            app:layout_goneMarginTop="@dimen/sub_margin_vertical" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/tags"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sub_margin_vertical"
             app:flexDirection="row"
             app:flexWrap="wrap"
-            android:layout_marginTop="@dimen/sub_margin_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/star"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/authorOrShareUser">
 
         </com.google.android.flexbox.FlexboxLayout>

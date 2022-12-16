@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.content.AbsContentPagingFragment
+import com.cmj.wanandroid.content.home.ContentListAdapter
 import com.cmj.wanandroid.databinding.TreeCategoryFlexTagsLayoutBinding
 import com.cmj.wanandroid.kt.getOrHandleError
 import com.cmj.wanandroid.network.bean.Content
@@ -28,6 +29,10 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
 
     override fun getCollapsingView(): View {
         return initTreeCategoryView()
+    }
+
+    override fun contentConfig(): ContentListAdapter.ContentConfig {
+        return ContentListAdapter.ContentConfig(false)
     }
 
     private fun initTreeCategoryView(): View {

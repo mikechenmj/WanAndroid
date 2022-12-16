@@ -29,17 +29,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
+//封装了基于 ContentListAdapter 的 Paging flow 的处理。
 abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> :
     AbsContentFragment<VM, AVM, FragmentRefreshRecyclerBinding>() {
 
     private var refreshByUser = false
     private lateinit var pageFlow: Flow<PagingData<Content>>
     protected lateinit var contentAdapter: ContentListAdapter
-    private var submitJob : Job? = null
+    private var submitJob: Job? = null
 
     abstract fun getPageFlow(): Flow<PagingData<Content>>?
 
-    open fun showTag() = false
+    open fun contentConfig() = ContentListAdapter.ContentConfig()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,7 +76,7 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
 
     protected fun submitData() {
         submitJob?.cancel()
-        submitJob =  viewLifecycleScope.launch {
+        submitJob = viewLifecycleScope.launch {
             viewLifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 pageFlow.collect {
                     contentAdapter.submitData(it)
@@ -87,7 +88,7 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
     private fun initContentAdapter(): ContentListAdapter {
         val contentAdapter = ContentListAdapter(
             requireContext(),
-            showTag(),
+            contentConfig(),
             {
 
             },

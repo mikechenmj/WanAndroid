@@ -151,7 +151,6 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
                     if (job?.isActive != true) {
                         job = nextDelay()
                     }
-                    setCollapsingExpanded(expanded = true, animate = true)
                 }
             }
         }

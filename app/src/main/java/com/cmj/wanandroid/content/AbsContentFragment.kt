@@ -13,6 +13,7 @@ import com.cmj.wanandroid.base.BaseFragment
 import com.cmj.wanandroid.ui.TabMediator
 import com.google.android.material.tabs.TabLayout
 
+//封装了对 activity 的 TabLayout、CollapsingView 的处理。
 abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBinding> : BaseFragment<VM, AVM, VB>(),
     ITabLayoutHolder, ICollapsingHolder {
 
@@ -40,6 +41,7 @@ abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBind
                         }
                         if (collapsingView != null) {
                             setCollapsingView(collapsingView!!)
+                            setCollapsingExpanded(expanded = true, animate = true)
                         }
                     }
                     Lifecycle.Event.ON_PAUSE -> {
