@@ -12,7 +12,7 @@ import com.cmj.wanandroid.content.home.HomeFragment
 import com.cmj.wanandroid.content.mine.MineFragment
 import com.cmj.wanandroid.content.project.ProjectFragment
 import com.cmj.wanandroid.content.tree.TreeFragment
-import com.cmj.wanandroid.content.wxofficial.WxOfficialFragment
+import com.cmj.wanandroid.content.wxarticle.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityContentBinding
 import com.google.android.material.tabs.TabLayout
 
@@ -22,7 +22,7 @@ class ContentActivity : BaseActivity<ViewModel, ActivityContentBinding>(), IColl
         private val CHILD_FRAGMENTS = arrayOf(
             ChildFragment(R.string.home_label, HomeFragment::class.java),
             ChildFragment(R.string.tree_label, TreeFragment::class.java),
-            ChildFragment(R.string.wx_official_label, WxOfficialFragment::class.java),
+            ChildFragment(R.string.wx_official_label, WxArticleFragment::class.java),
             ChildFragment(R.string.project_label, ProjectFragment::class.java),
             ChildFragment(R.string.mine_label, MineFragment::class.java),
         )

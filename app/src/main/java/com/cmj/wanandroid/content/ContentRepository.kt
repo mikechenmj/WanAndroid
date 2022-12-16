@@ -73,4 +73,16 @@ object ContentRepository {
     suspend fun tree() = api.tree().resultWABodyCall().await()
     suspend fun projectTree() = api.projectTree().resultWABodyCall().await()
 
+    suspend fun wxOfficial() = api.wxArticleChapters().resultWABodyCall().await()
+    fun wxArticleListFlow(id: Int, pageSize: Int = 20, k: String? = null): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                ContentPagingSource { page, size ->
+                    api.wxArticleList(id, page, size, k).resultWABodyCall().await().getOrThrow()
+                }
+            }
+        ).flow
+    }
+
 }

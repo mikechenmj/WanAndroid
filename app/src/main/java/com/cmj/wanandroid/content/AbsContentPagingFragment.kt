@@ -37,13 +37,13 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
     protected lateinit var contentAdapter: ContentListAdapter
     private var submitJob : Job? = null
 
-    abstract fun getPageFlow(): Flow<PagingData<Content>>
+    abstract fun getPageFlow(): Flow<PagingData<Content>>?
 
     open fun showTag() = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pageFlow = getPageFlow()
+        pageFlow = getPageFlow() ?: return
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         contentAdapter = initContentAdapter()
         binding.recycler.adapter = contentAdapter
