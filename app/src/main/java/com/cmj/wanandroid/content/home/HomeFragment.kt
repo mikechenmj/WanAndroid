@@ -191,7 +191,7 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
                 val banner = banners[position]
                 binding.bannerTitle.text = banner.title
                 binding.root.setOnClickListener {
-                    LogMan.i(TAG, "banner.url: $position $banner.url")
+                    LogMan.i(TAG, "banner.url: $position ${banner.url}")
                 }
                 Glide.with(requireContext())
                     .asBitmap()

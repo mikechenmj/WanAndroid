@@ -11,9 +11,9 @@ import kotlin.math.sqrt
 class RingPageTransformer : PageTransformer {
 
     override fun transformPage(page: View, position: Float) {
-        page.translationX = -1 * page.width * position // 抵消默认动画
         val absPosition = abs(position)
-        if (absPosition < 1 && absPosition > 0) {
+        if (absPosition in 0.0..1.0) {
+            page.translationX = -1 * page.width * position // 抵消默认动画
             page.translationZ = 0f
             page.clipToOutline = true
             page.outlineProvider = object : ViewOutlineProvider() {
