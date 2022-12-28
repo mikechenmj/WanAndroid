@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.forEach
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.addRepeatingJob
 import androidx.paging.PagingData
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.content.AbsContentPagingFragment
@@ -19,7 +21,6 @@ import com.cmj.wanandroid.network.bean.Tree
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
 
@@ -35,14 +36,16 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
         return ContentListAdapter.ContentConfig(false)
     }
 
+
     private fun initTreeCategoryView(): View {
         val binding = TreeCategoryFlexTagsLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)
         binding.root.visibility = View.GONE
-        viewLifecycleScope.launch {
+        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             activityViewModel.treeCategoryFlow.collect {
                 val trees = it.getOrHandleError(requireContext()) ?: return@collect
                 var selectedFirst: View? = null
                 var selectedSecond: View? = null
+                binding.first.removeAllViews()
                 trees.forEach { tree ->
                     val firstView = binding.first.addLabel(tree)
                     if (selectedFirst == null && tree.id == activityViewModel.cidFirst) selectedFirst = firstView
@@ -50,7 +53,6 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
                         activityViewModel.cidFirst = tree.id
                         binding.first.forEach { child -> child.isSelected = false }
                         firstView.isSelected = true
-
                         // 处理二级分类
                         binding.second.removeAllViews()
                         selectedSecond = null
@@ -71,6 +73,12 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
                         }
                         (selectedSecond ?: binding.second.getChildAt(0)).performClick()
                     }
+                }
+                binding.scroller.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+                    binding.scroller.scrollTo(activityViewModel.firstScrollX, 0)
+                }
+                binding.scroller.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                    activityViewModel.firstScrollX = scrollX
                 }
                 binding.root.visibility = View.VISIBLE
                 (selectedFirst ?: binding.first.getChildAt(0)).performClick()
