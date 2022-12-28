@@ -26,6 +26,7 @@ class TreeViewModel(app: Application, private val savedStateHandle: SavedStateHa
     companion object {
         private const val CATEGORY_ID_FIRST = "cid_first"
         private const val CATEGORY_ID_SECOND = "cid_second"
+        private const val TRANSLATE_X_FIRST = "translate_x_first"
     }
 
     val treeCategoryFlow: SharedFlow<Result<List<Tree>>> = MutableSharedFlow<Result<List<Tree>>>(1)
@@ -42,6 +43,10 @@ class TreeViewModel(app: Application, private val savedStateHandle: SavedStateHa
     var cidSecond : Int
         get() { return savedStateHandle.get<Int>(CATEGORY_ID_SECOND) ?: -1 }
         set(value) { savedStateHandle.set(CATEGORY_ID_SECOND, value) }
+
+    var firstScrollX : Int
+        get() { return savedStateHandle.get<Int>(TRANSLATE_X_FIRST) ?: 0 }
+        set(value) { savedStateHandle.set(TRANSLATE_X_FIRST, value) }
 
     private val articleCidFlow : StateFlow<Int> = MutableStateFlow(cidSecond)
     val cidArticleListFlow = MutableSharedFlow<PagingData<Content>>().doWhileSubscribed(viewModelScope) {

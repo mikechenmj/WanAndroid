@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.forEach
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.addRepeatingJob
 import androidx.paging.PagingData
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.content.AbsContentPagingFragment
@@ -25,10 +27,11 @@ class WxArticleFragment : AbsContentPagingFragment<ViewModel, WxArticleViewModel
     override fun getCollapsingView(): View {
         val binding = ContentFlexTagLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)
         binding.root.visibility = View.GONE
-        viewLifecycleScope.launch {
+        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             activityViewModel.wxOfficialFlow.collect {
                 val wxs = it.getOrHandleError(requireContext()) ?: return@collect
                 var selectedView: View? = null
+                binding.root.removeAllViews()
                 wxs.forEach { wx ->
                     val view = binding.root.addLabel(wx)
                     if (selectedView == null && wx.id == activityViewModel.wxId) selectedView = view

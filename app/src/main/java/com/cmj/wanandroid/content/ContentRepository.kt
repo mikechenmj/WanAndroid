@@ -96,4 +96,5 @@ object ContentRepository {
         ).flow
     }
 
+    suspend fun hotKey() = api.hotkey().resultWABodyCall().await()
 }

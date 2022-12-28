@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.addRepeatingJob
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -47,6 +47,7 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
         pageFlow = getPageFlow() ?: return
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         contentAdapter = initContentAdapter()
+        submitData()
         binding.recycler.adapter = contentAdapter
         binding.recycler.itemAnimator = null
         binding.refresh.apply {
@@ -76,11 +77,9 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
 
     protected fun submitData() {
         submitJob?.cancel()
-        submitJob = viewLifecycleScope.launch {
-            viewLifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                pageFlow.collect {
-                    contentAdapter.submitData(it)
-                }
+        submitJob = viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+            pageFlow.collect {
+                contentAdapter.submitData(it)
             }
         }
     }
@@ -95,11 +94,8 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
             {
                 handleStar(it)
             })
-        submitData()
-        viewLifecycleScope.launch {
-            viewLifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                handlePageState(contentAdapter)
-            }
+        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+            handlePageState(contentAdapter)
         }
         return contentAdapter
     }

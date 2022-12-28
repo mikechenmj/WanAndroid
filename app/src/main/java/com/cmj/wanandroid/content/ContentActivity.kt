@@ -1,22 +1,29 @@
 package com.cmj.wanandroid.content
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.addRepeatingJob
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseActivity
 import com.cmj.wanandroid.content.home.HomeFragment
 import com.cmj.wanandroid.content.mine.MineFragment
 import com.cmj.wanandroid.content.project.ProjectFragment
+import com.cmj.wanandroid.content.search.SearchActivity
+import com.cmj.wanandroid.content.search.SearchViewModel
 import com.cmj.wanandroid.content.tree.TreeFragment
 import com.cmj.wanandroid.content.wxarticle.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityContentBinding
+import com.cmj.wanandroid.kt.getOrHandleError
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.flow.collect
 
-class ContentActivity : BaseActivity<ViewModel, ActivityContentBinding>(), ICollapsingHolder, ITabLayoutHolder {
+class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(), ICollapsingHolder, ITabLayoutHolder {
 
     companion object {
         private val CHILD_FRAGMENTS = arrayOf(
@@ -43,6 +50,18 @@ class ContentActivity : BaseActivity<ViewModel, ActivityContentBinding>(), IColl
         binding.contentPager.apply {
             adapter = ContentAdapter()
             isUserInputEnabled = false
+        }
+
+        binding.searchLayout.search.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+            overridePendingTransition(0, 0)
+        }
+
+        addRepeatingJob(Lifecycle.State.STARTED) {
+            viewModel.hotKeyFlow.collect {
+                val hotkeys = it.getOrHandleError(this@ContentActivity) ?: return@collect
+                binding.searchLayout.search.text = hotkeys.random().name
+            }
         }
     }
 
