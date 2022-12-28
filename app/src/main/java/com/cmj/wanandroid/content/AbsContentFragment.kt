@@ -28,6 +28,9 @@ abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBind
         var collapsingView: View? = null
         viewLifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                if (requireActivity().lifecycle.currentState != Lifecycle.State.RESUMED) {
+                    return
+                }
                 when (event) {
                     Lifecycle.Event.ON_CREATE -> {
                         tabLayout = getTabLayout()
