@@ -53,16 +53,16 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
 
                         // 处理二级分类
                         binding.second.removeAllViews()
+                        selectedSecond = null
                         tree.children.forEach { secondTree ->
                             val secondView = binding.second.addLabel(secondTree)
-                            if (selectedFirst != null && selectedSecond == null
-                                && secondTree.id == activityViewModel.cidSecond
-                            ) selectedSecond = secondView
+                            if (selectedFirst != null && selectedSecond == null && secondTree.id == activityViewModel.cidSecond) {
+                                selectedSecond = secondView
+                            }
                             secondView.setOnClickListener {
                                 activityViewModel.cidSecond = secondTree.id
                                 binding.second.forEach { child -> child.isSelected = false }
                                 secondView.isSelected = true
-                                if (activityViewModel.cidSecond == secondTree.id) return@setOnClickListener
                                 viewLifecycleScope.launchWhenResumed {
                                     activityViewModel.submitCid(secondTree.id).join()
                                     submitData()
