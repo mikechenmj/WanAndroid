@@ -24,6 +24,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.sample
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -102,37 +103,41 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
 
 
     private suspend fun handlePageState(adapter: ContentListAdapter) {
-        adapter.loadStateFlow.sample(1000).collectLatest {
-            if (refreshByUser) return@collectLatest
-            var exception =
-                when {
-                    it.refresh is LoadState.Error -> {
-                        (it.refresh as LoadState.Error).error
+        adapter.loadStateFlow
+            .conflate() //避免频率过快地接收数据导致UI跳变
+            .collect {
+                if (refreshByUser) return@collect
+                var exception =
+                    when {
+                        it.refresh is LoadState.Error -> {
+                            (it.refresh as LoadState.Error).error
+                        }
+                        it.append is LoadState.Error -> {
+                            (it.append as LoadState.Error).error
+                        }
+                        else -> {
+                            null
+                        }
                     }
-                    it.append is LoadState.Error -> {
-                        (it.append as LoadState.Error).error
-                    }
-                    else -> {
-                        null
-                    }
+                if (exception != null) {
+                    handleError(requireContext(), exception)
+                    binding.refresh.isRefreshing = true
+                    delay(3000)
+                    adapter.retry()
+                    return@collect
                 }
-            if (exception != null) {
-                handleError(requireContext(), exception)
-                binding.refresh.isRefreshing = true
-                delay(3000)
-                adapter.retry()
-                return@collectLatest
+                if (it.refresh is LoadState.Loading) {
+                    binding.refresh.isRefreshing = true
+                    delay(1000)
+                    return@collect
+                }
+                if (it.append is LoadState.Loading && binding.recycler.scrollState != RecyclerView.SCROLL_STATE_IDLE) {
+                    binding.refresh.isRefreshing = true
+                    delay(1000)
+                    return@collect
+                }
+                binding.refresh.isRefreshing = false
             }
-            if (it.refresh is LoadState.Loading) {
-                binding.refresh.isRefreshing = true
-                return@collectLatest
-            }
-            if (it.append is LoadState.Loading && binding.recycler.scrollState != RecyclerView.SCROLL_STATE_IDLE) {
-                binding.refresh.isRefreshing = true
-                return@collectLatest
-            }
-            binding.refresh.isRefreshing = false
-        }
     }
 
     private fun handleStar(content: Content) {
