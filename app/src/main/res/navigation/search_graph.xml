@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/device_navigation"
+    app:startDestination="@id/searchKeyFragment">
+    <fragment
+        android:id="@+id/searchKeyFragment"
+        android:name="com.cmj.wanandroid.content.search.SearchKeyFragment"
+        android:label="SearchKeyFragment" >
+        <action
+            android:id="@+id/action_searchKeyFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.cmj.wanandroid.content.search.SearchResultFragment"
+        android:label="SearchContentFragment" />
+</navigation>

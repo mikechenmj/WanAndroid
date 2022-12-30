@@ -97,4 +97,14 @@ object ContentRepository {
     }
 
     suspend fun hotKey() = api.hotkey().resultWABodyCall().await()
+    fun queryArticleListFlow(pageSize: Int = 20, k: String): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                ContentPagingSource { page, size ->
+                    api.queryArticle(page, size, k).resultWABodyCall().await().getOrThrow()
+                }
+            }
+        ).flow
+    }
 }

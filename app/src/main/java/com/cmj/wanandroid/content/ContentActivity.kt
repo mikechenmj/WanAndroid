@@ -1,5 +1,6 @@
 package com.cmj.wanandroid.content
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -7,7 +8,6 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.addRepeatingJob
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseActivity
@@ -21,6 +21,7 @@ import com.cmj.wanandroid.content.wxarticle.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityContentBinding
 import com.cmj.wanandroid.kt.getOrHandleError
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_search.view.search
 import kotlinx.coroutines.flow.collect
 
 class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(), ICollapsingHolder, ITabLayoutHolder {
@@ -37,6 +38,7 @@ class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(),
 
     data class ChildFragment(@StringRes val titleRes: Int, val clazz: Class<out Fragment>)
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,17 +54,21 @@ class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(),
             isUserInputEnabled = false
         }
 
-        binding.searchLayout.search.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
-            overridePendingTransition(0, 0)
-        }
-
-        addRepeatingJob(Lifecycle.State.STARTED) {
-            viewModel.hotKeyFlow.collect {
-                val hotkeys = it.getOrHandleError(this@ContentActivity) ?: return@collect
-                binding.searchLayout.search.text = hotkeys.random().name
+        binding.search.apply {
+            setOnClickListener {
+                startActivity(Intent(this@ContentActivity, SearchActivity::class.java).apply {
+                    putExtra(SearchActivity.EXTRA_SEARCH_HOTKEY, text.toString())
+                })
+            }
+            addRepeatingJob(Lifecycle.State.STARTED) {
+                viewModel.hotKeyFlow.collect {
+                    val hotkeys = it.getOrHandleError(this@ContentActivity) ?: return@collect
+                    text = hotkeys.random().name
+                }
             }
         }
+
+
     }
 
     override fun getCollapsingContainer(): View {

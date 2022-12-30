@@ -20,4 +20,8 @@
 
         <item name="android:windowBackground">@color/window_background_color</item>
     </style>
+
+    <style name="Search" parent="Theme.WanAndroid">
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+    </style>
 </resources>

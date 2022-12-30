@@ -48,7 +48,21 @@
         <item name="android:background">@drawable/selector_bg_corner_primary</item>
     </style>
 
+    <style name="SearchPrimaryLabelStyle" parent="ColorPrimaryLabelStyle">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:background">@drawable/bg_corner_stroke_primary</item>
+    </style>
+
     <style name="SubContentText">
         <item name="android:textSize">@dimen/sub_text_size</item>
+    </style>
+
+    <style name="SearchTextStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_corner_fill_on_primary</item>
     </style>
 </resources>

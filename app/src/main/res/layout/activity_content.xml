@@ -37,9 +37,31 @@
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin">
 
-                <include
-                    android:id="@+id/searchLayout"
-                    layout="@layout/search_layout"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/search"
+                        style="@style/SearchTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_weight="1"
+                        android:textColor="?android:attr/textColorHint" />
+
+                </LinearLayout>
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>

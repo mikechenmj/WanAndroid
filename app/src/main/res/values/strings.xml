@@ -41,4 +41,7 @@
     <string name="tree_category_first_label">一级分类：</string>
     <string name="tree_category_second_label">二级分类：</string>
 
+    <string name="search_label">大家都在搜</string>
+
+
 </resources>
