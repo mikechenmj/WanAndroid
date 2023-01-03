@@ -1,5 +1,6 @@
 package com.cmj.wanandroid.content.project
 
+import android.text.Html
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +63,7 @@ class ProjectFragment: AbsContentPagingFragment<ViewModel, ProjectViewModel>() {
 
     private fun FlexboxLayout.addLabel(tree: Tree): View {
         val view = TextView(context, null, 0, R.style.SelectorColorPrimaryLabelStyle).apply {
-            text = tree.name
+            text = Html.fromHtml(tree.name)
             isClickable = true
             setTextSize(TypedValue.COMPLEX_UNIT_PX, requireContext().resources.getDimension(R.dimen.main_text_size))
         }
