@@ -28,9 +28,6 @@ abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBind
         var collapsingView: View? = null
         viewLifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                if (requireActivity().lifecycle.currentState != Lifecycle.State.RESUMED) {
-                    return
-                }
                 when (event) {
                     Lifecycle.Event.ON_CREATE -> {
                         tabLayout = getTabLayout()
@@ -39,8 +36,10 @@ abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBind
                     }
                     Lifecycle.Event.ON_RESUME -> {
                         if (tabLayoutMediator != null) {
-                            tabLayoutMediator!!.attach()
-                            tabLayout?.isVisible = true
+                            if (!tabLayoutMediator!!.isAttached) {
+                                tabLayoutMediator!!.attach()
+                                tabLayout?.isVisible = true
+                            }
                         }
                         if (collapsingView != null) {
                             setCollapsingView(collapsingView!!)
@@ -48,6 +47,9 @@ abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBind
                         }
                     }
                     Lifecycle.Event.ON_PAUSE -> {
+                        if (requireActivity().lifecycle.currentState != Lifecycle.State.RESUMED) {
+                            return
+                        }
                         if (tabLayoutMediator != null) {
                             tabLayoutMediator!!.detach()
                             tabLayout?.isVisible = false
