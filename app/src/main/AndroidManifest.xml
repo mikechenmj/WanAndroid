@@ -29,6 +29,9 @@
             android:name=".content.search.SearchActivity"
             android:theme="@style/Search" />
 
+        <activity
+            android:theme="@style/Web"
+            android:name=".base.web.WebViewActivity" />
     </application>
 
 </manifest>

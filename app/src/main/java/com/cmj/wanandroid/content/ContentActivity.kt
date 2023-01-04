@@ -67,8 +67,6 @@ class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(),
                 }
             }
         }
-
-
     }
 
     override fun getCollapsingContainer(): View {

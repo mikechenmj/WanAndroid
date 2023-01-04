@@ -24,4 +24,9 @@
     <style name="Search" parent="Theme.WanAndroid">
         <item name="android:statusBarColor">?attr/colorPrimary</item>
     </style>
+
+    <style name="Web" parent="Theme.WanAndroid">
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
+    </style>
 </resources>

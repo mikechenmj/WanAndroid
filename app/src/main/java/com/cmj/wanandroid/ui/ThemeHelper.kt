@@ -21,3 +21,5 @@ fun <T : ContextThemeWrapper> T.getTextColorPrimary() = obtainStyledAttributesCo
 
 fun <T : ContextThemeWrapper> T.getTextColorSecondary() = obtainStyledAttributesColor(R.attr.colorPrimaryVariant)
 
+fun <T : ContextThemeWrapper> T.getStatusBarHeight() = resources.getDimension(resources.getIdentifier("status_bar_height", "dimen", "android"))
+
