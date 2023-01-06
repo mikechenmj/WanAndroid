@@ -26,6 +26,7 @@ class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
 
     companion object {
         const val EXTRA_SEARCH_HOTKEY = "extra_search_hotkey"
+        const val EXTRA_SEARCH_PERFORM = "extra_search_perform"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,14 +37,22 @@ class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
             binding.search.isEnabled = destination.id != R.id.searchResultFragment
         }
 
-        addRepeatingJob(Lifecycle.State.STARTED) {
-            viewModel.hotKeyFlow.collect {
-                val hotkeys = it.getOrHandleError(this@SearchActivity) ?: return@collect
-                binding.search.hint = intent.getStringExtra(EXTRA_SEARCH_HOTKEY).nullOrValid() ?: hotkeys.random().name
+        val hotkey = intent.getStringExtra(EXTRA_SEARCH_HOTKEY).nullOrValid()
+        if (hotkey != null) {
+            if (intent.getBooleanExtra(EXTRA_SEARCH_PERFORM, false)) {
+                viewModel.queryKey(hotkey)
             }
+            lifecycleScope.launchWhenResumed {
+                viewModel.hotKeyFlow.collect {
+                    val hotkeys = it.getOrHandleError(this@SearchActivity) ?: return@collect
+                    binding.search.hint = hotkeys.random().name
+                }
+            }
+        } else {
+            binding.search.hint = hotkey
         }
 
-        addRepeatingJob(Lifecycle.State.STARTED) {
+        lifecycleScope.launchWhenResumed {
             viewModel.queryKeyFlow.collect {
                 binding.search.setText(it)
                 navController?.navigate(R.id.action_searchKeyFragment_to_searchResultFragment)

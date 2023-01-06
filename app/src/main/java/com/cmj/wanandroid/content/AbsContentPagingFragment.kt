@@ -1,8 +1,6 @@
 package com.cmj.wanandroid.content
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
@@ -12,7 +10,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cmj.wanandroid.base.web.WebViewActivity
+import com.cmj.wanandroid.base.web.ContentWebActivity
 import com.cmj.wanandroid.content.home.ContentListAdapter
 import com.cmj.wanandroid.databinding.FragmentRefreshRecyclerBinding
 import com.cmj.wanandroid.kt.handleError
@@ -25,9 +23,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.flow.sample
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -92,7 +88,7 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
             requireContext(),
             contentConfig(),
             {
-                WebViewActivity.start(requireContext(), it.link)
+                ContentWebActivity.start(requireContext(), it)
             },
             {
                 handleStar(it)

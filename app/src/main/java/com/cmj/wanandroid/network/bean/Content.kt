@@ -1,5 +1,9 @@
 package com.cmj.wanandroid.network.bean
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Content(
     val id: Int,
     val userId: Int,
@@ -37,9 +41,11 @@ data class Content(
     val fresh: Boolean,
     val host: String,
     @Transient var top: Boolean = false
-) {
+) : Parcelable {
+
+    @Parcelize
     data class Tag(
         val name: String,
         val url: String,
-    )
+    ) : Parcelable
 }

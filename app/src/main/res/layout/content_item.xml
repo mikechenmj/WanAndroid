@@ -15,13 +15,12 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/star"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/selector_star"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tags"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintTop_toTopOf="@id/authorOrShareUser" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
@@ -41,8 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sub_margin_vertical"
             android:text="@string/author_label"
-            app:layout_constraintEnd_toStartOf="@id/date"
             app:layout_constraintBottom_toTopOf="@id/tags"
+            app:layout_constraintEnd_toStartOf="@id/date"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
