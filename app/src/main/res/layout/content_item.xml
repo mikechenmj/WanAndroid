@@ -20,7 +20,7 @@
             android:src="@drawable/selector_star"
             app:layout_constraintBottom_toBottomOf="@id/tags"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/authorOrShareUser" />
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
@@ -52,9 +52,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/date_label"
+            app:layout_goneMarginTop="@dimen/sub_margin_vertical"
+            app:layout_constraintBottom_toTopOf="@id/tags"
             app:layout_constraintStart_toEndOf="@id/authorOrShareUser"
-            app:layout_constraintTop_toTopOf="@id/authorOrShareUser"
-            app:layout_goneMarginTop="@dimen/sub_margin_vertical" />
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_goneMarginStart="0dp" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/tags"
