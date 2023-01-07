@@ -13,6 +13,6 @@ class AskFragment : AbsContentPagingFragment<ViewModel, AskViewModel>() {
     }
 
     override fun contentConfig(): ContentListAdapter.ContentConfig {
-        return ContentListAdapter.ContentConfig(false)
+        return ContentListAdapter.ContentConfig(false, authorOrShareUser = false)
     }
 }
