@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.base.web;
+package com.cmj.wanandroid.content.web;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

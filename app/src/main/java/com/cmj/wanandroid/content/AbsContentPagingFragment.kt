@@ -10,7 +10,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cmj.wanandroid.base.web.ContentWebActivity
+import com.cmj.wanandroid.content.web.ContentWebActivity
 import com.cmj.wanandroid.content.home.ContentListAdapter
 import com.cmj.wanandroid.databinding.FragmentRefreshRecyclerBinding
 import com.cmj.wanandroid.kt.handleError

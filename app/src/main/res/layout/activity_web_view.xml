@@ -17,7 +17,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.cmj.wanandroid.base.web.NestedWebView
+    <com.cmj.wanandroid.content.web.NestedWebView
         android:id="@+id/web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
