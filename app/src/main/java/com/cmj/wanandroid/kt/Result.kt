@@ -66,10 +66,7 @@ fun <T> Result<T>.handleIfError(context: Context): Boolean {
 fun handleError(context: Context, exception: Throwable): Boolean {
     if (exception is ServiceException) {
         if (exception.errorCode == CODE_UN_LOGGED_IN) {
-            context.startActivity(Intent(context, UserActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            })
+            context.startActivity(Intent(context, UserActivity::class.java))
         }
     }
     toastError(context, exception)
