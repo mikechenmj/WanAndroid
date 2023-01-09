@@ -90,8 +90,8 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
             {
                 ContentWebActivity.start(requireContext(), it)
             },
-            {
-                handleStar(it)
+            { content, view ->
+                handleStar(content, view)
             })
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             handlePageState(contentAdapter)
@@ -138,10 +138,14 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
             }
     }
 
-    private fun handleStar(content: Content) {
+    private fun handleStar(content: Content, view: View) {
         viewLifecycleScope.launch {
             val result = if (content.collect) activityViewModel.unStar(content) else activityViewModel.star(content)
-            if (!result.handleIfError(requireContext())) content.collect = !content.collect
+            if (!result.handleIfError(requireContext()))  {
+                content.collect = !content.collect
+            } else {
+                view.isSelected = content.collect
+            }
         }
     }
 

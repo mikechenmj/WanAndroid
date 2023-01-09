@@ -3,6 +3,7 @@ package com.cmj.wanandroid.content.home
 import android.content.Context
 import android.text.Html
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -19,7 +20,7 @@ class ContentListAdapter constructor(
     val context: Context,
     val contentConfig: ContentConfig,
     private val onItemClick: (Content) -> Unit = {},
-    private val onStarClick: (Content) -> Unit = {}
+    private val onStarClick: (Content, View) -> Unit = {_, _ ->}
 ) : PagingDataAdapter<Content, ContentAdapterHolder>(object : DiffUtil.ItemCallback<Content>() {
     override fun areItemsTheSame(oldItem: Content, newItem: Content): Boolean {
         return oldItem.id == newItem.id
@@ -45,7 +46,7 @@ class ContentListAdapter constructor(
         }
         binding.star.setOnClickListener {
             val item = getItem(holder.bindingAdapterPosition) ?: return@setOnClickListener
-            if (item.collect == it.star.isSelected) onStarClick(item)
+            if (item.collect == it.star.isSelected) onStarClick(item, it)
             it.star.isSelected = !it.star.isSelected
         }
         binding.tags.isVisible = contentConfig.tags
