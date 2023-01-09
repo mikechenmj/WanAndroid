@@ -11,10 +11,6 @@ object UserRepository {
 
     private val userApi = NetworkEngine.createApi(UserApi::class.java)
 
-    fun isLoggedIn(): Boolean {
-        return NetworkEngine.isLoggerIn
-    }
-
     suspend fun login(username: String, password: String): Result<LoginInfo> {
         return userApi.login(username, password).resultWABodyCall().await()
     }

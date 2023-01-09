@@ -4,29 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.cmj.wanandroid.base.BaseActivity
 import com.cmj.wanandroid.user.UserActivity
 import com.cmj.wanandroid.content.ContentActivity
 
-class StartActivity : BaseActivity<StartViewModel, ViewBinding>() {
+class StartActivity : BaseActivity<ViewModel, ViewBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        start()
+        startActivity(Intent(this, ContentActivity::class.java))
+        finish()
     }
 
     override fun onCreateView(inflater: LayoutInflater, savedInstanceState: Bundle?): View? {
         return null
-    }
-
-    private fun start() {
-        if (viewModel.isLoggedIn()) {
-            startActivity(Intent(this, ContentActivity::class.java))
-        } else {
-            startActivity(Intent(this, UserActivity::class.java))
-        }
-        finish()
     }
 
     override fun finish() {

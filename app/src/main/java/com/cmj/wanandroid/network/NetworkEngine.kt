@@ -1,12 +1,14 @@
 package com.cmj.wanandroid.network
 
+import android.util.Log
+import android.webkit.CookieManager
 import com.cmj.wanandroid.WanAndroidApp
-import com.cmj.wanandroid.test.TestApi
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Cache
+import okhttp3.Cookie
+import okhttp3.CookieJar
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
@@ -21,15 +23,7 @@ object NetworkEngine {
     private const val DEFAULT_TIMEOUT = 30L
     const val BASE_URL = "https://www.wanandroid.com"
 
-
-    private val cookieJar = WanAndroidCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(WanAndroidApp.get()))
-
-    val isLoggerIn : Boolean
-        get() {
-            return cookieJar.isLoggedIn()
-        }
-
-    val okhttp = createOkhttpClient()
+    private val okhttp = createOkhttpClient()
 
     private val apiBuilder by lazy {
         Retrofit.Builder()
@@ -59,7 +53,21 @@ object NetworkEngine {
     private fun createOkhttpClient(): OkHttpClient {
         val maxSize = 1024 * 1024
         return OkHttpClient.Builder()
-            .cookieJar(cookieJar)
+            .cookieJar(object : CookieJar {
+                override fun loadForRequest(url: HttpUrl): List<Cookie> {
+                    val manager = CookieManager.getInstance()
+                    val cookies = manager.getCookie(url.toString())?.split(";") ?: emptyList()
+                    return cookies.mapNotNull { Cookie.parse(url, it) }.toList()
+                }
+
+                override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+                    val manager = CookieManager.getInstance()
+                    cookies.forEach {
+                        manager.setCookie(url.toString(), it.toString())
+                    }
+                }
+
+            })
             .cache(Cache(WanAndroidApp.get().cacheDir, maxSize.toLong()))
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)

@@ -82,8 +82,6 @@ dependencies {
 
     implementation 'androidx.databinding:databinding-runtime:4.2.2'
 
-    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
-
     //leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 
