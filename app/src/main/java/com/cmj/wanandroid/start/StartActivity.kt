@@ -5,17 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.cmj.wanandroid.base.BaseActivity
-import com.cmj.wanandroid.user.UserActivity
 import com.cmj.wanandroid.content.ContentActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class StartActivity : BaseActivity<ViewModel, ViewBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startActivity(Intent(this, ContentActivity::class.java))
-        finish()
+        lifecycleScope.launch {
+            delay(1000)
+            startActivity(Intent(this@StartActivity, ContentActivity::class.java))
+            finish()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, savedInstanceState: Bundle?): View? {

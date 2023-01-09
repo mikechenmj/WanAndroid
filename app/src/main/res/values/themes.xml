@@ -8,8 +8,8 @@
 
         <item name="android:textColorSecondary">@color/text_color_secondary</item>
 
-<!--        <item name="android:textColorPrimary">@color/color_484848</item>-->
-<!--        <item name="android:textColorHint">@color/color_a0a6b1</item>-->
+        <!--        <item name="android:textColorPrimary">@color/color_484848</item>-->
+        <!--        <item name="android:textColorHint">@color/color_a0a6b1</item>-->
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -21,12 +21,19 @@
         <item name="android:windowBackground">@color/window_background_color</item>
     </style>
 
+    <style name="Start" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@drawable/layer_splash</item>
+    </style>
+
     <style name="Search" parent="Theme.WanAndroid">
         <item name="android:statusBarColor">?attr/colorPrimary</item>
     </style>
 
     <style name="Web" parent="Theme.WanAndroid">
         <item name="android:statusBarColor">?attr/colorPrimary</item>
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
     </style>
 </resources>

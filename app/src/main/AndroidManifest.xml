@@ -16,7 +16,8 @@
         android:theme="@style/Theme.WanAndroid">
         <activity
             android:name=".start.StartActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,8 +31,8 @@
             android:theme="@style/Search" />
 
         <activity
-            android:theme="@style/Web"
-            android:name="com.cmj.wanandroid.content.web.ContentWebActivity" />
+            android:name="com.cmj.wanandroid.content.web.ContentWebActivity"
+            android:theme="@style/Web" />
     </application>
 
 </manifest>
