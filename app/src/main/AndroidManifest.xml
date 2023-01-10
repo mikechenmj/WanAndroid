@@ -32,6 +32,7 @@
 
         <activity
             android:name="com.cmj.wanandroid.content.web.ContentWebActivity"
+            android:process=":web"
             android:theme="@style/Web" />
     </application>
 

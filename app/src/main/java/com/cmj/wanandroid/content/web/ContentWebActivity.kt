@@ -181,4 +181,9 @@ class ContentWebActivity : BaseActivity<ContentViewModel, ActivityWebViewBinding
         }
         super.onBackPressed()
     }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        binding.web.destroy()
+    }
 }
