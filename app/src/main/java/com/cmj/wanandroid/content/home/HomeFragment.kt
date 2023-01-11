@@ -62,7 +62,6 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
         binding.viewPager.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             adapter = HomeAdapter()
-            setPageTransformer(ScaleInTransformer())
             offscreenPageLimit = 1
         }
     }
@@ -99,7 +98,6 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
                         }
                     }
                 })
-
                 registerOnPageChangeCallback(object : OnPageChangeCallback() {
                     override fun onPageScrollStateChanged(state: Int) {
                         if (state == SCROLL_STATE_IDLE) {

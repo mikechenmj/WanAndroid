@@ -1,14 +1,20 @@
 package com.cmj.wanandroid.content
 
+import android.animation.LayoutTransition
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.core.view.forEach
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.addRepeatingJob
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseActivity
 import com.cmj.wanandroid.content.home.HomeFragment
@@ -20,8 +26,8 @@ import com.cmj.wanandroid.content.tree.TreeFragment
 import com.cmj.wanandroid.content.wxarticle.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityContentBinding
 import com.cmj.wanandroid.kt.getOrHandleError
+import com.cmj.wanandroid.ui.ScaleInTransformer
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_search.view.search
 import kotlinx.coroutines.flow.collect
 
 class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(), ICollapsingHolder, ITabLayoutHolder {
@@ -49,9 +55,22 @@ class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(),
                 true
             }
         }
+
         binding.contentPager.apply {
             adapter = ContentAdapter()
-            isUserInputEnabled = false
+            setPageTransformer(ScaleInTransformer())
+            offscreenPageLimit = 1
+            registerOnPageChangeCallback(object : OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    binding.bottomNav.menu.apply {
+                        forEach {
+                            it.isChecked = false
+                        }
+                        get(position).isChecked = true
+                    }
+                }
+            })
         }
 
         binding.search.apply {
