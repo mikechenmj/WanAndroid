@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.ChildFragment
+import com.cmj.wanandroid.base.image.commonOption
 import com.cmj.wanandroid.base.log.LogMan
 import com.cmj.wanandroid.databinding.FragmentHomeBinding
 import com.cmj.wanandroid.content.AbsContentFragment
@@ -112,6 +113,7 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
                         suspendCancellableCoroutine { continuation -> //先进行预加载，加载成功的才可见。
                             Glide.with(requireContext())
                                 .asBitmap()
+                                .commonOption()
                                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                                 .load(this.imagePath)
                                 .listener(object : RequestListener<Bitmap> {
@@ -193,6 +195,7 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
                 }
                 Glide.with(requireContext())
                     .asBitmap()
+                    .commonOption()
                     .load(banner.imagePath)
                     .into(binding.bannerImage)
             }
