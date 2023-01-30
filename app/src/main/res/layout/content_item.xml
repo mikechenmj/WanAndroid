@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/selector_star"
-            app:layout_constraintBottom_toBottomOf="@id/tags"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -40,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sub_margin_vertical"
             android:text="@string/author_label"
-            app:layout_constraintBottom_toTopOf="@id/tags"
             app:layout_constraintEnd_toStartOf="@id/date"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
@@ -52,8 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/date_label"
-            app:layout_goneMarginTop="@dimen/sub_margin_vertical"
-            app:layout_constraintBottom_toTopOf="@id/tags"
+            android:layout_marginTop="@dimen/sub_margin_vertical"
             app:layout_constraintStart_toEndOf="@id/authorOrShareUser"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_goneMarginStart="0dp" />
