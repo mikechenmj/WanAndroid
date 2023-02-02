@@ -3,12 +3,10 @@ package com.cmj.wanandroid.content.home
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnLayoutChangeListener
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -28,14 +26,13 @@ import com.bumptech.glide.request.target.Target
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.ChildFragment
 import com.cmj.wanandroid.base.image.commonOption
-import com.cmj.wanandroid.base.log.LogMan
 import com.cmj.wanandroid.databinding.FragmentHomeBinding
 import com.cmj.wanandroid.content.AbsContentFragment
 import com.cmj.wanandroid.content.home.HomeFragment.BannerAdapter.BannerVH
+import com.cmj.wanandroid.content.web.WebActivity
 import com.cmj.wanandroid.databinding.BannerLayoutBinding
 import com.cmj.wanandroid.network.bean.Banner
 import com.cmj.wanandroid.ui.RingPageTransformer
-import com.cmj.wanandroid.ui.ScaleInTransformer
 import com.cmj.wanandroid.ui.TabMediator
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.Job
@@ -190,9 +187,6 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
             fun bind(position: Int) {
                 val banner = banners[position]
                 binding.bannerTitle.text = banner.title
-                binding.root.setOnClickListener {
-                    LogMan.i(TAG, "banner.url: $position ${banner.url}")
-                }
                 Glide.with(requireContext())
                     .asBitmap()
                     .commonOption()
@@ -202,7 +196,13 @@ class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBi
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerVH {
-            return BannerVH(BannerLayoutBinding.inflate(layoutInflater, parent, false))
+            val binding = BannerLayoutBinding.inflate(layoutInflater, parent, false)
+            val holder = BannerVH(binding)
+            binding.root.setOnClickListener {
+                val position = getRealPosition(holder.layoutPosition)
+                WebActivity.start(requireContext(), banners[position].url)
+            }
+            return holder
         }
 
         override fun onBindViewHolder(holder: BannerVH, position: Int) {

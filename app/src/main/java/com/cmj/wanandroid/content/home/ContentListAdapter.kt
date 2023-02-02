@@ -65,7 +65,7 @@ class ContentListAdapter constructor(
             if (contentConfig.star) binding.star.isSelected = content.collect
             if (contentConfig.authorOrShareUser) binding.authorOrShareUser.text = context.getString(
                 R.string.author_label,
-                Html.fromHtml(content.author.ifBlank { content.shareUser }).toString()
+                Html.fromHtml(content.validAuthor()).toString()
             )
             if (contentConfig.date) binding.date.text = context.getString(R.string.date_label,
                 content.niceDate.ifBlank { content.niceShareDate })

@@ -30,6 +30,10 @@
             android:name=".content.search.SearchActivity"
             android:theme="@style/Search" />
 
+        <activity android:name=".content.web.WebActivity"
+            android:process=":web"
+            android:theme="@style/Web" />
+
         <activity
             android:name="com.cmj.wanandroid.content.web.ContentWebActivity"
             android:process=":web"

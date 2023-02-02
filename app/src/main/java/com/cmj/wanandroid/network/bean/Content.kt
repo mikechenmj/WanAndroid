@@ -1,6 +1,7 @@
 package com.cmj.wanandroid.network.bean
 
 import android.os.Parcelable
+import android.text.Html
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -42,6 +43,10 @@ data class Content(
     val host: String,
     @Transient var top: Boolean = false
 ) : Parcelable {
+
+    fun validAuthor(): String {
+        return Html.fromHtml(author.ifBlank { shareUser }).toString()
+    }
 
     @Parcelize
     data class Tag(
