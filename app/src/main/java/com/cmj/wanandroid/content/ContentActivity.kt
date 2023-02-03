@@ -49,7 +49,6 @@ class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(),
         super.onViewCreated(view, savedInstanceState)
 
         binding.bottomNav.apply {
-            itemIconTintList = null
             setOnNavigationItemSelectedListener {
                 binding.contentPager.setCurrentItem(it.order, false)
                 true

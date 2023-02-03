@@ -1,6 +1,7 @@
 package com.cmj.wanandroid.start
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +17,11 @@ class StartActivity : BaseActivity<ViewModel, ViewBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         lifecycleScope.launch {
-            delay(1000)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                delay(1000)
+            }
             startActivity(Intent(this@StartActivity, ContentActivity::class.java))
             finish()
         }
