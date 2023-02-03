@@ -40,7 +40,7 @@ class ProjectFragment: AbsContentPagingFragment<ViewModel, ProjectViewModel>() {
                         activityViewModel.projectCid = tree.id
                         binding.root.forEach { child -> child.isSelected = false }
                         view.isSelected = true
-                        viewLifecycleScope.launchWhenResumed {
+                        viewLifecycleScope.launchWhenStarted {
                             activityViewModel.submitCid(tree.id).join()
                             submitData()
                         }

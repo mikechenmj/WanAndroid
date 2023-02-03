@@ -43,6 +43,7 @@ class WxArticleViewModel(app: Application, private val savedStateHandle: SavedSt
     val wxArticleListFlow = MutableSharedFlow<PagingData<Content>>().doWhileSubscribed(viewModelScope) {
         var job : Job? = null
         wxIdFlow.collect { id ->
+            if (wxId == -1) return@collect
             job?.cancel()
             job = viewModelScope.launch {
                 ContentRepository.wxArticleListFlow(id).collect {

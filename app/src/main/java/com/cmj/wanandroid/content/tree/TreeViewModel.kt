@@ -52,6 +52,7 @@ class TreeViewModel(app: Application, private val savedStateHandle: SavedStateHa
     val cidArticleListFlow = MutableSharedFlow<PagingData<Content>>().doWhileSubscribed(viewModelScope) {
         var job : Job? = null
         articleCidFlow.collect { cid ->
+            if (cid == -1) return@collect
             job?.cancel()
             job = viewModelScope.launch {
                 ContentRepository.articleListWithIdFlow(cid).collect {

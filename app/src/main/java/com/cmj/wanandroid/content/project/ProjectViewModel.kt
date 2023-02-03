@@ -42,6 +42,7 @@ class ProjectViewModel(app: Application, private val savedStateHandle: SavedStat
     val projectListFlow = MutableSharedFlow<PagingData<Content>>().doWhileSubscribed(viewModelScope) {
         var job : Job? = null
         projectCidFlow.collect { cid ->
+            if (cid == -1) return@collect
             job?.cancel()
             job = viewModelScope.launch {
                 ContentRepository.projectListFlow(cid).collect {

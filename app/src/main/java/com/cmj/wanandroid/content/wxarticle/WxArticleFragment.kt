@@ -39,7 +39,7 @@ class WxArticleFragment : AbsContentPagingFragment<ViewModel, WxArticleViewModel
                         activityViewModel.wxId = wx.id
                         binding.root.forEach { child -> child.isSelected = false }
                         view.isSelected = true
-                        viewLifecycleScope.launchWhenResumed {
+                        viewLifecycleScope.launchWhenStarted {
                             activityViewModel.submitId(wx.id).join()
                             submitData()
                         }
