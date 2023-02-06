@@ -2,6 +2,7 @@ package com.cmj.wanandroid.content
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
@@ -10,6 +11,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cmj.wanandroid.R
 import com.cmj.wanandroid.content.web.ContentWebActivity
 import com.cmj.wanandroid.content.home.ContentListAdapter
 import com.cmj.wanandroid.databinding.FragmentRefreshRecyclerBinding
@@ -19,13 +21,10 @@ import com.cmj.wanandroid.network.bean.Content
 import com.cmj.wanandroid.ui.TabMediator
 import com.cmj.wanandroid.ui.getColorPrimary
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 //封装了基于 ContentListAdapter 的 Paging flow 的处理。
@@ -36,6 +35,7 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
     private lateinit var pageFlow: Flow<PagingData<Content>>
     protected lateinit var contentAdapter: ContentListAdapter
     private var submitJob: Job? = null
+    protected val commonViewModel by activityViewModels<CommonViewModel>()
 
     abstract fun getPageFlow(): Flow<PagingData<Content>>?
 
@@ -48,6 +48,7 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
         contentAdapter = initContentAdapter()
         submitData()
         binding.recycler.adapter = contentAdapter
+        binding.recycler.setRecycledViewPool(commonViewModel.recyclerContentItemViewPool)
         binding.recycler.itemAnimator = null
         binding.refresh.apply {
             setColorSchemeColors(requireActivity().getColorPrimary())
@@ -140,8 +141,11 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
 
     private fun handleStar(content: Content, view: View) {
         viewLifecycleScope.launch {
-            val result = if (content.collect) activityViewModel.unStar(content) else activityViewModel.star(content)
-            if (!result.handleIfError(requireContext()))  {
+            val result =
+                if (content.collect) activityViewModel.unStar(content) else activityViewModel.star(
+                    content
+                )
+            if (!result.handleIfError(requireContext())) {
                 content.collect = !content.collect
             } else {
                 view.isSelected = content.collect
@@ -155,5 +159,17 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
 
     override fun getCollapsingView(): View? {
         return null
+    }
+
+    class CommonViewModel : ViewModel() {
+
+        val recyclerContentItemViewPool = RecyclerView.RecycledViewPool().apply {
+            setMaxRecycledViews(R.layout.content_item, 5)
+        }
+
+        override fun onCleared() {
+            recyclerContentItemViewPool.clear()
+            super.onCleared()
+        }
     }
 }

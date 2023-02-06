@@ -37,6 +37,10 @@ class ContentListAdapter constructor(
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return R.layout.content_item
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentAdapterHolder {
         val binding = ContentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val holder = ContentAdapterHolder(binding)
