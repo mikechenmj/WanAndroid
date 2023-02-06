@@ -13,6 +13,7 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.addRepeatingJob
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.cmj.wanandroid.R
@@ -57,6 +58,8 @@ class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(),
 
         binding.contentPager.apply {
             adapter = ContentAdapter()
+            val recycler = getChildAt(0) as? RecyclerView
+            recycler?.layoutManager?.isItemPrefetchEnabled = false
             setPageTransformer(ScaleInTransformer())
             offscreenPageLimit = 1
             registerOnPageChangeCallback(object : OnPageChangeCallback() {
