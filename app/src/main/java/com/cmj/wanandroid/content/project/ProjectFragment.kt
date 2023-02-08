@@ -27,7 +27,7 @@ class ProjectFragment: AbsContentPagingFragment<ViewModel, ProjectViewModel>() {
 
     override fun getCollapsingView(): View {
         val binding = ContentFlexTagLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)
-        binding.root.visibility = View.GONE
+        binding.root.visibility = View.INVISIBLE
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             activityViewModel.projectTreeCategoryFlow.collect {
                 val projectTree = it.getOrHandleError(requireContext()) ?: return@collect

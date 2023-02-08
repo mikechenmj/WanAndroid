@@ -26,7 +26,7 @@ class WxArticleFragment : AbsContentPagingFragment<ViewModel, WxArticleViewModel
 
     override fun getCollapsingView(): View {
         val binding = ContentFlexTagLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)
-        binding.root.visibility = View.GONE
+        binding.root.visibility = View.INVISIBLE
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             activityViewModel.wxOfficialFlow.collect {
                 val wxs = it.getOrHandleError(requireContext()) ?: return@collect

@@ -5,6 +5,7 @@ import android.webkit.CookieManager
 import com.cmj.wanandroid.WanAndroidApp
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.*
 import okhttp3.Cache
 import okhttp3.Cookie
 import okhttp3.CookieJar
@@ -16,12 +17,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.resume
 
 object NetworkEngine {
 
     private val TAG = NetworkEngine::class.java.simpleName
     private const val DEFAULT_TIMEOUT = 30L
     const val BASE_URL = "https://www.wanandroid.com"
+    private const val TOKEN_PASS_WA = "token_pass_wanandroid_com"
 
     private val okhttp = createOkhttpClient()
 
@@ -50,14 +53,37 @@ object NetworkEngine {
 
     fun <T> createApi(apiClass: Class<T>): T = apiBuilder.create(apiClass)
 
+    fun isLoggedIn(): Boolean {
+        val manager = CookieManager.getInstance()
+        val cookies = manager.getCookie(BASE_URL)?.split(";") ?: emptyList()
+        return cookies.find {
+            val cookie = it.replace(" ", "").split("=")
+            if (cookie.size != 2) {
+                false
+            } else cookie[0] == TOKEN_PASS_WA && cookie[1].isNotBlank()
+        } != null
+    }
+
+//    suspend fun logout(): Boolean {
+//        return suspendCancellableCoroutine {
+//            CookieManager.getInstance().removeAllCookies { result ->
+//                it.resume(result)
+//            }
+//        }
+//    }
+
     private fun createOkhttpClient(): OkHttpClient {
         val maxSize = 1024 * 1024
         return OkHttpClient.Builder()
             .cookieJar(object : CookieJar {
                 override fun loadForRequest(url: HttpUrl): List<Cookie> {
                     val manager = CookieManager.getInstance()
-                    val cookies = manager.getCookie(url.toString())?.split(";") ?: emptyList()
-                    return cookies.mapNotNull { Cookie.parse(url, it) }.toList()
+                    val cookies =
+                        manager.getCookie(url.toString())
+                            ?.split(";") ?: emptyList()
+                    return cookies.mapNotNull {
+                        Cookie.parse(url, it)
+                    }.toList()
                 }
 
                 override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {

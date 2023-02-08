@@ -27,7 +27,7 @@
 
     <item
         android:id="@+id/mineFragment"
-        android:icon="@drawable/ic_menu_tree"
+        android:icon="@drawable/ic_menu_mine"
         android:orderInCategory="4"
         android:title="@string/mine_label" />
 

@@ -40,7 +40,7 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
 
     private fun initTreeCategoryView(): View {
         val binding = TreeCategoryFlexTagsLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)
-        binding.root.visibility = View.GONE
+        binding.root.visibility = View.INVISIBLE
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             activityViewModel.treeCategoryFlow.collect {
                 val trees = it.getOrHandleError(requireContext()) ?: return@collect

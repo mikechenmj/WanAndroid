@@ -19,7 +19,6 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseActivity
 import com.cmj.wanandroid.content.home.HomeFragment
-import com.cmj.wanandroid.content.mine.MineFragment
 import com.cmj.wanandroid.content.project.ProjectFragment
 import com.cmj.wanandroid.content.search.SearchActivity
 import com.cmj.wanandroid.content.search.SearchViewModel
@@ -28,6 +27,7 @@ import com.cmj.wanandroid.content.wxarticle.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityContentBinding
 import com.cmj.wanandroid.kt.getOrHandleError
 import com.cmj.wanandroid.ui.ScaleInTransformer
+import com.cmj.wanandroid.user.mine.MineFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.collect
 

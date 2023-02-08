@@ -3,6 +3,7 @@
 
     <string name="login_title">请登录</string>
     <string name="login_label">登录</string>
+    <string name="logout_label">退出登录</string>
     <string name="username_hint_tip">请输入账号</string>
     <string name="password_hint_tip">请输入密码</string>
     <string name="username_empty_tip">账号不能为空</string>
@@ -42,6 +43,16 @@
     <string name="tree_category_second_label">二级分类：</string>
 
     <string name="search_label">大家都在搜</string>
+
+    <string name="username_label">用户名：%1$s</string>
+    <string name="username_un_logged_in_label">未登录</string>
+    <string name="id_label">id：%1$s</string>
+    <string name="coin_label">积分：%1$s</string>
+    <string name="level_label">等级：%1$s</string>
+    <string name="rank_label">排名：%1$s</string>
+    <string name="user_message_label">消息中心</string>
+    <string name="user_star_label">收藏文章</string>
+    <string name="user_share_label">分享文章</string>
 
 
 </resources>

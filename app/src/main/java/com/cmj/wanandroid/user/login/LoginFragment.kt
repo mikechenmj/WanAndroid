@@ -77,7 +77,6 @@ class LoginFragment : BaseFragment<LoginViewModel, UserViewModel, FragmentLoginB
                 hideLoading()
                 it ?: return@launchWhenResumed
             }
-            startActivity(Intent(requireContext(), ContentActivity::class.java))
             requireActivity().finish()
         }
     }
