@@ -20,7 +20,8 @@ class ContentListAdapter constructor(
     val context: Context,
     val contentConfig: ContentConfig,
     private val onItemClick: (Content) -> Unit = {},
-    private val onStarClick: (Content, View) -> Unit = {_, _ ->}
+    private val onStarClick: (Content, View) -> Unit = {_, _ ->},
+    private val onDeleteClick: (Content, Int) -> Unit = {_, _ ->}
 ) : PagingDataAdapter<Content, ContentAdapterHolder>(object : DiffUtil.ItemCallback<Content>() {
     override fun areItemsTheSame(oldItem: Content, newItem: Content): Boolean {
         return oldItem.id == newItem.id
@@ -53,10 +54,15 @@ class ContentListAdapter constructor(
             if (item.collect == it.star.isSelected) onStarClick(item, it)
             it.star.isSelected = !it.star.isSelected
         }
+        binding.delete.setOnClickListener {
+            val item = getItem(holder.bindingAdapterPosition) ?: return@setOnClickListener
+            onDeleteClick(item, holder.bindingAdapterPosition)
+        }
         binding.tags.isVisible = contentConfig.tags
         binding.date.isVisible = contentConfig.date
         binding.authorOrShareUser.isVisible = contentConfig.authorOrShareUser
         binding.star.isVisible = contentConfig.star
+        binding.delete.isVisible = contentConfig.delete
         return holder
     }
 
@@ -101,5 +107,6 @@ class ContentListAdapter constructor(
         val authorOrShareUser: Boolean = true,
         val date: Boolean = true,
         val star: Boolean = true,
+        val delete: Boolean = false,
     )
 }

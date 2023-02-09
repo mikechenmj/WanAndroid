@@ -15,13 +15,25 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:src="@drawable/selector_star"
-            app:layout_constraintVertical_bias="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintVertical_bias="1" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/delete"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="@dimen/main_margin_horizontal"
+            android:src="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/star"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintVertical_bias="1"
+            app:layout_goneMarginEnd="0dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
@@ -36,26 +48,35 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/authorOrShareUser"
-            android:textSize="@dimen/sub_text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sub_margin_vertical"
             android:text="@string/author_label"
+            android:textSize="@dimen/sub_text_size"
+            app:layout_constraintBottom_toTopOf="@id/infoBarrier"
             app:layout_constraintEnd_toStartOf="@id/date"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/date"
-            android:textSize="@dimen/sub_text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/date_label"
             android:layout_marginTop="@dimen/sub_margin_vertical"
+            android:text="@string/date_label"
+            android:textSize="@dimen/sub_text_size"
+            app:layout_constraintBottom_toTopOf="@id/infoBarrier"
             app:layout_constraintStart_toEndOf="@id/authorOrShareUser"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_goneMarginStart="0dp" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/infoBarrier"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="title,date" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/tags"
@@ -67,7 +88,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/star"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/authorOrShareUser">
+            app:layout_constraintTop_toBottomOf="@id/infoBarrier">
 
         </com.google.android.flexbox.FlexboxLayout>
 

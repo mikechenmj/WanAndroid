@@ -78,7 +78,7 @@ interface ContentApi {
 
     @GET("/project/list/{page}/json")
     fun projectList(
-        @Path("page") page: Int,
+        @Path("page") page: Int, //从1开始
         @Query("page_size") pageSize: Int? = null,
         @Query("cid") cid: Int? = null
     ): Call<WAndroidResponse<PageModule<Content>>>
@@ -152,13 +152,13 @@ interface ContentApi {
     @GET("/user/{id}/share_articles/{page}/json")
     fun shareArticleList(
         @Path("id") id: Int,
-        @Path("page") page: Int,
+        @Path("page") page: Int, //从1开始
         @Query("page_size") pageSize: Int? = null
     ): Call<WAndroidResponse<ShareArticleInfo>>
 
     @GET("/user/lg/private_articles/{page}/json")
     fun privateArticleList(
-        @Path("page") page: Int,
+        @Path("page") page: Int, // 从1开始
         @Query("page_size") pageSize: Int? = null
     ): Call<WAndroidResponse<ShareArticleInfo>>
 

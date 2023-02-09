@@ -2,6 +2,7 @@ package com.cmj.wanandroid.content
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.onEach
 import kotlin.coroutines.resume
 
 //封装了基于 ContentListAdapter 的 Paging flow 的处理。
@@ -75,6 +77,12 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
         }
     }
 
+    private fun checkIsEmpty() {
+        val empty = contentAdapter.itemCount < 1
+        binding.empty.isVisible = empty
+        binding.recycler.visibility = if (empty) View.INVISIBLE else View.VISIBLE
+    }
+
     protected fun submitData() {
         submitJob?.cancel()
         submitJob = viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
@@ -93,6 +101,9 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
             },
             { content, view ->
                 handleStar(content, view)
+            },
+            { content, position ->
+                onDeleteClick(content, position)
             })
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             handlePageState(contentAdapter)
@@ -100,43 +111,59 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
         return contentAdapter
     }
 
+    open protected fun onDeleteClick(content: Content, position: Int) {
+    }
 
     private suspend fun handlePageState(adapter: ContentListAdapter) {
-        adapter.loadStateFlow
-            .conflate() //避免频率过快地接收数据导致UI跳变
-            .collect {
-                if (refreshByUser) return@collect
-                var exception =
-                    when {
-                        it.refresh is LoadState.Error -> {
-                            (it.refresh as LoadState.Error).error
-                        }
-                        it.append is LoadState.Error -> {
-                            (it.append as LoadState.Error).error
-                        }
-                        else -> {
-                            null
-                        }
+        coroutineScope {
+            launch {
+                adapter.onPagesUpdatedFlow
+                    .conflate()
+                    .collect {
+                        checkIsEmpty()
+                        delay(1000)
                     }
-                if (exception != null) {
-                    handleError(requireContext(), exception)
-                    binding.refresh.isRefreshing = true
-                    delay(3000)
-                    adapter.retry()
-                    return@collect
-                }
-                if (it.refresh is LoadState.Loading) {
-                    binding.refresh.isRefreshing = true
-                    delay(1000)
-                    return@collect
-                }
-                if (it.append is LoadState.Loading && binding.recycler.scrollState != RecyclerView.SCROLL_STATE_IDLE) {
-                    binding.refresh.isRefreshing = true
-                    delay(1000)
-                    return@collect
-                }
-                binding.refresh.isRefreshing = false
             }
+
+            launch {
+                adapter.loadStateFlow
+                    .conflate() //避免频率过快地接收数据导致UI跳变
+                    .collect {
+                        if (refreshByUser) return@collect
+                        var exception =
+                            when {
+                                it.refresh is LoadState.Error -> {
+                                    (it.refresh as LoadState.Error).error
+                                }
+                                it.append is LoadState.Error -> {
+                                    (it.append as LoadState.Error).error
+                                }
+                                else -> {
+                                    null
+                                }
+                            }
+                        if (exception != null) {
+                            handleError(requireContext(), exception)
+                            binding.refresh.isRefreshing = true
+                            delay(3000)
+                            adapter.retry()
+                            return@collect
+                        }
+                        if (it.refresh is LoadState.Loading) {
+                            binding.refresh.isRefreshing = true
+                            delay(1000)
+                            return@collect
+                        }
+                        if (it.append is LoadState.Loading && binding.recycler.scrollState != RecyclerView.SCROLL_STATE_IDLE) {
+                            binding.refresh.isRefreshing = true
+                            delay(1000)
+                            return@collect
+                        }
+                        binding.refresh.isRefreshing = false
+                    }
+            }
+        }
+
     }
 
     private fun handleStar(content: Content, view: View) {

@@ -16,7 +16,8 @@ object ContentRepository {
     private val api = NetworkEngine.createApi(ContentApi::class.java)
 
     suspend fun star(content: Content) = api.collect(content.id).resultWABodyCall().await()
-    suspend fun unStar(content: Content) = api.unCollectOriginId(content.id).resultWABodyCall().await()
+    suspend fun unStar(content: Content) =
+        api.unCollectOriginId(content.id).resultWABodyCall().await()
 
     suspend fun banner() = api.banner().resultWABodyCall().await()
 
@@ -30,19 +31,25 @@ object ContentRepository {
                         top.forEach { it.top = true }
                         PageModule(-1, 0, false, -1, top.size, top.size, top)
                     } else {
-                        api.articleList(page, size, orderType).resultWABodyCall().await().getOrThrow()
+                        api.articleList(page, size, orderType).resultWABodyCall().await()
+                            .getOrThrow()
                     }
                 }
             }
         ).flow
     }
 
-    fun articleListWithIdFlow(cid: Int, pageSize: Int = 20, orderType: Int = 0): Flow<PagingData<Content>> {
+    fun articleListWithIdFlow(
+        cid: Int,
+        pageSize: Int = 20,
+        orderType: Int = 0
+    ): Flow<PagingData<Content>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
                 ContentPagingSource { page, size ->
-                    api.articleListWithId(page, size, cid, orderType).resultWABodyCall().await().getOrThrow()
+                    api.articleListWithId(page, size, cid, orderType).resultWABodyCall().await()
+                        .getOrThrow()
                 }
             }
         ).flow
@@ -77,15 +84,19 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page, size ->
-                    api.projectList( page, size, id).resultWABodyCall().await().getOrThrow()
+                ContentPagingSource(1) { page, size ->
+                    api.projectList(page, size, id).resultWABodyCall().await().getOrThrow()
                 }
             }
         ).flow
     }
 
     suspend fun wxOfficial() = api.wxArticleChapters().resultWABodyCall().await()
-    fun wxArticleListFlow(id: Int, pageSize: Int = 20, k: String? = null): Flow<PagingData<Content>> {
+    fun wxArticleListFlow(
+        id: Int,
+        pageSize: Int = 20,
+        k: String? = null
+    ): Flow<PagingData<Content>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
@@ -107,4 +118,19 @@ object ContentRepository {
             }
         ).flow
     }
+
+    fun privateArticleListFlow(pageSize: Int = 20): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                ContentPagingSource(1) { page, size ->
+                    api.privateArticleList(page, size).resultWABodyCall().await()
+                        .getOrThrow().shareArticles
+                }
+            }
+        ).flow
+    }
+
+    suspend fun deletePrivateArticle(content: Content) =
+        api.deletePrivateArticle(content.id).resultWABodyCall().await()
 }
