@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.addRepeatingJob
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
+import androidx.navigation.NavOptions
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseActivity
 import com.cmj.wanandroid.databinding.ActivitySearchBinding
@@ -55,13 +52,25 @@ class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
         lifecycleScope.launchWhenResumed {
             viewModel.queryKeyFlow.collect {
                 binding.search.setText(it)
-                navController?.navigate(R.id.action_searchKeyFragment_to_searchResultFragment)
+                val option = NavOptions.Builder()
+                    .setPopUpTo(
+                        R.id.searchKeyFragment,
+                        intent.getBooleanExtra(EXTRA_SEARCH_PERFORM, false)
+                    )
+                    .build()
+                navController?.navigate(
+                    R.id.action_searchKeyFragment_to_searchResultFragment,
+                    null,
+                    option
+                )
             }
         }
 
         binding.search.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val key = binding.search.text.toString().nullOrValid() ?: binding.search.hint.toString().nullOrValid()
+                val key =
+                    binding.search.text.toString().nullOrValid() ?: binding.search.hint.toString()
+                        .nullOrValid()
                 key ?: return@setOnEditorActionListener false
                 viewModel.queryKey(key)
             }
