@@ -1,6 +1,7 @@
 package com.cmj.wanandroid.content
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -74,6 +75,9 @@ abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> 
                     isRefreshing = false
                 }
             }
+        }
+        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+            contentAdapter.refresh()
         }
     }
 

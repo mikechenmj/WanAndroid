@@ -7,7 +7,7 @@ data class PageModule<T>(
     val pageCount: Int,
     val size: Int,
     val total: Int,
-    val datas: List<T>
+    var datas: List<T>
 )
 
 

@@ -133,4 +133,19 @@ object ContentRepository {
 
     suspend fun deletePrivateArticle(content: Content) =
         api.deletePrivateArticle(content.id).resultWABodyCall().await()
+
+    fun starArticleListFlow(pageSize: Int = 20): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                ContentPagingSource { page, size ->
+                    val module = api.collectList(page, size).resultWABodyCall().await().getOrThrow()
+                    PageModule(
+                        module.curPage, module.offset, module.over, module.pageCount,
+                        module.size, module.total, module.datas.map { it.toContent() }
+                    )
+                }
+            }
+        ).flow
+    }
 }

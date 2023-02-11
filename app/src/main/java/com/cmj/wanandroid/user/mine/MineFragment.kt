@@ -14,6 +14,7 @@ import com.cmj.wanandroid.R
 import com.cmj.wanandroid.databinding.FragmentMineBinding
 import com.cmj.wanandroid.content.AbsContentFragment
 import com.cmj.wanandroid.content.private.PrivateArticleFragment
+import com.cmj.wanandroid.content.star.StarArticleFragment
 import com.cmj.wanandroid.databinding.UserInfoLayoutBinding
 import com.cmj.wanandroid.kt.getOrHandleError
 import com.cmj.wanandroid.kt.getOrToastError
@@ -54,6 +55,9 @@ class MineFragment : AbsContentFragment<ViewModel, UserViewModel, FragmentMineBi
         }
         binding.userShared.setOnClickListener {
             PrivateArticleFragment.start(requireContext())
+        }
+        binding.userStared.setOnClickListener {
+            StarArticleFragment.start(requireContext())
         }
     }
 

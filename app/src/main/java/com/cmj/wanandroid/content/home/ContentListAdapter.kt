@@ -94,7 +94,7 @@ class ContentListAdapter constructor(
                     }
                 )
             }
-            content.tags.forEach {
+            content.tags?.forEach {
                 binding.tags.addView(
                     TextView(context, null, 0, R.style.ColorPrimaryLabelStyle).apply { text = it.name }
                 )

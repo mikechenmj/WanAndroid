@@ -1,18 +1,6 @@
 package com.cmj.wanandroid.network.api
 
-import com.cmj.wanandroid.network.bean.Content
-import com.cmj.wanandroid.network.bean.PageModule
-import com.cmj.wanandroid.network.bean.Banner
-import com.cmj.wanandroid.network.bean.CollectedArticle
-import com.cmj.wanandroid.network.bean.FriendWeb
-import com.cmj.wanandroid.network.bean.Hotkey
-import com.cmj.wanandroid.network.bean.Navi
-import com.cmj.wanandroid.network.bean.QAComments
-import com.cmj.wanandroid.network.bean.ShareArticleInfo
-import com.cmj.wanandroid.network.bean.Tree
-import com.cmj.wanandroid.network.bean.WAndroidResponse
-import com.cmj.wanandroid.network.bean.Web
-import com.cmj.wanandroid.network.bean.WxChapter
+import com.cmj.wanandroid.network.bean.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.Call

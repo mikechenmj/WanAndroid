@@ -17,4 +17,12 @@ data class CollectedArticle(
     val courseId: Int,
     val desc: String,
     val envelopePic: String,
-)
+) {
+    fun toContent(): Content {
+        return Content(
+            originId, userId, visible, zan, title,
+            null, link, niceDate, "", null, "", null,
+            origin, publishTime,author, collect = false, fresh = false, top = false
+        )
+    }
+}
