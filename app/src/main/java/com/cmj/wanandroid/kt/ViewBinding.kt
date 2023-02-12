@@ -1,6 +1,7 @@
 package com.cmj.wanandroid.kt
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,8 +57,8 @@ fun <VB : ViewBinding> findViewBindingClass(clazz: Class<*>): Class<VB> {
  */
 @Suppress("UNCHECKED_CAST")
 fun <VB : ViewBinding> findViewBindingClassOrNull(clazz: Class<*>): Class<VB>? {
-    var types: Array<Type>? = (clazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
-
+    var currentClazz = clazz
+    var types: Array<Type>? = (currentClazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
     do {
         if (!types.isNullOrEmpty()) {
             for (type in types) {
@@ -67,7 +68,8 @@ fun <VB : ViewBinding> findViewBindingClassOrNull(clazz: Class<*>): Class<VB>? {
                 }
             }
         }
-        types = (clazz.superclass.genericSuperclass as? ParameterizedType)?.actualTypeArguments
+        currentClazz = currentClazz.superclass
+        types = (currentClazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
     } while (types != null)
 
     return null
