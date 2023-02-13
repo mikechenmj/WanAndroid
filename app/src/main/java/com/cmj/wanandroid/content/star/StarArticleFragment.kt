@@ -20,7 +20,6 @@ class StarArticleFragment : AbsContentPagingFragment<ViewModel, StarArticleViewM
                 context,
                 StarArticleFragment::class.java,
                 context.getString(R.string.user_star_label),
-                null
             )
         }
     }
@@ -44,7 +43,7 @@ class StarArticleFragment : AbsContentPagingFragment<ViewModel, StarArticleViewM
         viewLifecycleScope.launch {
             showLoading()
             activityViewModel.unStar(content).getOrHandleError(requireContext())
-            contentAdapter.refresh()
+            pagingAdapter.refresh()
             hideLoading()
         }
     }

@@ -27,7 +27,7 @@ import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.ChildFragment
 import com.cmj.wanandroid.base.image.commonOption
 import com.cmj.wanandroid.databinding.FragmentHomeBinding
-import com.cmj.wanandroid.content.AbsContentFragment
+import com.cmj.wanandroid.content.AbsDecorFragment
 import com.cmj.wanandroid.content.home.HomeFragment.BannerAdapter.BannerVH
 import com.cmj.wanandroid.content.web.WebActivity
 import com.cmj.wanandroid.databinding.BannerLayoutBinding
@@ -43,7 +43,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.internal.filterList
 import kotlin.coroutines.resume
 
-class HomeFragment : AbsContentFragment<HomeViewModel, ViewModel, FragmentHomeBinding>() {
+class HomeFragment : AbsDecorFragment<HomeViewModel, ViewModel, FragmentHomeBinding>() {
 
     companion object {
         private val TAG = HomeFragment::class.java.simpleName

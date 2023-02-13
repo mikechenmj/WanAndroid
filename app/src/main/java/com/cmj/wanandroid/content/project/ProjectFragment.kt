@@ -21,9 +21,12 @@ import com.cmj.wanandroid.network.bean.Tree
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class ProjectFragment: AbsContentPagingFragment<ViewModel, ProjectViewModel>() {
+
+    override fun autoSubmitData(): Boolean {
+        return false
+    }
 
     override fun getCollapsingView(): View {
         val binding = ContentFlexTagLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)

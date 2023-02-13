@@ -14,4 +14,9 @@ data class Message(
     val fromUserId: Int,
     val category: Int,
     val isRead: Int, //0代表未读，1代表已读
-)
+) {
+    companion object {
+        const val UNREAD = 0
+        const val READ = 1
+    }
+}

@@ -29,6 +29,10 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
         return activityViewModel.cidArticleListFlow
     }
 
+    override fun autoSubmitData(): Boolean {
+        return false
+    }
+
     override fun getCollapsingView(): View {
         return initTreeCategoryView()
     }
@@ -36,7 +40,6 @@ class TreeFragment : AbsContentPagingFragment<ViewModel, TreeViewModel>() {
     override fun contentConfig(): ContentListAdapter.ContentConfig {
         return ContentListAdapter.ContentConfig(false)
     }
-
 
     private fun initTreeCategoryView(): View {
         val binding = TreeCategoryFlexTagsLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.databinding.FragmentMineBinding
-import com.cmj.wanandroid.content.AbsContentFragment
+import com.cmj.wanandroid.content.AbsDecorFragment
 import com.cmj.wanandroid.content.private.PrivateArticleFragment
 import com.cmj.wanandroid.content.star.StarArticleFragment
 import com.cmj.wanandroid.databinding.UserInfoLayoutBinding
@@ -21,11 +21,12 @@ import com.cmj.wanandroid.kt.getOrToastError
 import com.cmj.wanandroid.ui.TabMediator
 import com.cmj.wanandroid.user.UserActivity
 import com.cmj.wanandroid.user.UserViewModel
+import com.cmj.wanandroid.user.message.MessageActivity
+import com.cmj.wanandroid.user.message.ReadMessageFragment
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_ask.*
 import kotlinx.coroutines.launch
 
-class MineFragment : AbsContentFragment<ViewModel, UserViewModel, FragmentMineBinding>() {
+class MineFragment : AbsDecorFragment<ViewModel, UserViewModel, FragmentMineBinding>() {
 
     private lateinit var collapsingBinding: UserInfoLayoutBinding
 
@@ -58,6 +59,9 @@ class MineFragment : AbsContentFragment<ViewModel, UserViewModel, FragmentMineBi
         }
         binding.userStared.setOnClickListener {
             StarArticleFragment.start(requireContext())
+        }
+        binding.userMessage.setOnClickListener {
+            startActivity(Intent(requireContext(), MessageActivity::class.java))
         }
     }
 

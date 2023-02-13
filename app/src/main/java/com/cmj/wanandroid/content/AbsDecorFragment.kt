@@ -13,9 +13,8 @@ import com.cmj.wanandroid.base.BaseFragment
 import com.cmj.wanandroid.ui.TabMediator
 import com.google.android.material.tabs.TabLayout
 
-//封装了对 activity 的 TabLayout、CollapsingView 的处理。
-abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBinding> : BaseFragment<VM, AVM, VB>(),
-    ITabLayoutHolder, ICollapsingHolder {
+abstract class AbsDecorFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBinding> :
+    BaseFragment<VM, AVM, VB>(), ITabLayoutHolder, ICollapsingHolder {
 
     abstract fun initTabMediator(tabLayout: TabLayout?): TabMediator?
 
@@ -83,8 +82,7 @@ abstract class AbsContentFragment<VM : ViewModel, AVM : ViewModel, VB : ViewBind
     }
 
     override fun setCollapsingExpanded(expanded: Boolean, animate: Boolean) {
-        val viewHolder = activity as? ICollapsingHolder ?: return
-        return viewHolder.setCollapsingExpanded(expanded, animate)
+        (activity as? ICollapsingHolder)?.setCollapsingExpanded(expanded, animate)
     }
 
     override fun getTabLayout(): TabLayout? {

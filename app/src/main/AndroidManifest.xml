@@ -42,6 +42,11 @@
 
         <activity android:name=".base.FragmentStubActivity" />
 
+        <activity
+            android:name=".user.message.MessageActivity"
+            android:label="@string/user_message_label"
+            android:theme="@style/Message" />
+
         <!-- 解决在 12 版本或以上， blockCanary 的 DisplayActivity 未设置 exported 导致无法安装的问题 -->
         <activity
             android:name="com.github.moduth.blockcanary.ui.DisplayActivity"

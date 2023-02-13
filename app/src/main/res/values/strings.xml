@@ -53,6 +53,9 @@
     <string name="user_message_label">消息中心</string>
     <string name="user_star_label">收藏文章</string>
     <string name="user_share_label">分享文章</string>
+    <string name="message_unread_tag">未读</string>
+    <string name="message_unread_label">未读信息</string>
+    <string name="message_read_label">已读信息</string>
 
 
 </resources>

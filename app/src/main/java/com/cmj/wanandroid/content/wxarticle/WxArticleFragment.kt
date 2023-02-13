@@ -24,6 +24,10 @@ import kotlinx.coroutines.launch
 
 class WxArticleFragment : AbsContentPagingFragment<ViewModel, WxArticleViewModel>() {
 
+    override fun autoSubmitData(): Boolean {
+        return false
+    }
+
     override fun getCollapsingView(): View {
         val binding = ContentFlexTagLayoutBinding.inflate(LayoutInflater.from(requireContext()), view as ViewGroup?, false)
         binding.root.visibility = View.INVISIBLE

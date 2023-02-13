@@ -1,11 +1,14 @@
 package com.cmj.wanandroid.user
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.cmj.wanandroid.base.page.NormalPagingSource
 import com.cmj.wanandroid.network.NetworkEngine
-import com.cmj.wanandroid.network.bean.LoginInfo
 import com.cmj.wanandroid.network.api.UserApi
-import com.cmj.wanandroid.network.bean.User
+import com.cmj.wanandroid.network.bean.*
 import com.cmj.wanandroid.network.kt.resultWABodyCall
-import com.tencent.mmkv.MMKV
+import kotlinx.coroutines.flow.Flow
 import retrofit2.await
 
 object UserRepository {
@@ -32,4 +35,26 @@ object UserRepository {
     }
 
     fun isLoggedIn() = NetworkEngine.isLoggedIn()
+
+    fun messageReadListFlow(pageSize: Int = 20): Flow<PagingData<Message>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                NormalPagingSource { page, size ->
+                    userApi.messageReadList(page, size).resultWABodyCall().await().getOrThrow()
+                }
+            }
+        ).flow
+    }
+
+    fun messageUnReadListFlow(pageSize: Int = 20): Flow<PagingData<Message>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
+            pagingSourceFactory = {
+                NormalPagingSource { page, size ->
+                    userApi.messageUnreadList(page, size).resultWABodyCall().await().getOrThrow()
+                }
+            }
+        ).flow
+    }
 }

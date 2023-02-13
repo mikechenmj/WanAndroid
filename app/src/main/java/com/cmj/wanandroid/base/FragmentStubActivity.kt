@@ -23,7 +23,7 @@ class FragmentStubActivity : BaseActivity<ViewModel, ActivityFragmentStubBinding
             context: Context,
             fragmentClass: Class<out Fragment>,
             title: String,
-            bundle: Bundle?
+            bundle: Bundle? = null
         ) {
             val intent = Intent(context, FragmentStubActivity::class.java)
             intent.putExtra(FRAGMENT_CLASS, fragmentClass)

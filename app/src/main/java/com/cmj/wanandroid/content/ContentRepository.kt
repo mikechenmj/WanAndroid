@@ -3,6 +3,7 @@ package com.cmj.wanandroid.content
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.cmj.wanandroid.base.page.NormalPagingSource
 import com.cmj.wanandroid.network.NetworkEngine
 import com.cmj.wanandroid.network.api.ContentApi
 import com.cmj.wanandroid.network.bean.Content
@@ -25,7 +26,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource(-1) { page, size ->
+                NormalPagingSource(-1) { page, size ->
                     if (page == -1) {
                         val top = api.articleTop().resultWABodyCall().await().getOrThrow()
                         top.forEach { it.top = true }
@@ -47,7 +48,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page, size ->
+                NormalPagingSource { page, size ->
                     api.articleListWithId(page, size, cid, orderType).resultWABodyCall().await()
                         .getOrThrow()
                 }
@@ -59,7 +60,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page, size ->
+                NormalPagingSource { page, size ->
                     api.qAList(page, size).resultWABodyCall().await().getOrThrow()
                 }
             }
@@ -70,7 +71,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page, size ->
+                NormalPagingSource { page, size ->
                     api.userArticleList(page, size).resultWABodyCall().await().getOrThrow()
                 }
             }
@@ -84,7 +85,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource(1) { page, size ->
+                NormalPagingSource(1) { page, size ->
                     api.projectList(page, size, id).resultWABodyCall().await().getOrThrow()
                 }
             }
@@ -100,7 +101,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page, size ->
+                NormalPagingSource { page, size ->
                     api.wxArticleList(id, page, size, k).resultWABodyCall().await().getOrThrow()
                 }
             }
@@ -112,7 +113,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page, size ->
+                NormalPagingSource { page, size ->
                     api.queryArticle(page, size, k).resultWABodyCall().await().getOrThrow()
                 }
             }
@@ -123,7 +124,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource(1) { page, size ->
+                NormalPagingSource(1) { page, size ->
                     api.privateArticleList(page, size).resultWABodyCall().await()
                         .getOrThrow().shareArticles
                 }
@@ -138,7 +139,7 @@ object ContentRepository {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = pageSize),
             pagingSourceFactory = {
-                ContentPagingSource { page, size ->
+                NormalPagingSource { page, size ->
                     val module = api.collectList(page, size).resultWABodyCall().await().getOrThrow()
                     PageModule(
                         module.curPage, module.offset, module.over, module.pageCount,
