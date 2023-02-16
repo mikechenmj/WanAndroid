@@ -1,0 +1,90 @@
+static def runDependencies(DependencyHandler dependencyHandler, Object module) {
+    module["implementation"].each {
+        dependencyHandler.implementation it
+    }
+    module["api"].each {
+        dependencyHandler.api it
+    }
+    module["testImplementation"].each {
+        dependencyHandler.testImplementation it
+    }
+    module["androidTestImplementation"].each {
+        dependencyHandler.androidTestImplementation it
+    }
+    module["debugImplementation"].each {
+        dependencyHandler.debugImplementation it
+    }
+    module["releaseImplementation"].each {
+        dependencyHandler.releaseImplementation it
+    }
+    module["kapt"].each {
+        dependencyHandler.kapt it
+    }
+}
+
+ext {
+    ext.runDependencies = this.&runDependencies
+
+    app = [
+            "implementation"           : [
+                    core_ktx,
+                    appcompat,
+                    material,
+                    constraintlayout,
+                    annotation,
+                    legacy,
+                    recyclerview,
+                    coroutines_core,
+                    coroutines_android,
+                    lifecycle_runtime,
+                    lifecycle_runtime_ktx,
+                    lifecycle_livedata_ktx,
+                    lifecycle_viewmodel_ktx,
+                    lifecycleProcess,
+                    fragment_ktx,
+                    activity_ktx,
+                    navigation_fragment_ktx,
+                    navigation_ui_ktx,
+                    navigation_dynamic_features_fragment,
+                    databinding_runtime,
+                    leakcanary,
+                    utilcode,
+                    mmkv,
+                    easypermissions,
+                    glide,
+                    paging,
+                    flex
+            ],
+            "testImplementation"       : [
+                    junit,
+            ],
+            "androidTestImplementation": [
+                    extjunit,
+                    espresso,
+            ],
+            "debugImplementation"      : [
+                    blockcanary,
+            ],
+            "releaseImplementation"    : [
+                    blockcanary_no_op,
+            ],
+            "kapt"                     : [
+                    lifecycle_kapt,
+            ],
+    ]
+
+    lib_network = [
+            "implementation": [
+                    core_ktx,
+            ],
+            "api"           : [
+                    retrofit2,
+                    retrofit2_converter_gson,
+                    retrofit2_adapter_rxjava,
+                    retrofit2_converter_scalars,
+                    okhttp3_logging_interceptor,
+                    retrofit2_converter_moshi,
+                    moshi_kotlin,
+            ]
+    ]
+}
