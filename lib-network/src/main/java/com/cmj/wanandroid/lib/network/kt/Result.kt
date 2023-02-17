@@ -1,14 +1,11 @@
 package com.cmj.wanandroid.lib.network.kt
 
 import android.content.Context
-import android.content.Intent
 import android.widget.Toast
 import com.cmj.wanandroid.common.AppToast
 import com.cmj.wanandroid.common.log.LogMan
 import com.cmj.wanandroid.lib.network.BuildConfig
 import com.cmj.wanandroid.lib.network.R
-import com.cmj.wanandroid.lib.network.bean.WAndroidResponse
-import com.cmj.wanandroid.lib.network.bean.WAndroidResponse.Companion.CODE_UN_LOGGED_IN
 import java.net.UnknownHostException
 
 fun <T> Result<T>.getOrToastError(

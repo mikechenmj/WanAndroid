@@ -2,7 +2,7 @@ package com.cmj.wanandroid.content
 
 import android.app.Application
 import com.cmj.wanandroid.BaseViewModel
-import com.cmj.wanandroid.lib.network.bean.Content
+import com.cmj.wanandroid.lib.base.bean.Content
 
 open class ContentViewModel(app: Application) : BaseViewModel(app) {
 

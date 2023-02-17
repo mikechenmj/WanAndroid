@@ -3,10 +3,10 @@ package com.cmj.wanandroid.content
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.cmj.wanandroid.base.page.NormalPagingSource
+import com.cmj.wanandroid.lib.base.page.NormalPagingSource
 import com.cmj.wanandroid.lib.network.NetworkEngine
-import com.cmj.wanandroid.lib.network.api.ContentApi
-import com.cmj.wanandroid.lib.network.bean.Content
+import com.cmj.wanandroid.api.ContentApi
+import com.cmj.wanandroid.lib.base.bean.Content
 import com.cmj.wanandroid.lib.network.bean.PageModule
 import com.cmj.wanandroid.lib.network.kt.resultWABodyCall
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +30,15 @@ object ContentRepository {
                     if (page == -1) {
                         val top = api.articleTop().resultWABodyCall().await().getOrThrow()
                         top.forEach { it.top = true }
-                        PageModule(-1, 0, false, -1, top.size, top.size, top)
+                        PageModule(
+                            -1,
+                            0,
+                            false,
+                            -1,
+                            top.size,
+                            top.size,
+                            top
+                        )
                     } else {
                         api.articleList(page, size, orderType).resultWABodyCall().await()
                             .getOrThrow()

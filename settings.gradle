@@ -2,3 +2,4 @@ rootProject.name = "WanAndroid"
 include ':app'
 include ':lib-network'
 include ':lib-common'
+include ':lib-base'

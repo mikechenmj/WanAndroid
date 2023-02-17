@@ -1,11 +1,8 @@
 package com.cmj.wanandroid.content.web
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +14,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
-import com.cmj.wanandroid.base.BaseActivity
+import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.databinding.ActivityWebBinding
-import com.cmj.wanandroid.ui.getStatusBarHeight
+import com.cmj.wanandroid.lib.base.ui.getStatusBarHeight
 
 abstract class AbsWebActivity<VM: ViewModel> : BaseActivity<VM, ActivityWebBinding>() {
 

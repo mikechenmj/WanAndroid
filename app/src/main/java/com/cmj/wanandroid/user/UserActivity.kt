@@ -1,10 +1,10 @@
 package com.cmj.wanandroid.user
 
 import com.cmj.wanandroid.R
-import com.cmj.wanandroid.base.BaseActivity
+import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.common.log.LogMan
 import com.cmj.wanandroid.databinding.ActivityLoginBinding
-import com.cmj.wanandroid.kt.findNavigationById
+import com.cmj.wanandroid.lib.base.kt.findNavigationById
 
 class UserActivity : BaseActivity<UserViewModel, ActivityLoginBinding>() {
 

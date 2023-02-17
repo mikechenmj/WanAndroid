@@ -3,12 +3,12 @@ package com.cmj.wanandroid.user
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.cmj.wanandroid.base.page.NormalPagingSource
-import com.cmj.wanandroid.lib.network.bean.User
+import com.cmj.wanandroid.lib.base.page.NormalPagingSource
 import com.cmj.wanandroid.lib.network.NetworkEngine
-import com.cmj.wanandroid.lib.network.api.UserApi
-import com.cmj.wanandroid.lib.network.bean.LoginInfo
-import com.cmj.wanandroid.lib.network.bean.Message
+import com.cmj.wanandroid.api.UserApi
+import com.cmj.wanandroid.lib.base.bean.LoginInfo
+import com.cmj.wanandroid.lib.base.bean.Message
+import com.cmj.wanandroid.lib.base.bean.User
 import com.cmj.wanandroid.lib.network.kt.resultWABodyCall
 import kotlinx.coroutines.flow.Flow
 import retrofit2.await

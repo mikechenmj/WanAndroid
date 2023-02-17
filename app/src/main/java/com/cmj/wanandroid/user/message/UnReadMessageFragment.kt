@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cmj.wanandroid.base.page.AbsPagingFragment
+import com.cmj.wanandroid.lib.base.page.AbsPagingFragment
 import com.cmj.wanandroid.content.web.WebActivity
-import com.cmj.wanandroid.lib.network.bean.Message
+import com.cmj.wanandroid.lib.base.bean.Message
 import kotlinx.coroutines.flow.Flow
 
 class UnReadMessageFragment: AbsPagingFragment<ViewModel, MessageViewModel, Message>()  {

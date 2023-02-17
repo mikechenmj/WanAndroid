@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cmj.wanandroid.R
-import com.cmj.wanandroid.base.BaseActivity
-import com.cmj.wanandroid.base.ChildFragment
+import com.cmj.wanandroid.lib.base.BaseActivity
+import com.cmj.wanandroid.lib.base.ChildFragment
 import com.cmj.wanandroid.databinding.ActivityMessageBinding
-import com.cmj.wanandroid.ui.ScaleInTransformer
-import com.cmj.wanandroid.ui.TabMediator
+import com.cmj.wanandroid.lib.base.ui.ScaleInTransformer
+import com.cmj.wanandroid.lib.base.ui.TabMediator
 
 class MessageActivity : BaseActivity<ViewModel, ActivityMessageBinding>() {
 

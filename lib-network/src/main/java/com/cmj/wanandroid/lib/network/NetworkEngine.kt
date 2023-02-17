@@ -1,6 +1,7 @@
 package com.cmj.wanandroid.lib.network
 
 import android.webkit.CookieManager
+import com.cmj.wanandroid.common.CommonInitializer
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Cache
@@ -90,7 +91,7 @@ object NetworkEngine {
                 }
 
             })
-            .cache(Cache(NetworkInitializer.getContext().cacheDir, maxSize.toLong()))
+            .cache(Cache(CommonInitializer.getContext().cacheDir, maxSize.toLong()))
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)

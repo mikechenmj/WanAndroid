@@ -8,11 +8,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import com.cmj.wanandroid.R
-import com.cmj.wanandroid.base.BaseActivity
+import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.databinding.ActivitySearchBinding
-import com.cmj.wanandroid.kt.findNavigationById
+import com.cmj.wanandroid.lib.base.kt.findNavigationById
 import com.cmj.wanandroid.common.kt.nullOrValid
-import com.cmj.wanandroid.kt.getOrHandleError
+import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 

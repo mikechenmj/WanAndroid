@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.cmj.wanandroid.R
-import com.cmj.wanandroid.base.BaseFragment
+import com.cmj.wanandroid.lib.base.BaseFragment
 import com.cmj.wanandroid.databinding.FragmentLoginBinding
 import com.cmj.wanandroid.common.AppToast
 import com.cmj.wanandroid.common.kt.setOnClickListenerBuffer

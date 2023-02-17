@@ -35,5 +35,4 @@ android {
 
 dependencies {
     runDependencies(dependencies, lib_network)
-    implementation project(':lib-common')
 }

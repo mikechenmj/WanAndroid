@@ -8,7 +8,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.cmj.wanandroid.base.BaseActivity
+import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.content.ContentActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

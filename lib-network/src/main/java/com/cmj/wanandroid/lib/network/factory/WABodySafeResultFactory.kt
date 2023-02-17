@@ -1,7 +1,6 @@
 package com.cmj.wanandroid.lib.network.factory
 
 import com.cmj.wanandroid.lib.network.bean.WAndroidResponse
-import com.cmj.wanandroid.lib.network.bean.WAndroidResponse.ServiceException
 import retrofit2.HttpException
 import retrofit2.Response
 import java.lang.reflect.Type
@@ -16,7 +15,7 @@ class WABodySafeResultFactory : AbsSafeResultCallAdapterFactory<WAndroidResponse
                 if (body.code == WAndroidResponse.CODE_SUCCESS) {
                     Result.success(body.getOrThrow())
                 } else {
-                    Result.failure(ServiceException(body.code, body.msg))
+                    Result.failure(WAndroidResponse.ServiceException(body.code, body.msg))
                 }
             } else {
                 val throwable = HttpException(response)
@@ -30,6 +29,7 @@ class WABodySafeResultFactory : AbsSafeResultCallAdapterFactory<WAndroidResponse
     override fun onFailure(t: Throwable): Result<Any> {
         return Result.failure(t)
     }
+
     override fun checkResultParameterUpperBound(type: Type): Type? {
         if (getRawType(type) == WAndroidResponse::class.java) {
             return null

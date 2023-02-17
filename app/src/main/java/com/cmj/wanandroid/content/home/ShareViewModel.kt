@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.cmj.wanandroid.content.ContentRepository
 import com.cmj.wanandroid.content.ContentViewModel
-import com.cmj.wanandroid.lib.network.bean.Content
+import com.cmj.wanandroid.lib.base.bean.Content
 import kotlinx.coroutines.flow.Flow
 
 class ShareViewModel(application: Application) : ContentViewModel(application) {

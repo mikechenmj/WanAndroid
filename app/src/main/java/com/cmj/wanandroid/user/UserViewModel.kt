@@ -3,8 +3,8 @@ package com.cmj.wanandroid.user
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.cmj.wanandroid.BaseViewModel
-import com.cmj.wanandroid.lib.network.bean.LoginInfo
-import com.cmj.wanandroid.lib.network.bean.User
+import com.cmj.wanandroid.lib.base.bean.LoginInfo
+import com.cmj.wanandroid.lib.base.bean.User
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 

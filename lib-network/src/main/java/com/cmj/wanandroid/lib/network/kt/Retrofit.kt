@@ -1,8 +1,7 @@
 package com.cmj.wanandroid.lib.network.kt
 
-import com.cmj.wanandroid.lib.network.factory.SkipSafeCallAdapter
 import com.cmj.wanandroid.lib.network.bean.WAndroidResponse
-import com.cmj.wanandroid.lib.network.bean.WAndroidResponse.ServiceException
+import com.cmj.wanandroid.lib.network.factory.SkipSafeCallAdapter
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -219,7 +218,12 @@ class SafeResultWABodyCall<T>(delegate: Call<WAndroidResponse<T>>) : AbsDelegate
                 if (body.code == WAndroidResponse.CODE_SUCCESS) {
                     Result.success(body.getOrThrow())
                 } else {
-                    Result.failureAndLogDebug(ServiceException(body.code, body.msg))
+                    Result.failureAndLogDebug(
+                        WAndroidResponse.ServiceException(
+                            body.code,
+                            body.msg
+                        )
+                    )
                 }
             } else {
                 val throwable = HttpException(response)
@@ -244,7 +248,12 @@ class SafeWACall<T>(delegate: Call<WAndroidResponse<T>>) : AbsDelegateCall<WAndr
                 if (rawBody.code == WAndroidResponse.CODE_SUCCESS) {
                     WAndroidResponse.Ok(rawBody.data!!)
                 } else {
-                    WAndroidResponse.Error(ServiceException(rawBody.code, rawBody.msg))
+                    WAndroidResponse.Error(
+                        WAndroidResponse.ServiceException(
+                            rawBody.code,
+                            rawBody.msg
+                        )
+                    )
                 }
             } else {
                 val throwable = HttpException(response)

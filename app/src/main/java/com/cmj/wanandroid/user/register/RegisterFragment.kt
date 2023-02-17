@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.cmj.wanandroid.R
-import com.cmj.wanandroid.base.BaseFragment
+import com.cmj.wanandroid.lib.base.BaseFragment
 import com.cmj.wanandroid.databinding.FragmentRegisterBinding
 import com.cmj.wanandroid.common.AppToast
 import com.cmj.wanandroid.lib.network.kt.getOrToastError

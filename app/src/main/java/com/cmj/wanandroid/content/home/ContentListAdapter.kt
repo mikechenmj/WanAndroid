@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.content.home.ContentListAdapter.ContentAdapterHolder
 import com.cmj.wanandroid.databinding.ContentItemBinding
-import com.cmj.wanandroid.lib.network.bean.Content
-import kotlinx.android.synthetic.main.content_item.view.star
+import com.cmj.wanandroid.lib.base.bean.Content
 
 class ContentListAdapter constructor(
     val context: Context,
@@ -51,8 +50,8 @@ class ContentListAdapter constructor(
         }
         binding.star.setOnClickListener {
             val item = getItem(holder.bindingAdapterPosition) ?: return@setOnClickListener
-            if (item.collect == it.star.isSelected) onStarClick(item, it)
-            it.star.isSelected = !it.star.isSelected
+            if (item.collect == binding.star.isSelected) onStarClick(item, it)
+            binding.star.isSelected = !binding.star.isSelected
         }
         binding.delete.setOnClickListener {
             val item = getItem(holder.bindingAdapterPosition) ?: return@setOnClickListener

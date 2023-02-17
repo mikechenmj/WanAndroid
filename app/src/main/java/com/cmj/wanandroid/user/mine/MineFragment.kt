@@ -12,13 +12,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.databinding.FragmentMineBinding
-import com.cmj.wanandroid.content.AbsDecorFragment
+import com.cmj.wanandroid.lib.base.AbsDecorFragment
 import com.cmj.wanandroid.content.private.PrivateArticleFragment
 import com.cmj.wanandroid.content.star.StarArticleFragment
 import com.cmj.wanandroid.databinding.UserInfoLayoutBinding
-import  com.cmj.wanandroid.kt.getOrHandleError
+import  com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.cmj.wanandroid.lib.network.kt.getOrToastError
-import com.cmj.wanandroid.ui.TabMediator
+import com.cmj.wanandroid.lib.base.ui.TabMediator
 import com.cmj.wanandroid.user.UserActivity
 import com.cmj.wanandroid.user.UserViewModel
 import com.cmj.wanandroid.user.message.MessageActivity

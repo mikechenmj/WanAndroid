@@ -26,33 +26,21 @@ static def runDependencies(DependencyHandler dependencyHandler, Object module) {
     module["testApi"].each {
         dependencyHandler.testApi it
     }
+
+    module["project"].each {
+        Map<String, String> project = new HashMap<>()
+        project.put("path", it)
+        dependencyHandler.add("implementation", dependencyHandler.project(project))
+    }
 }
 
 ext {
     ext.runDependencies = this.&runDependencies
 
+
     app = [
             "implementation"       : [
-                    material,
-                    constraintlayout,
-                    recyclerview,
-                    lifecycle_runtime,
-                    lifecycle_runtime_ktx,
-                    lifecycle_livedata_ktx,
-                    lifecycle_viewmodel_ktx,
-                    lifecycleProcess,
-                    fragment_ktx,
-                    activity_ktx,
-                    navigation_fragment_ktx,
-                    navigation_ui_ktx,
-                    navigation_dynamic_features_fragment,
-                    databinding_runtime,
                     leakcanary,
-                    mmkv,
-                    easypermissions,
-                    glide,
-                    paging,
-                    flex
             ],
             "debugImplementation"  : [
                     blockcanary,
@@ -60,16 +48,18 @@ ext {
             "releaseImplementation": [
                     blockcanary_no_op,
             ],
-            "kapt"                     : [
+            "kapt"                 : [
                     lifecycle_kapt,
             ],
+            "project"              : [
+                    ":lib-base",
+                    ":lib-network",
+                    ":lib-common"
+            ]
     ]
 
     lib_network = [
-            "implementation": [
-                    startup,
-            ],
-            "api": [
+            "api"           : [
                     retrofit2,
                     retrofit2_converter_gson,
                     retrofit2_adapter_rxjava,
@@ -78,10 +68,16 @@ ext {
                     retrofit2_converter_moshi,
                     moshi_kotlin,
             ],
+            "project"       : [
+                    ":lib-common"
+            ]
     ]
 
     lib_common = [
-            "api": [
+            "implementation": [
+                    startup,
+            ],
+            "api"           : [
                     core_ktx,
                     appcompat,
                     coroutines_core,
@@ -97,5 +93,33 @@ ext {
                     extjunit,
                     espresso,
             ],
+    ]
+
+    lib_base = [
+            "api"    : [
+                    material,
+                    constraintlayout,
+                    recyclerview,
+                    lifecycle_runtime,
+                    lifecycle_runtime_ktx,
+                    lifecycle_livedata_ktx,
+                    lifecycle_viewmodel_ktx,
+                    lifecycleProcess,
+                    fragment_ktx,
+                    activity_ktx,
+                    easypermissions,
+                    databinding_runtime,
+                    mmkv,
+                    glide,
+                    paging,
+                    flex,
+                    navigation_fragment_ktx,
+                    navigation_ui_ktx,
+                    navigation_dynamic_features_fragment,
+            ],
+            "project": [
+                    ":lib-common",
+                    ":lib-network",
+            ]
     ]
 }

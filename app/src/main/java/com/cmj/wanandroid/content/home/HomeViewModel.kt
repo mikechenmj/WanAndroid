@@ -6,8 +6,8 @@ import com.cmj.wanandroid.BaseViewModel
 import com.cmj.wanandroid.common.kt.castAndEmit
 import com.cmj.wanandroid.common.kt.doWhileSubscribed
 import com.cmj.wanandroid.content.ContentRepository
+import com.cmj.wanandroid.lib.base.bean.Banner
 import com.cmj.wanandroid.lib.network.NetworkUtil
-import com.cmj.wanandroid.lib.network.bean.Banner
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
