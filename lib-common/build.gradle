@@ -1,21 +1,17 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
     compileSdk rootProject.ext.compileSdk
 
     defaultConfig {
-        applicationId "com.cmj.wanandroid"
         minSdk rootProject.ext.minSdk
         targetSdk rootProject.ext.targetSdk
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -31,13 +27,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        viewBinding true
-    }
+
+    resourcePrefix "common_"
 }
 
 dependencies {
-    runDependencies(dependencies, app)
-    implementation project(':lib-network')
-    implementation project(':lib-common')
+    runDependencies(dependencies, lib_common)
 }

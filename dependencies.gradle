@@ -20,22 +20,22 @@ static def runDependencies(DependencyHandler dependencyHandler, Object module) {
     module["kapt"].each {
         dependencyHandler.kapt it
     }
+    module["androidTestApi"].each {
+        dependencyHandler.androidTestApi it
+    }
+    module["testApi"].each {
+        dependencyHandler.testApi it
+    }
 }
 
 ext {
     ext.runDependencies = this.&runDependencies
 
     app = [
-            "implementation"           : [
-                    core_ktx,
-                    appcompat,
+            "implementation"       : [
                     material,
                     constraintlayout,
-                    annotation,
-                    legacy,
                     recyclerview,
-                    coroutines_core,
-                    coroutines_android,
                     lifecycle_runtime,
                     lifecycle_runtime_ktx,
                     lifecycle_livedata_ktx,
@@ -48,24 +48,16 @@ ext {
                     navigation_dynamic_features_fragment,
                     databinding_runtime,
                     leakcanary,
-                    utilcode,
                     mmkv,
                     easypermissions,
                     glide,
                     paging,
                     flex
             ],
-            "testImplementation"       : [
-                    junit,
-            ],
-            "androidTestImplementation": [
-                    extjunit,
-                    espresso,
-            ],
-            "debugImplementation"      : [
+            "debugImplementation"  : [
                     blockcanary,
             ],
-            "releaseImplementation"    : [
+            "releaseImplementation": [
                     blockcanary_no_op,
             ],
             "kapt"                     : [
@@ -75,9 +67,9 @@ ext {
 
     lib_network = [
             "implementation": [
-                    core_ktx,
+                    startup,
             ],
-            "api"           : [
+            "api": [
                     retrofit2,
                     retrofit2_converter_gson,
                     retrofit2_adapter_rxjava,
@@ -85,6 +77,25 @@ ext {
                     okhttp3_logging_interceptor,
                     retrofit2_converter_moshi,
                     moshi_kotlin,
-            ]
+            ],
+    ]
+
+    lib_common = [
+            "api": [
+                    core_ktx,
+                    appcompat,
+                    coroutines_core,
+                    coroutines_android,
+                    annotation,
+                    legacy,
+                    utilcode,
+            ],
+            "testApi"       : [
+                    junit,
+            ],
+            "androidTestApi": [
+                    extjunit,
+                    espresso,
+            ],
     ]
 }

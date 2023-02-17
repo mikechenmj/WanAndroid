@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33
+    compileSdk rootProject.ext.compileSdk
 
     defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 33
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -35,5 +35,5 @@ android {
 
 dependencies {
     runDependencies(dependencies, lib_network)
-
+    implementation project(':lib-common')
 }
