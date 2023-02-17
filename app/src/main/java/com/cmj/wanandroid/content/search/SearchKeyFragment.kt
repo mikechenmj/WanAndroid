@@ -11,7 +11,7 @@ import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseFragment
 import com.cmj.wanandroid.databinding.FragmentSearchKeyBinding
 import com.cmj.wanandroid.kt.getOrHandleError
-import com.cmj.wanandroid.network.bean.Hotkey
+import com.cmj.wanandroid.lib.network.bean.Hotkey
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.collect
 

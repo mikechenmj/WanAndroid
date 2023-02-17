@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.cmj.wanandroid.BaseViewModel
-import com.cmj.wanandroid.network.bean.Message
+import com.cmj.wanandroid.lib.network.bean.Message
 import com.cmj.wanandroid.user.UserRepository
 import kotlinx.coroutines.flow.Flow
 

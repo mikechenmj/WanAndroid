@@ -1,6 +1,5 @@
 package com.cmj.wanandroid.user.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -9,10 +8,9 @@ import androidx.core.widget.doOnTextChanged
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseFragment
 import com.cmj.wanandroid.databinding.FragmentLoginBinding
-import com.cmj.wanandroid.kt.getOrToastError
-import com.cmj.wanandroid.content.ContentActivity
-import com.cmj.wanandroid.kt.setOnClickListenerBuffer
-import com.cmj.wanandroid.ui.AppToast
+import com.cmj.wanandroid.common.AppToast
+import com.cmj.wanandroid.common.kt.setOnClickListenerBuffer
+import com.cmj.wanandroid.lib.network.kt.getOrToastError
 import com.cmj.wanandroid.user.UserActivity
 import com.cmj.wanandroid.user.UserViewModel
 import kotlinx.coroutines.flow.launchIn

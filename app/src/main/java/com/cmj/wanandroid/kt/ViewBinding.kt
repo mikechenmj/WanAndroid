@@ -13,10 +13,6 @@ import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-/**
- * Author:         songtao
- * CreateDate:     2020/12/1 16:52
- */
 val HUMP_PATTERN: Pattern = Pattern.compile("[A-Z]")
 
 fun <VB : ViewBinding> getLayoutResource(context: Context, clazz: Class<*>): Int {

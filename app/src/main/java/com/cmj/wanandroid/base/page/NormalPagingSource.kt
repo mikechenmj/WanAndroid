@@ -18,7 +18,7 @@ package com.cmj.wanandroid.base.page
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.cmj.wanandroid.network.bean.PageModule
+import com.cmj.wanandroid.lib.network.bean.PageModule
 
 class NormalPagingSource<T: Any>(
     private val start: Int = 0,

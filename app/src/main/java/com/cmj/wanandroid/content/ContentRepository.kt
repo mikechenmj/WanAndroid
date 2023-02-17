@@ -4,11 +4,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.cmj.wanandroid.base.page.NormalPagingSource
-import com.cmj.wanandroid.network.NetworkEngine
-import com.cmj.wanandroid.network.api.ContentApi
-import com.cmj.wanandroid.network.bean.Content
-import com.cmj.wanandroid.network.bean.PageModule
-import com.cmj.wanandroid.network.kt.resultWABodyCall
+import com.cmj.wanandroid.lib.network.NetworkEngine
+import com.cmj.wanandroid.lib.network.api.ContentApi
+import com.cmj.wanandroid.lib.network.bean.Content
+import com.cmj.wanandroid.lib.network.bean.PageModule
+import com.cmj.wanandroid.lib.network.kt.resultWABodyCall
 import kotlinx.coroutines.flow.Flow
 import retrofit2.await
 

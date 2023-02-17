@@ -11,13 +11,10 @@ import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseActivity
 import com.cmj.wanandroid.databinding.ActivitySearchBinding
 import com.cmj.wanandroid.kt.findNavigationById
+import com.cmj.wanandroid.common.kt.nullOrValid
 import com.cmj.wanandroid.kt.getOrHandleError
-import com.cmj.wanandroid.kt.nullOrValid
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.yield
 
 class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
 

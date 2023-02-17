@@ -2,7 +2,6 @@ package com.cmj.wanandroid.content.home
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.OnLayoutChangeListener
 import android.view.ViewGroup
@@ -31,7 +30,7 @@ import com.cmj.wanandroid.content.AbsDecorFragment
 import com.cmj.wanandroid.content.home.HomeFragment.BannerAdapter.BannerVH
 import com.cmj.wanandroid.content.web.WebActivity
 import com.cmj.wanandroid.databinding.BannerLayoutBinding
-import com.cmj.wanandroid.network.bean.Banner
+import com.cmj.wanandroid.lib.network.bean.Banner
 import com.cmj.wanandroid.ui.RingPageTransformer
 import com.cmj.wanandroid.ui.TabMediator
 import com.google.android.material.tabs.TabLayout

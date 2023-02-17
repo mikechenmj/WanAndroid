@@ -21,10 +21,6 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-/**
- * Author:         songtao
- * CreateDate:     2020/12/1 12:52
- */
 inline fun <reified VB : ViewBinding> inflate(): ReadOnlyProperty<Any, VB> {
     return ViewBindingProperty(null, VB::class.java)
 }

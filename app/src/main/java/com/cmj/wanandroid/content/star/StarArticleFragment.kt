@@ -7,8 +7,8 @@ import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.FragmentStubActivity
 import com.cmj.wanandroid.content.AbsContentPagingFragment
 import com.cmj.wanandroid.content.home.ContentListAdapter
-import com.cmj.wanandroid.kt.getOrHandleError
-import com.cmj.wanandroid.network.bean.Content
+import  com.cmj.wanandroid.kt.getOrHandleError
+import com.cmj.wanandroid.lib.network.bean.Content
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

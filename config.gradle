@@ -26,6 +26,9 @@ ext {
     extjunit = 'androidx.test.ext:junit:1.1.2' //androidTestImplementation
     espresso = 'androidx.test.espresso:espresso-core:3.3.0' //androidTestImplementation
 
+    // app startup
+    startup = 'androidx.startup:startup-runtime:1.0.0'
+
     //协程
     coroutines_core = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
     coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"

@@ -11,7 +11,7 @@ import com.cmj.wanandroid.base.page.AbsPagingFragment
 import com.cmj.wanandroid.content.web.ContentWebActivity
 import com.cmj.wanandroid.content.home.ContentListAdapter
 import com.cmj.wanandroid.kt.handleIfError
-import com.cmj.wanandroid.network.bean.Content
+import com.cmj.wanandroid.lib.network.bean.Content
 import kotlinx.coroutines.*
 
 abstract class AbsContentPagingFragment<VM : ViewModel, AVM : ContentViewModel> :

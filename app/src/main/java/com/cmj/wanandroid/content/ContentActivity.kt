@@ -1,8 +1,5 @@
 package com.cmj.wanandroid.content
 
-import android.animation.LayoutTransition
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle

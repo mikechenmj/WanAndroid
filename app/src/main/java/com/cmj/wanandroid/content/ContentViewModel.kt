@@ -1,9 +1,8 @@
 package com.cmj.wanandroid.content
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
 import com.cmj.wanandroid.BaseViewModel
-import com.cmj.wanandroid.network.bean.Content
+import com.cmj.wanandroid.lib.network.bean.Content
 
 open class ContentViewModel(app: Application) : BaseViewModel(app) {
 

@@ -16,13 +16,12 @@ import com.cmj.wanandroid.content.AbsDecorFragment
 import com.cmj.wanandroid.content.private.PrivateArticleFragment
 import com.cmj.wanandroid.content.star.StarArticleFragment
 import com.cmj.wanandroid.databinding.UserInfoLayoutBinding
-import com.cmj.wanandroid.kt.getOrHandleError
-import com.cmj.wanandroid.kt.getOrToastError
+import  com.cmj.wanandroid.kt.getOrHandleError
+import com.cmj.wanandroid.lib.network.kt.getOrToastError
 import com.cmj.wanandroid.ui.TabMediator
 import com.cmj.wanandroid.user.UserActivity
 import com.cmj.wanandroid.user.UserViewModel
 import com.cmj.wanandroid.user.message.MessageActivity
-import com.cmj.wanandroid.user.message.ReadMessageFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 

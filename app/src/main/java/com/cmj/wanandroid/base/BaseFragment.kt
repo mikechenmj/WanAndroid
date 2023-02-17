@@ -12,7 +12,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.coroutineScope
 import androidx.viewbinding.ViewBinding
-import com.cmj.wanandroid.base.log.LogMan
+import com.cmj.wanandroid.common.log.LogMan
 import com.cmj.wanandroid.kt.genericBinding
 import com.cmj.wanandroid.ui.LoadingDialog
 import com.cmj.wanandroid.kt.genericActivityViewModels

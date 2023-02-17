@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.base.BaseFragment
 import com.cmj.wanandroid.databinding.FragmentRegisterBinding
-import com.cmj.wanandroid.kt.getOrToastError
-import com.cmj.wanandroid.ui.AppToast
+import com.cmj.wanandroid.common.AppToast
+import com.cmj.wanandroid.lib.network.kt.getOrToastError
 import com.cmj.wanandroid.user.UserViewModel
 
 class RegisterFragment : BaseFragment<ViewModel, UserViewModel, FragmentRegisterBinding>() {

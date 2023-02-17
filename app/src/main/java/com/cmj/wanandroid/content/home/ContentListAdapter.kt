@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.content.home.ContentListAdapter.ContentAdapterHolder
 import com.cmj.wanandroid.databinding.ContentItemBinding
-import com.cmj.wanandroid.network.bean.Content
+import com.cmj.wanandroid.lib.network.bean.Content
 import kotlinx.android.synthetic.main.content_item.view.star
 
 class ContentListAdapter constructor(
     val context: Context,
     val contentConfig: ContentConfig,
     private val onItemClick: (Content) -> Unit = {},
-    private val onStarClick: (Content, View) -> Unit = {_, _ ->},
-    private val onDeleteClick: (Content, Int) -> Unit = {_, _ ->}
+    private val onStarClick: (Content, View) -> Unit = { _, _ ->},
+    private val onDeleteClick: (Content, Int) -> Unit = { _, _ ->}
 ) : PagingDataAdapter<Content, ContentAdapterHolder>(object : DiffUtil.ItemCallback<Content>() {
     override fun areItemsTheSame(oldItem: Content, newItem: Content): Boolean {
         return oldItem.id == newItem.id
