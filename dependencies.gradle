@@ -56,10 +56,19 @@ ext {
                     ":lib-network",
                     ":lib-common",
                     ":data-content",
+                    ":data-user",
             ]
     ]
 
     data_content = [
+            "project": [
+                    ":lib-base",
+                    ":lib-common",
+                    ":lib-network",
+            ]
+    ]
+
+    data_user = [
             "project": [
                     ":lib-base",
                     ":lib-common",

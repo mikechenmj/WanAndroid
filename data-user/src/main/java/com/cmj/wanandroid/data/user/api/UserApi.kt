@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.api
+package com.cmj.wanandroid.data.user.api
 
 import com.cmj.wanandroid.lib.base.bean.LoginInfo
 import com.cmj.wanandroid.lib.base.bean.Message

@@ -1,11 +1,11 @@
-package com.cmj.wanandroid.user
+package com.cmj.wanandroid.data.user
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.cmj.wanandroid.data.user.api.UserApi
 import com.cmj.wanandroid.lib.base.page.NormalPagingSource
 import com.cmj.wanandroid.lib.network.NetworkEngine
-import com.cmj.wanandroid.api.UserApi
 import com.cmj.wanandroid.lib.base.bean.LoginInfo
 import com.cmj.wanandroid.lib.base.bean.Message
 import com.cmj.wanandroid.lib.base.bean.User

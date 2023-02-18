@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.api
+package com.cmj.wanandroid.data.user.api
 
 import com.cmj.wanandroid.lib.base.bean.Todo
 import com.cmj.wanandroid.lib.network.bean.PageModule

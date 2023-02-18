@@ -2,6 +2,7 @@ package com.cmj.wanandroid.user
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
+import com.cmj.wanandroid.data.user.UserRepository
 import com.cmj.wanandroid.lib.base.BaseViewModel
 import com.cmj.wanandroid.lib.base.bean.LoginInfo
 import com.cmj.wanandroid.lib.base.bean.User
