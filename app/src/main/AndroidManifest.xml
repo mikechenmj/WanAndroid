@@ -31,12 +31,12 @@
             android:theme="@style/Search" />
 
         <activity
-            android:name=".content.web.WebActivity"
+            android:name="com.cmj.wanandroid.lib.base.web.WebActivity"
             android:process=":web"
             android:theme="@style/Web" />
 
         <activity
-            android:name="com.cmj.wanandroid.content.web.ContentWebActivity"
+            android:name="com.cmj.wanandroid.data.content.ContentWebActivity"
             android:process=":web"
             android:theme="@style/Web" />
 

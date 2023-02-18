@@ -2,11 +2,11 @@ package com.cmj.wanandroid.content.home
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.cmj.wanandroid.BaseViewModel
+import com.cmj.wanandroid.lib.base.BaseViewModel
 import com.cmj.wanandroid.common.kt.castAndEmit
 import com.cmj.wanandroid.common.kt.doWhileSubscribed
-import com.cmj.wanandroid.content.ContentRepository
-import com.cmj.wanandroid.lib.base.bean.Banner
+import com.cmj.wanandroid.data.content.ContentRepository
+import com.cmj.wanandroid.data.content.bean.Banner
 import com.cmj.wanandroid.lib.network.NetworkUtil
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

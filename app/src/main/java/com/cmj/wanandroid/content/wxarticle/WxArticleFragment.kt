@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
 import androidx.paging.PagingData
 import com.cmj.wanandroid.R
-import com.cmj.wanandroid.content.AbsContentPagingFragment
-import com.cmj.wanandroid.content.home.ContentListAdapter
+import com.cmj.wanandroid.data.content.AbsContentPagingFragment
+import com.cmj.wanandroid.data.content.ContentListAdapter
 import com.cmj.wanandroid.databinding.ContentFlexTagLayoutBinding
 import  com.cmj.wanandroid.lib.base.kt.getOrHandleError
-import com.cmj.wanandroid.lib.base.bean.Content
-import com.cmj.wanandroid.lib.base.bean.WxChapter
+import com.cmj.wanandroid.data.content.bean.Content
+import com.cmj.wanandroid.data.content.bean.WxChapter
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

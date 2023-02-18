@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="date_label">时间：%1$s</string>
     <string name="need_permission_title">需要到设置授予权限</string>
     <string name="need_permission_rationale">App 的核心权限未被授予，请前往设置进行授予</string>
 </resources>

@@ -26,11 +26,8 @@
     <string name="ask_label">每日一问</string>
     <string name="share_label">广场</string>
 
-    <string name="fresh_label">新发布</string>
-    <string name="top_label">置顶</string>
     <string name="local_publish_label">本站发布</string>
     <string name="q_and_a_label">问答</string>
-    <string name="author_label">作者：%1$s</string>
     <string name="share_user_label">分享人：%1$s</string>
     <string name="category_label">分类</string>
     <string name="date_label">时间：%1$s</string>

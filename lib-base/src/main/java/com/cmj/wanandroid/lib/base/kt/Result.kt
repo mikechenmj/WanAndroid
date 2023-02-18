@@ -21,6 +21,7 @@ fun <T> Result<T>.handleIfError(context: Context): Boolean {
 fun handleError(context: Context, exception: Throwable): Boolean {
     if (exception is WAndroidResponse.ServiceException) {
         if (exception.errorCode == CODE_UN_LOGGED_IN) {
+            // to do
 //            context.startActivity(Intent(context, UserActivity::class.java))
         }
     }

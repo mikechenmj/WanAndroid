@@ -28,9 +28,9 @@ import com.cmj.wanandroid.lib.base.image.commonOption
 import com.cmj.wanandroid.databinding.FragmentHomeBinding
 import com.cmj.wanandroid.lib.base.AbsDecorFragment
 import com.cmj.wanandroid.content.home.HomeFragment.BannerAdapter.BannerVH
-import com.cmj.wanandroid.content.web.WebActivity
+import com.cmj.wanandroid.lib.base.web.WebActivity
 import com.cmj.wanandroid.databinding.BannerLayoutBinding
-import com.cmj.wanandroid.lib.base.bean.Banner
+import com.cmj.wanandroid.data.content.bean.Banner
 import com.cmj.wanandroid.lib.base.ui.RingPageTransformer
 import com.cmj.wanandroid.lib.base.ui.TabMediator
 import com.google.android.material.tabs.TabLayout

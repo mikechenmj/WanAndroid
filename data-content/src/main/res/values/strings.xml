@@ -1,0 +1,5 @@
+<resources>
+    <string name="top_label">置顶</string>
+    <string name="author_label">作者：%1$s</string>
+    <string name="fresh_label">新发布</string>
+</resources>

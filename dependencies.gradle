@@ -54,45 +54,17 @@ ext {
             "project"              : [
                     ":lib-base",
                     ":lib-network",
-                    ":lib-common"
+                    ":lib-common",
+                    ":data-content",
             ]
     ]
 
-    lib_network = [
-            "api"           : [
-                    retrofit2,
-                    retrofit2_converter_gson,
-                    retrofit2_adapter_rxjava,
-                    retrofit2_converter_scalars,
-                    okhttp3_logging_interceptor,
-                    retrofit2_converter_moshi,
-                    moshi_kotlin,
-            ],
-            "project"       : [
-                    ":lib-common"
+    data_content = [
+            "project": [
+                    ":lib-base",
+                    ":lib-common",
+                    ":lib-network",
             ]
-    ]
-
-    lib_common = [
-            "implementation": [
-                    startup,
-            ],
-            "api"           : [
-                    core_ktx,
-                    appcompat,
-                    coroutines_core,
-                    coroutines_android,
-                    annotation,
-                    legacy,
-                    utilcode,
-            ],
-            "testApi"       : [
-                    junit,
-            ],
-            "androidTestApi": [
-                    extjunit,
-                    espresso,
-            ],
     ]
 
     lib_base = [
@@ -121,5 +93,42 @@ ext {
                     ":lib-common",
                     ":lib-network",
             ]
+    ]
+
+    lib_network = [
+            "api"    : [
+                    retrofit2,
+                    retrofit2_converter_gson,
+                    retrofit2_adapter_rxjava,
+                    retrofit2_converter_scalars,
+                    okhttp3_logging_interceptor,
+                    retrofit2_converter_moshi,
+                    moshi_kotlin,
+            ],
+            "project": [
+                    ":lib-common"
+            ]
+    ]
+
+    lib_common = [
+            "implementation": [
+                    startup,
+            ],
+            "api"           : [
+                    core_ktx,
+                    appcompat,
+                    coroutines_core,
+                    coroutines_android,
+                    annotation,
+                    legacy,
+                    utilcode,
+            ],
+            "testApi"       : [
+                    junit,
+            ],
+            "androidTestApi": [
+                    extjunit,
+                    espresso,
+            ],
     ]
 }

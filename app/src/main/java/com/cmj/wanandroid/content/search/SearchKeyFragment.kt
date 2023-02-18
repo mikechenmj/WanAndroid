@@ -10,7 +10,7 @@ import androidx.lifecycle.addRepeatingJob
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseFragment
 import com.cmj.wanandroid.databinding.FragmentSearchKeyBinding
-import com.cmj.wanandroid.lib.base.bean.Hotkey
+import com.cmj.wanandroid.data.content.bean.Hotkey
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.collect
