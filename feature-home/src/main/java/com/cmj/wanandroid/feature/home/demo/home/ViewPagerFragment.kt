@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.home
+package com.cmj.wanandroid.feature.home.demo.home
 
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +10,8 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cmj.wanandroid.R
-import com.cmj.wanandroid.content.home.ViewPagerFragment.Adapter.Holder
+import com.cmj.wanandroid.feature.home.R
+import com.cmj.wanandroid.feature.home.demo.home.ViewPagerFragment.Adapter.Holder
 
 class ViewPagerFragment(val color: Int) : Fragment() {
 

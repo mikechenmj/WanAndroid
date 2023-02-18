@@ -15,7 +15,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseActivity
-import com.cmj.wanandroid.content.home.HomeFragment
+import com.cmj.wanandroid.feature.home.demo.home.HomeFragment
 import com.cmj.wanandroid.content.project.ProjectFragment
 import com.cmj.wanandroid.content.search.SearchActivity
 import com.cmj.wanandroid.content.search.SearchViewModel

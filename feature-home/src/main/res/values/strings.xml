@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">feature-home</string>
+
+    <string name="recommend_label">热门博客</string>
+    <string name="ask_label">每日一问</string>
+    <string name="share_label">广场</string>
+</resources>

@@ -1,7 +1,8 @@
-package com.cmj.wanandroid.content.home
+package com.cmj.wanandroid.feature.home.demo.home
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.OnLayoutChangeListener
 import android.view.ViewGroup
@@ -22,15 +23,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.ChildFragment
 import com.cmj.wanandroid.lib.base.image.commonOption
-import com.cmj.wanandroid.databinding.FragmentHomeBinding
 import com.cmj.wanandroid.lib.base.AbsDecorFragment
-import com.cmj.wanandroid.content.home.HomeFragment.BannerAdapter.BannerVH
+import com.cmj.wanandroid.feature.home.demo.home.HomeFragment.BannerAdapter.BannerVH
 import com.cmj.wanandroid.lib.base.web.WebActivity
-import com.cmj.wanandroid.databinding.BannerLayoutBinding
 import com.cmj.wanandroid.data.content.bean.Banner
+import com.cmj.wanandroid.feature.home.R
+import com.cmj.wanandroid.feature.home.databinding.BannerLayoutBinding
+import com.cmj.wanandroid.feature.home.databinding.FragmentHomeBinding
 import com.cmj.wanandroid.lib.base.ui.RingPageTransformer
 import com.cmj.wanandroid.lib.base.ui.TabMediator
 import com.google.android.material.tabs.TabLayout
@@ -152,7 +153,8 @@ class HomeFragment : AbsDecorFragment<HomeViewModel, ViewModel, FragmentHomeBind
         }
     }
 
-    inner class BannerAdapter(private val viewPager2: ViewPager2) : RecyclerView.Adapter<BannerVH>() {
+    inner class BannerAdapter(private val viewPager2: ViewPager2) :
+        RecyclerView.Adapter<BannerVH>() {
 
         private lateinit var banners: List<Banner>
 
@@ -181,7 +183,8 @@ class HomeFragment : AbsDecorFragment<HomeViewModel, ViewModel, FragmentHomeBind
             return position % getData().size
         }
 
-        inner class BannerVH(private val binding: BannerLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        inner class BannerVH(private val binding: BannerLayoutBinding) :
+            RecyclerView.ViewHolder(binding.root) {
 
             fun bind(position: Int) {
                 val banner = banners[position]

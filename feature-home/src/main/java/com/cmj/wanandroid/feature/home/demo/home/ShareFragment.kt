@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.home
+package com.cmj.wanandroid.feature.home.demo.home
 
 
 import androidx.lifecycle.ViewModel
