@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.feature.home.demo.home
+package com.cmj.wanandroid.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData

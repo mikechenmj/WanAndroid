@@ -1,26 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.WanAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorOnPrimary">@color/color_on_primary</item>
-
-        <item name="android:textColorSecondary">@color/text_color_secondary</item>
-
-        <!--        <item name="android:textColorPrimary">@color/color_484848</item>-->
-        <!--        <item name="android:textColorHint">@color/color_a0a6b1</item>-->
-
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-
-        <!-- 控件交互颜色，比如 editText 的游标 -->
-        <item name="colorAccent">?attr/colorPrimary</item>
-
-        <item name="android:windowBackground">@color/window_background_color</item>
-    </style>
-
     <style name="Start" parent="Theme.WanAndroid">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/layer_splash</item>

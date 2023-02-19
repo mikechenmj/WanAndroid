@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.feature.home.demo.home
+package com.cmj.wanandroid.feature.home
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope

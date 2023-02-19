@@ -1,8 +1,7 @@
-package com.cmj.wanandroid.feature.home.demo.home
+package com.cmj.wanandroid.feature.home
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.OnLayoutChangeListener
 import android.view.ViewGroup
@@ -26,10 +25,9 @@ import com.bumptech.glide.request.target.Target
 import com.cmj.wanandroid.lib.base.ChildFragment
 import com.cmj.wanandroid.lib.base.image.commonOption
 import com.cmj.wanandroid.lib.base.AbsDecorFragment
-import com.cmj.wanandroid.feature.home.demo.home.HomeFragment.BannerAdapter.BannerVH
+import com.cmj.wanandroid.feature.home.HomeFragment.BannerAdapter.BannerVH
 import com.cmj.wanandroid.lib.base.web.WebActivity
 import com.cmj.wanandroid.data.content.bean.Banner
-import com.cmj.wanandroid.feature.home.R
 import com.cmj.wanandroid.feature.home.databinding.BannerLayoutBinding
 import com.cmj.wanandroid.feature.home.databinding.FragmentHomeBinding
 import com.cmj.wanandroid.lib.base.ui.RingPageTransformer
