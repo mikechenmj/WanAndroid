@@ -25,28 +25,30 @@ fun <VM : ViewModel> findViewModelClass(clazz: Class<*>, index: Int = -1): Class
 @Suppress("UNCHECKED_CAST")
 fun <VM : ViewModel> findViewModelClassOrNull(clazz: Class<*>, index: Int = -1): Class<VM>? {
     var types: Array<Type>? = (clazz.genericSuperclass as? ParameterizedType)?.actualTypeArguments
-    if (!types.isNullOrEmpty()) {
-        if (index < 0) {
-            for (type in types) {
-                val typeClazz = (type as? Class<*>) ?: continue
-                if (typeClazz.isAssignableFrom(ViewModel::class.java)) {
-                    return EmptyViewModel::class.java as Class<VM>
-                } else if (ViewModel::class.java.isAssignableFrom(typeClazz)) {
-                    return type as Class<VM>
-                }
+    while (types.isNullOrEmpty()) {
+        types = (clazz.superclass.genericSuperclass as? ParameterizedType)?.actualTypeArguments
+        types ?: return null
+    }
+    if (index < 0) {
+        for (type in types) {
+            val typeClazz = (type as? Class<*>) ?: continue
+            if (typeClazz.isAssignableFrom(ViewModel::class.java)) {
+                return EmptyViewModel::class.java as Class<VM>
+            } else if (ViewModel::class.java.isAssignableFrom(typeClazz)) {
+                return type as Class<VM>
             }
-            return null
         }
-        while (types!!.size <= index) {
-            types = (clazz.superclass.genericSuperclass as? ParameterizedType)?.actualTypeArguments
-            types ?: return null
-        }
-        val typeClazz = (types[index] as? Class<*>) ?: return null
-        if (typeClazz.isAssignableFrom(ViewModel::class.java)) {
-            return EmptyViewModel::class.java as Class<VM>
-        } else if (ViewModel::class.java.isAssignableFrom(typeClazz)) {
-            return types[index] as Class<VM>
-        }
+        return null
+    }
+    while (types!!.size <= index) {
+        types = (clazz.superclass.genericSuperclass as? ParameterizedType)?.actualTypeArguments
+        types ?: return null
+    }
+    val typeClazz = (types[index] as? Class<*>) ?: return null
+    if (typeClazz.isAssignableFrom(ViewModel::class.java)) {
+        return EmptyViewModel::class.java as Class<VM>
+    } else if (ViewModel::class.java.isAssignableFrom(typeClazz)) {
+        return types[index] as Class<VM>
     }
     return null
 }
