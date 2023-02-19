@@ -52,37 +52,37 @@ ext {
                     lifecycle_kapt,
             ],
             "project"              : [
-                    ":lib-base",
-                    ":lib-network",
-                    ":lib-common",
-                    ":data-content",
-                    ":data-user",
-                    ":feature-home"
+                    ":lib_base",
+                    ":lib_network",
+                    ":lib_common",
+                    ":data_content",
+                    ":data_user",
+                    ":feature_home"
             ]
     ]
 
     feature_home = [
             "project": [
-                    ":lib-base",
-                    ":data-content",
-                    ":lib-common",
-                    ":lib-network",
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
             ]
     ]
 
     data_content = [
             "project": [
-                    ":lib-base",
-                    ":lib-common",
-                    ":lib-network",
+                    ":lib_base",
+                    ":lib_common",
+                    ":lib_network",
             ]
     ]
 
     data_user = [
             "project": [
-                    ":lib-base",
-                    ":lib-common",
-                    ":lib-network",
+                    ":lib_base",
+                    ":lib_common",
+                    ":lib_network",
             ]
     ]
 
@@ -109,8 +109,8 @@ ext {
                     navigation_dynamic_features_fragment,
             ],
             "project": [
-                    ":lib-common",
-                    ":lib-network",
+                    ":lib_common",
+                    ":lib_network",
             ]
     ]
 
@@ -125,7 +125,7 @@ ext {
                     moshi_kotlin,
             ],
             "project": [
-                    ":lib-common"
+                    ":lib_common"
             ]
     ]
 
