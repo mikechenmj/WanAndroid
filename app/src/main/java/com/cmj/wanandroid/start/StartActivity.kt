@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.cmj.wanandroid.lib.base.BaseActivity
-import com.cmj.wanandroid.content.ContentActivity
+import com.cmj.wanandroid.content.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -22,7 +22,7 @@ class StartActivity : BaseActivity<ViewModel, ViewBinding>() {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                 delay(1000)
             }
-            startActivity(Intent(this@StartActivity, ContentActivity::class.java))
+            startActivity(Intent(this@StartActivity, MainActivity::class.java))
             finish()
         }
     }

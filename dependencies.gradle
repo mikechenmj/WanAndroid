@@ -59,6 +59,8 @@ ext {
                     ":data_user",
                     ":feature_home",
                     ":feature_tree",
+                    ":feature_wx",
+                    ":feature_project",
             ]
     ]
 
@@ -81,6 +83,15 @@ ext {
     ]
 
     feature_wx = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    feature_project = [
             "project": [
                     ":lib_base",
                     ":data_content",

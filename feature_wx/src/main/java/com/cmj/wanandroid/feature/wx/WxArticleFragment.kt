@@ -15,7 +15,7 @@ import com.cmj.wanandroid.data.content.ContentListAdapter
 import  com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.cmj.wanandroid.data.content.bean.Content
 import com.cmj.wanandroid.data.content.bean.WxChapter
-import com.cmj.wanandroid.feature.wx.databinding.ContentFlexTagLayoutBinding
+import com.cmj.wanandroid.data.content.databinding.ContentFlexTagLayoutBinding
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

@@ -22,7 +22,7 @@
         </activity>
 
         <activity android:name="com.cmj.wanandroid.user.UserActivity" />
-        <activity android:name=".content.ContentActivity" />
+        <activity android:name=".content.MainActivity" />
         <activity
             android:name=".content.search.SearchActivity"
             android:theme="@style/Search" />

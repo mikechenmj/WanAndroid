@@ -16,12 +16,12 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.feature.home.HomeFragment
-import com.cmj.wanandroid.content.project.ProjectFragment
+import com.cmj.wanandroid.feature.project.ProjectFragment
 import com.cmj.wanandroid.content.search.SearchActivity
 import com.cmj.wanandroid.content.search.SearchViewModel
 import com.cmj.wanandroid.feature.tree.TreeFragment
 import com.cmj.wanandroid.feature.wx.WxArticleFragment
-import com.cmj.wanandroid.databinding.ActivityContentBinding
+import com.cmj.wanandroid.databinding.ActivityMainBinding
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.cmj.wanandroid.lib.base.ui.ICollapsingHolder
 import com.cmj.wanandroid.lib.base.ui.ITabLayoutHolder
@@ -30,14 +30,14 @@ import com.cmj.wanandroid.user.mine.MineFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.collect
 
-class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(), ICollapsingHolder,
+class MainActivity : BaseActivity<SearchViewModel, ActivityMainBinding>(), ICollapsingHolder,
     ITabLayoutHolder {
 
     companion object {
         private val CHILD_FRAGMENTS = arrayOf(
             ChildFragment(R.string.home_label, HomeFragment::class.java),
             ChildFragment(R.string.tree_label, TreeFragment::class.java),
-            ChildFragment(R.string.wx_official_label, com.cmj.wanandroid.feature.wx.WxArticleFragment::class.java),
+            ChildFragment(R.string.wx_official_label, WxArticleFragment::class.java),
             ChildFragment(R.string.project_label, ProjectFragment::class.java),
             ChildFragment(R.string.mine_label, MineFragment::class.java),
         )
@@ -77,13 +77,13 @@ class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(),
 
         binding.search.apply {
             setOnClickListener {
-                startActivity(Intent(this@ContentActivity, SearchActivity::class.java).apply {
+                startActivity(Intent(this@MainActivity, SearchActivity::class.java).apply {
                     putExtra(SearchActivity.EXTRA_SEARCH_HOTKEY, text.toString())
                 })
             }
             addRepeatingJob(Lifecycle.State.STARTED) {
                 viewModel.hotKeyFlow.collect {
-                    val hotkeys = it.getOrHandleError(this@ContentActivity) ?: return@collect
+                    val hotkeys = it.getOrHandleError(this@MainActivity) ?: return@collect
                     text = hotkeys.random().name
                 }
             }

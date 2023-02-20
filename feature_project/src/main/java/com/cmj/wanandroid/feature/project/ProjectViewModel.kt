@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.project
+package com.cmj.wanandroid.feature.project
 
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
