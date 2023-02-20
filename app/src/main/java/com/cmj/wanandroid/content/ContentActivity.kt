@@ -19,7 +19,7 @@ import com.cmj.wanandroid.feature.home.HomeFragment
 import com.cmj.wanandroid.content.project.ProjectFragment
 import com.cmj.wanandroid.content.search.SearchActivity
 import com.cmj.wanandroid.content.search.SearchViewModel
-import com.cmj.wanandroid.content.tree.TreeFragment
+import com.cmj.wanandroid.feature.tree.TreeFragment
 import com.cmj.wanandroid.content.wxarticle.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityContentBinding
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError

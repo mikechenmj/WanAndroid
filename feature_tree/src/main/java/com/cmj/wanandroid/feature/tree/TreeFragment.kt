@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.tree
+package com.cmj.wanandroid.feature.tree
 
 import android.text.Html
 import android.util.TypedValue
@@ -11,13 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
 import androidx.paging.PagingData
-import com.cmj.wanandroid.R
 import com.cmj.wanandroid.data.content.AbsContentPagingFragment
 import com.cmj.wanandroid.data.content.ContentListAdapter
-import com.cmj.wanandroid.databinding.TreeCategoryFlexTagsLayoutBinding
 import  com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.cmj.wanandroid.data.content.bean.Content
 import com.cmj.wanandroid.data.content.bean.Tree
+import com.cmj.wanandroid.feature.tree.databinding.TreeCategoryFlexTagsLayoutBinding
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

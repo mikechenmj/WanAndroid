@@ -57,11 +57,21 @@ ext {
                     ":lib_common",
                     ":data_content",
                     ":data_user",
-                    ":feature_home"
+                    ":feature_home",
+                    ":feature_tree",
             ]
     ]
 
     feature_home = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    feature_tree = [
             "project": [
                     ":lib_base",
                     ":data_content",

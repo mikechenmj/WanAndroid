@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">feature_tree</string>
+    <string name="tree_category_first_label">一级分类：</string>
+    <string name="tree_category_second_label">二级分类：</string>
+</resources>
