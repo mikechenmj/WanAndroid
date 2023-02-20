@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="LoginInputContainerStyle">
-        <item name="android:background">@drawable/bg_corner_stroke_primary</item>
-        <item name="android:gravity">center</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:paddingStart">20dp</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingEnd">20dp</item>
-        <item name="android:paddingBottom">10dp</item>
-    </style>
-
     <style name="SearchPrimaryLabelStyle" parent="ColorPrimaryLabelStyle">
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:background">@drawable/bg_corner_stroke_primary</item>

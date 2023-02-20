@@ -1,18 +1,18 @@
-package com.cmj.wanandroid.user.login
+package com.cmj.wanandroid.feature.login.demo.login
 
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseFragment
-import com.cmj.wanandroid.databinding.FragmentLoginBinding
 import com.cmj.wanandroid.common.AppToast
 import com.cmj.wanandroid.common.kt.setOnClickListenerBuffer
+import com.cmj.wanandroid.feature.login.R
+import com.cmj.wanandroid.feature.login.databinding.FragmentLoginBinding
 import com.cmj.wanandroid.lib.network.kt.getOrToastError
-import com.cmj.wanandroid.user.UserActivity
-import com.cmj.wanandroid.user.UserViewModel
+import com.cmj.wanandroid.feature.login.demo.UserActivity
+import com.cmj.wanandroid.feature.login.demo.UserViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 

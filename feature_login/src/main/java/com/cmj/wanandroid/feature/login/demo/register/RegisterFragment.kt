@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.user.register
+package com.cmj.wanandroid.feature.login.demo.register
 
 import android.os.Bundle
 import android.view.View
@@ -7,12 +7,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseFragment
-import com.cmj.wanandroid.databinding.FragmentRegisterBinding
 import com.cmj.wanandroid.common.AppToast
+import com.cmj.wanandroid.feature.login.R
+import com.cmj.wanandroid.feature.login.databinding.FragmentRegisterBinding
 import com.cmj.wanandroid.lib.network.kt.getOrToastError
-import com.cmj.wanandroid.user.UserViewModel
+import com.cmj.wanandroid.feature.login.demo.UserViewModel
 
 class RegisterFragment : BaseFragment<ViewModel, UserViewModel, FragmentRegisterBinding>() {
 

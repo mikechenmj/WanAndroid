@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.user.login
+package com.cmj.wanandroid.feature.login.demo.login
 
 import android.app.Application
 import com.cmj.wanandroid.lib.base.BaseViewModel

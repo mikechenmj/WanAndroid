@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.cmj.wanandroid.user.UserActivity" />
+        <activity android:name="com.cmj.wanandroid.feature.login.demo.UserActivity" />
         <activity android:name=".content.MainActivity" />
         <activity
             android:name=".content.search.SearchActivity"

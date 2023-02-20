@@ -111,6 +111,15 @@ ext {
             ]
     ]
 
+    feature_login = [
+            "project": [
+                    ":lib_base",
+                    ":data_user",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
     data_content = [
             "project": [
                     ":lib_base",

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.UserActivity">
+    tools:context=".feature.login.demo.UserActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/loginTitleMain"
+        android:id="@+id/registerTitleMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="130dp"
-        android:text="@string/login_title"
+        android:text="@string/register_title"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -56,7 +56,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rePasswordContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/usernameContainer">
@@ -76,39 +76,49 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="5dp"
-            android:paddingRight="10dp"
+            android:paddingRight="5dp"
             android:src="@drawable/ic_input_clear"
             android:visibility="gone"
             tools:visibility="visible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rePasswordContainer"
+        style="@style/LoginInputContainerStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordContainer">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/rePassword"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="@string/re_password_hint_tip"
+            android:inputType="textPassword"
+            android:maxLines="1" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/passwordCover"
-            android:layout_width="30dp"
+            android:id="@+id/clearRePassword"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:src="@drawable/ic_password_cover"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:src="@drawable/ic_input_clear"
             android:visibility="gone"
             tools:visibility="visible" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login"
+        android:id="@+id/register"
         style="@style/DefaultButtonStyle"
         android:layout_marginBottom="116dp"
-        android:text="@string/login_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/register_tip"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp"
+        android:text="@string/register_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

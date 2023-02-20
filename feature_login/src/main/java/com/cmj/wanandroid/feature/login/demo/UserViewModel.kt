@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.user
+package com.cmj.wanandroid.feature.login.demo
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
