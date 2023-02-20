@@ -1,4 +1,4 @@
-package com.cmj.android.feature.mine.message
+package com.cmj.wanandroid.feature.mine.message
 
 import android.content.Context
 import android.text.Html
@@ -8,8 +8,8 @@ import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.cmj.android.feature.mine.R
-import com.cmj.android.feature.mine.databinding.MessageItemBinding
+import com.cmj.wanandroid.feature.mine.R
+import com.cmj.wanandroid.feature.mine.databinding.MessageItemBinding
 import com.cmj.wanandroid.lib.base.bean.Message
 
 class MessageListAdapter constructor(

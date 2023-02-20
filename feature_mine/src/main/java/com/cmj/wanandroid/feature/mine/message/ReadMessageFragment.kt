@@ -1,4 +1,4 @@
-package com.cmj.android.feature.mine.message
+package com.cmj.wanandroid.feature.mine.message
 
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData

@@ -1,4 +1,4 @@
-package com.cmj.android.feature.mine.star
+package com.cmj.wanandroid.feature.mine.star
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope

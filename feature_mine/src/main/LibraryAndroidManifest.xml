@@ -2,4 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cmj.wanandroid.feature.mine">
 
+    <application>
+        <activity
+            android:name=".message.MessageActivity"
+            android:theme="@style/Message" />
+    </application>
 </manifest>

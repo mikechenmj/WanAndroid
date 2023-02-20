@@ -1,4 +1,4 @@
-package com.cmj.android.feature.mine
+package com.cmj.wanandroid.feature.mine
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,11 +10,11 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
-import com.cmj.android.feature.mine.databinding.FragmentMineBinding
-import com.cmj.android.feature.mine.databinding.UserInfoLayoutBinding
-import com.cmj.android.feature.mine.message.MessageActivity
-import com.cmj.android.feature.mine.private.PrivateArticleFragment
-import com.cmj.android.feature.mine.star.StarArticleFragment
+import com.cmj.wanandroid.feature.mine.databinding.FragmentMineBinding
+import com.cmj.wanandroid.feature.mine.databinding.UserInfoLayoutBinding
+import com.cmj.wanandroid.feature.mine.message.MessageActivity
+import com.cmj.wanandroid.feature.mine.private.PrivateArticleFragment
+import com.cmj.wanandroid.feature.mine.star.StarArticleFragment
 import com.cmj.wanandroid.lib.base.AbsDecorFragment
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.cmj.wanandroid.lib.base.ui.TabMediator

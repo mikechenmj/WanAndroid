@@ -17,18 +17,19 @@ import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.feature.home.HomeFragment
 import com.cmj.wanandroid.feature.project.ProjectFragment
-import com.cmj.wanandroid.feature.search.SearchActivity
-import com.cmj.wanandroid.feature.search.SearchViewModel
 import com.cmj.wanandroid.feature.tree.TreeFragment
 import com.cmj.wanandroid.feature.wx.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityMainBinding
 import com.cmj.wanandroid.lib.base.ui.ICollapsingHolder
 import com.cmj.wanandroid.lib.base.ui.ITabLayoutHolder
 import com.cmj.wanandroid.lib.base.ui.ScaleInTransformer
-import com.cmj.android.feature.mine.MineFragment
+import com.cmj.wanandroid.feature.mine.MineFragment
+import com.cmj.wanandroid.feature.search.SearchViewModel
+import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.flow.collect
 
-class MainActivity : BaseActivity<com.cmj.wanandroid.feature.search.SearchViewModel, ActivityMainBinding>(), ICollapsingHolder,
+class MainActivity : BaseActivity<SearchViewModel, ActivityMainBinding>(), ICollapsingHolder,
     ITabLayoutHolder {
 
     companion object {

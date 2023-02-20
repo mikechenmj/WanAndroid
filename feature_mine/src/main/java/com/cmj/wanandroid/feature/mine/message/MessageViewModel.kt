@@ -1,4 +1,4 @@
-package com.cmj.android.feature.mine.message
+package com.cmj.wanandroid.feature.mine.message
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope

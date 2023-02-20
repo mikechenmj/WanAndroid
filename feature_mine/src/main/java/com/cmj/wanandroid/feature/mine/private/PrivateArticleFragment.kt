@@ -1,9 +1,9 @@
-package com.cmj.android.feature.mine.private
+package com.cmj.wanandroid.feature.mine.private
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
-import com.cmj.android.feature.mine.R
+import com.cmj.wanandroid.feature.mine.R
 import com.cmj.wanandroid.lib.base.FragmentStubActivity
 import com.cmj.wanandroid.data.content.AbsContentPagingFragment
 import com.cmj.wanandroid.data.content.ContentListAdapter

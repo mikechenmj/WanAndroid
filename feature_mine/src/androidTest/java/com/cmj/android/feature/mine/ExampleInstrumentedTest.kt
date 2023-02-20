@@ -1,4 +1,4 @@
-package com.cmj.android.feature.mine
+package com.cmj.wanandroid.feature.mine
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.cmj.android.feature.mine.test", appContext.packageName)
+        assertEquals("com.cmj.wanandroid.feature.mine.test", appContext.packageName)
     }
 }

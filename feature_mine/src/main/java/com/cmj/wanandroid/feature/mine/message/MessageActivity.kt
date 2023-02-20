@@ -1,4 +1,4 @@
-package com.cmj.android.feature.mine.message
+package com.cmj.wanandroid.feature.mine.message
 
 import android.os.Bundle
 import android.view.View
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.cmj.android.feature.mine.R
-import com.cmj.android.feature.mine.databinding.ActivityMessageBinding
+import com.cmj.wanandroid.feature.mine.R
+import com.cmj.wanandroid.feature.mine.databinding.ActivityMessageBinding
 import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.lib.base.ChildFragment
 import com.cmj.wanandroid.lib.base.ui.ScaleInTransformer

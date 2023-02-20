@@ -62,6 +62,8 @@ ext {
                     ":feature_wx",
                     ":feature_project",
                     ":feature_mine",
+                    ":feature_search",
+                    ":feature_login",
             ]
     ]
 
