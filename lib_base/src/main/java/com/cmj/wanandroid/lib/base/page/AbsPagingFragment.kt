@@ -74,9 +74,6 @@ abstract class AbsPagingFragment<VM : ViewModel, AVM : ViewModel, T : Any> :
                 }
             }
         }
-        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
-            pagingAdapter.refresh()
-        }
     }
 
     private fun checkIsEmpty() {
