@@ -26,7 +26,7 @@ import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.cmj.wanandroid.lib.base.ui.ICollapsingHolder
 import com.cmj.wanandroid.lib.base.ui.ITabLayoutHolder
 import com.cmj.wanandroid.lib.base.ui.ScaleInTransformer
-import com.cmj.wanandroid.user.mine.MineFragment
+import com.cmj.android.feature.mine.MineFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.collect
 

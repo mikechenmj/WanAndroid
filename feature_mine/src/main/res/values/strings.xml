@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">feature_mine</string>
+
+    <string name="username_label">用户名：%1$s</string>
+    <string name="username_un_logged_in_label">未登录</string>
+    <string name="id_label">id：%1$s</string>
+    <string name="coin_label">积分：%1$s</string>
+    <string name="level_label">等级：%1$s</string>
+    <string name="rank_label">排名：%1$s</string>
+    <string name="user_message_label">消息中心</string>
+    <string name="user_star_label">收藏文章</string>
+    <string name="user_share_label">分享文章</string>
+    <string name="message_unread_tag">未读</string>
+    <string name="message_unread_label">未读信息</string>
+    <string name="message_read_label">已读信息</string>
+</resources>

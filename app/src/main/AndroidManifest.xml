@@ -40,7 +40,7 @@
         <activity android:name="com.cmj.wanandroid.lib.base.FragmentStubActivity" />
 
         <activity
-            android:name=".user.message.MessageActivity"
+            android:name="com.cmj.android.feature.mine.message.MessageActivity"
             android:label="@string/user_message_label"
             android:theme="@style/Message" />
 

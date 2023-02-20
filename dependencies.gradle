@@ -61,6 +61,7 @@ ext {
                     ":feature_tree",
                     ":feature_wx",
                     ":feature_project",
+                    ":feature_mine",
             ]
     ]
 
@@ -95,6 +96,16 @@ ext {
             "project": [
                     ":lib_base",
                     ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    feature_mine = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":data_user",
                     ":lib_common",
                     ":lib_network",
             ]
