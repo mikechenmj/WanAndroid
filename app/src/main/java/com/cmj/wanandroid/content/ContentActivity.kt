@@ -20,7 +20,7 @@ import com.cmj.wanandroid.content.project.ProjectFragment
 import com.cmj.wanandroid.content.search.SearchActivity
 import com.cmj.wanandroid.content.search.SearchViewModel
 import com.cmj.wanandroid.feature.tree.TreeFragment
-import com.cmj.wanandroid.content.wxarticle.WxArticleFragment
+import com.cmj.wanandroid.feature.wx.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityContentBinding
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.cmj.wanandroid.lib.base.ui.ICollapsingHolder
@@ -37,7 +37,7 @@ class ContentActivity : BaseActivity<SearchViewModel, ActivityContentBinding>(),
         private val CHILD_FRAGMENTS = arrayOf(
             ChildFragment(R.string.home_label, HomeFragment::class.java),
             ChildFragment(R.string.tree_label, TreeFragment::class.java),
-            ChildFragment(R.string.wx_official_label, WxArticleFragment::class.java),
+            ChildFragment(R.string.wx_official_label, com.cmj.wanandroid.feature.wx.WxArticleFragment::class.java),
             ChildFragment(R.string.project_label, ProjectFragment::class.java),
             ChildFragment(R.string.mine_label, MineFragment::class.java),
         )
