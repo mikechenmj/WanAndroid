@@ -21,28 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.cmj.wanandroid.feature.login.demo.UserActivity" />
         <activity android:name=".content.MainActivity" />
-        <activity
-            android:name=".content.search.SearchActivity"
-            android:theme="@style/Search" />
-
-        <activity
-            android:name="com.cmj.wanandroid.lib.base.web.WebActivity"
-            android:process=":web"
-            android:theme="@style/Web" />
-
-        <activity
-            android:name="com.cmj.wanandroid.data.content.ContentWebActivity"
-            android:process=":web"
-            android:theme="@style/Web" />
-
-        <activity android:name="com.cmj.wanandroid.lib.base.FragmentStubActivity" />
-
-        <activity
-            android:name="com.cmj.android.feature.mine.message.MessageActivity"
-            android:label="@string/user_message_label"
-            android:theme="@style/Message" />
 
         <!-- 解决在 12 版本或以上， blockCanary 的 DisplayActivity 未设置 exported 导致无法安装的问题 -->
         <activity

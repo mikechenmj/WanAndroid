@@ -120,6 +120,15 @@ ext {
             ]
     ]
 
+    feature_search = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
     data_content = [
             "project": [
                     ":lib_base",

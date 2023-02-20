@@ -4,18 +4,4 @@
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges
         </item>
     </style>
-
-    <style name="Search" parent="Theme.WanAndroid">
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
-    </style>
-
-    <style name="Message" parent="Theme.WanAndroid">
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
-    </style>
-
-    <style name="Web" parent="Theme.WanAndroid">
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges
-        </item>
-    </style>
 </resources>

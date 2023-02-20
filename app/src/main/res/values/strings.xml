@@ -7,14 +7,4 @@
     <string name="project_label">项目</string>
     <string name="mine_label">我的</string>
 
-    <string name="local_publish_label">本站发布</string>
-    <string name="q_and_a_label">问答</string>
-    <string name="share_user_label">分享人：%1$s</string>
-    <string name="category_label">分类</string>
-    <string name="date_label">时间：%1$s</string>
-    <string name="content_collect_label">收藏</string>
-
-    <string name="search_label">大家都在搜</string>
-
-
 </resources>

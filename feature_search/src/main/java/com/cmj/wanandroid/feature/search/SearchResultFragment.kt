@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.search
+package com.cmj.wanandroid.feature.search
 
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData

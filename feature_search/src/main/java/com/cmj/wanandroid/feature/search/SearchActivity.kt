@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.search
+package com.cmj.wanandroid.feature.search
 
 import android.content.Context
 import android.os.Bundle
@@ -7,11 +7,10 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
-import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseActivity
-import com.cmj.wanandroid.databinding.ActivitySearchBinding
 import com.cmj.wanandroid.lib.base.kt.findNavigationById
 import com.cmj.wanandroid.common.kt.nullOrValid
+import com.cmj.wanandroid.feature.search.databinding.ActivitySearchBinding
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect

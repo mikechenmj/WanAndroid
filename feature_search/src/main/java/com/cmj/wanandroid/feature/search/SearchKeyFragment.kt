@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.search
+package com.cmj.wanandroid.feature.search
 
 import android.os.Bundle
 import android.util.TypedValue
@@ -7,10 +7,9 @@ import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
-import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseFragment
-import com.cmj.wanandroid.databinding.FragmentSearchKeyBinding
 import com.cmj.wanandroid.data.content.bean.Hotkey
+import com.cmj.wanandroid.feature.search.databinding.FragmentSearchKeyBinding
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.coroutines.flow.collect

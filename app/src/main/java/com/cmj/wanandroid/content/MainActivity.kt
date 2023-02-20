@@ -17,20 +17,18 @@ import com.cmj.wanandroid.R
 import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.feature.home.HomeFragment
 import com.cmj.wanandroid.feature.project.ProjectFragment
-import com.cmj.wanandroid.content.search.SearchActivity
-import com.cmj.wanandroid.content.search.SearchViewModel
+import com.cmj.wanandroid.feature.search.SearchActivity
+import com.cmj.wanandroid.feature.search.SearchViewModel
 import com.cmj.wanandroid.feature.tree.TreeFragment
 import com.cmj.wanandroid.feature.wx.WxArticleFragment
 import com.cmj.wanandroid.databinding.ActivityMainBinding
-import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.cmj.wanandroid.lib.base.ui.ICollapsingHolder
 import com.cmj.wanandroid.lib.base.ui.ITabLayoutHolder
 import com.cmj.wanandroid.lib.base.ui.ScaleInTransformer
 import com.cmj.android.feature.mine.MineFragment
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.flow.collect
 
-class MainActivity : BaseActivity<SearchViewModel, ActivityMainBinding>(), ICollapsingHolder,
+class MainActivity : BaseActivity<com.cmj.wanandroid.feature.search.SearchViewModel, ActivityMainBinding>(), ICollapsingHolder,
     ITabLayoutHolder {
 
     companion object {
@@ -77,8 +75,8 @@ class MainActivity : BaseActivity<SearchViewModel, ActivityMainBinding>(), IColl
 
         binding.search.apply {
             setOnClickListener {
-                startActivity(Intent(this@MainActivity, SearchActivity::class.java).apply {
-                    putExtra(SearchActivity.EXTRA_SEARCH_HOTKEY, text.toString())
+                startActivity(Intent(this@MainActivity, com.cmj.wanandroid.feature.search.SearchActivity::class.java).apply {
+                    putExtra(com.cmj.wanandroid.feature.search.SearchActivity.EXTRA_SEARCH_HOTKEY, text.toString())
                 })
             }
             addRepeatingJob(Lifecycle.State.STARTED) {

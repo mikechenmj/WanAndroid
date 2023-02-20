@@ -3,6 +3,9 @@
     package="com.cmj.wanandroid.data.content">
 
     <application>
-        <activity android:name=".ContentWebActivity"/>
+        <activity
+            android:name="com.cmj.wanandroid.data.content.ContentWebActivity"
+            android:process=":web"
+            android:theme="@style/Web" />
     </application>
 </manifest>

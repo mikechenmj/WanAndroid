@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.content.search
+package com.cmj.wanandroid.feature.search
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope

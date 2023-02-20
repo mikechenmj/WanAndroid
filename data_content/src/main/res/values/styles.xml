@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="ContentLabelStyle">
         <item name="android:layout_width">wrap_content</item>
@@ -29,5 +29,12 @@
     <style name="SelectorColorPrimaryLabelStyle" parent="ColorPrimaryLabelStyle">
         <item name="android:textColor">@drawable/color_primary_selector</item>
         <item name="android:background">@drawable/selector_bg_corner_primary</item>
+    </style>
+
+
+    <style name="Web" parent="Theme.WanAndroid">
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges
+        </item>
     </style>
 </resources>
