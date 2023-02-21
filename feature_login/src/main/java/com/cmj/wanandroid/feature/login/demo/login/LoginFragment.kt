@@ -11,7 +11,7 @@ import com.cmj.wanandroid.common.kt.setOnClickListenerBuffer
 import com.cmj.wanandroid.feature.login.R
 import com.cmj.wanandroid.feature.login.databinding.FragmentLoginBinding
 import com.cmj.wanandroid.lib.network.kt.getOrToastError
-import com.cmj.wanandroid.feature.login.demo.UserActivity
+import com.cmj.wanandroid.feature.login.demo.LoginActivity
 import com.cmj.wanandroid.feature.login.demo.UserViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -53,7 +53,7 @@ class LoginFragment : BaseFragment<LoginViewModel, UserViewModel, FragmentLoginB
         }
 
         binding.register.setOnClickListenerBuffer(viewLifecycleScope) {
-            val parent = activity as? UserActivity ?: return@setOnClickListenerBuffer
+            val parent = activity as? LoginActivity ?: return@setOnClickListenerBuffer
             parent.navigateToRegister()
         }
     }

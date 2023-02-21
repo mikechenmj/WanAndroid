@@ -50,6 +50,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    resourcePrefix "feature_login_"
+
 }
 
 dependencies {

@@ -28,7 +28,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    resourcePrefix "common_"
+    resourcePrefix "lib_common_"
 }
 
 dependencies {

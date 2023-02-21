@@ -6,10 +6,10 @@ import com.cmj.wanandroid.feature.login.R
 import com.cmj.wanandroid.feature.login.databinding.ActivityLoginBinding
 import com.cmj.wanandroid.lib.base.kt.findNavigationById
 
-class UserActivity : BaseActivity<UserViewModel, ActivityLoginBinding>() {
+class LoginActivity : BaseActivity<UserViewModel, ActivityLoginBinding>() {
 
     companion object {
-        private val TAG = UserActivity::class.java.simpleName
+        private val TAG = LoginActivity::class.java.simpleName
     }
 
     fun navigateToRegister() {

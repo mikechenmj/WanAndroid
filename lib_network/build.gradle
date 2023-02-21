@@ -29,7 +29,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    resourcePrefix "network_"
+    resourcePrefix "lib_network_"
 }
 
 

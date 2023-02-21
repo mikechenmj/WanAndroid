@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingStart="30dp"
     android:paddingEnd="30dp"
-    tools:context=".feature.login.demo.UserActivity">
+    tools:context=".demo.LoginActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navigationContent"
