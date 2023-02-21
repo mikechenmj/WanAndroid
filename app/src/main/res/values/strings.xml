@@ -1,61 +1,10 @@
 <resources>
     <string name="app_name">WanAndroid</string>
 
-    <string name="login_title">请登录</string>
-    <string name="login_label">登录</string>
-    <string name="logout_label">退出登录</string>
-    <string name="username_hint_tip">请输入账号</string>
-    <string name="password_hint_tip">请输入密码</string>
-    <string name="username_empty_tip">账号不能为空</string>
-    <string name="password_empty_tip">密码不能为空</string>
-    <string name="register_tip">没有账号？</string>
-    <string name="username_or_password_wrong">账号或密码错误，请重新输入</string>
-
-    <string name="register_title">请注册</string>
-    <string name="register_label">注册</string>
-    <string name="re_password_hint_tip">请再次输入密码</string>
-    <string name="re_password_wrong_tip">密码不一致</string>
-
-    <string name="network_wrong_tip">"网络异常，请检查网络后重试"</string>
-
-    <string name="need_permission_title">需要到设置授予权限</string>
-    <string name="need_permission_rationale">App 的核心权限未被授予，请前往设置进行授予</string>
     <string name="home_label">首页</string>
     <string name="tree_label">知识库</string>
     <string name="wx_official_label">公众号</string>
     <string name="project_label">项目</string>
     <string name="mine_label">我的</string>
-
-    <string name="recommend_label">热门博客</string>
-    <string name="ask_label">每日一问</string>
-    <string name="share_label">广场</string>
-
-    <string name="fresh_label">新发布</string>
-    <string name="top_label">置顶</string>
-    <string name="local_publish_label">本站发布</string>
-    <string name="q_and_a_label">问答</string>
-    <string name="author_label">作者：%1$s</string>
-    <string name="share_user_label">分享人：%1$s</string>
-    <string name="category_label">分类</string>
-    <string name="date_label">时间：%1$s</string>
-    <string name="content_collect_label">收藏</string>
-    <string name="tree_category_first_label">一级分类：</string>
-    <string name="tree_category_second_label">二级分类：</string>
-
-    <string name="search_label">大家都在搜</string>
-
-    <string name="username_label">用户名：%1$s</string>
-    <string name="username_un_logged_in_label">未登录</string>
-    <string name="id_label">id：%1$s</string>
-    <string name="coin_label">积分：%1$s</string>
-    <string name="level_label">等级：%1$s</string>
-    <string name="rank_label">排名：%1$s</string>
-    <string name="user_message_label">消息中心</string>
-    <string name="user_star_label">收藏文章</string>
-    <string name="user_share_label">分享文章</string>
-    <string name="message_unread_tag">未读</string>
-    <string name="message_unread_label">未读信息</string>
-    <string name="message_read_label">已读信息</string>
-
 
 </resources>

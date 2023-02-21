@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cmj.wanandroid.feature.login">
+
+    <application>
+
+        <activity android:name="com.cmj.wanandroid.feature.login.demo.LoginActivity" />
+
+    </application>
+</manifest>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">feature_search</string>
+    <string name="search_label">大家都在搜</string>
+</resources>

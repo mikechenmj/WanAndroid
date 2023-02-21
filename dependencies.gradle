@@ -1,0 +1,232 @@
+static def runDependencies(DependencyHandler dependencyHandler, Object module) {
+    module["implementation"].each {
+        dependencyHandler.implementation it
+    }
+    module["api"].each {
+        dependencyHandler.api it
+    }
+    module["testImplementation"].each {
+        dependencyHandler.testImplementation it
+    }
+    module["androidTestImplementation"].each {
+        dependencyHandler.androidTestImplementation it
+    }
+    module["debugImplementation"].each {
+        dependencyHandler.debugImplementation it
+    }
+    module["releaseImplementation"].each {
+        dependencyHandler.releaseImplementation it
+    }
+    module["kapt"].each {
+        dependencyHandler.kapt it
+    }
+    module["androidTestApi"].each {
+        dependencyHandler.androidTestApi it
+    }
+    module["testApi"].each {
+        dependencyHandler.testApi it
+    }
+    module["debugApi"].each {
+        dependencyHandler.debugApi it
+    }
+    module["releaseApi"].each {
+        dependencyHandler.releaseApi it
+    }
+
+    module["project"].each {
+        Map<String, String> project = new HashMap<>()
+        project.put("path", it)
+        dependencyHandler.add("implementation", dependencyHandler.project(project))
+    }
+}
+
+ext {
+    ext.runDependencies = this.&runDependencies
+
+
+    app = [
+            "kapt"   : [
+                    lifecycle_kapt,
+                    aroutercompiler
+            ],
+            "project": [
+                    ":lib_base",
+                    ":lib_network",
+                    ":lib_common",
+                    ":data_content",
+                    ":data_user",
+                    ":feature_home",
+                    ":feature_tree",
+                    ":feature_wx",
+                    ":feature_project",
+                    ":feature_mine",
+                    ":feature_search",
+                    ":feature_login",
+            ]
+    ]
+
+    feature_home = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    feature_tree = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    feature_wx = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    feature_project = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    feature_mine = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":data_user",
+                    ":lib_common",
+                    ":lib_network",
+            ],
+            "kapt"   : [
+                    aroutercompiler
+            ]
+    ]
+
+    feature_login = [
+            "project": [
+                    ":lib_base",
+                    ":data_user",
+                    ":lib_common",
+                    ":lib_network",
+            ],
+            "kapt"   : [
+                    aroutercompiler
+            ],
+    ]
+
+    feature_search = [
+            "project": [
+                    ":lib_base",
+                    ":data_content",
+                    ":lib_common",
+                    ":lib_network",
+            ],
+            "kapt"   : [
+                    aroutercompiler
+            ],
+    ]
+
+    data_content = [
+            "project": [
+                    ":lib_base",
+                    ":lib_common",
+                    ":lib_network",
+            ],
+            "kapt"   : [
+                    aroutercompiler
+            ],
+    ]
+
+    data_user = [
+            "project": [
+                    ":lib_base",
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    lib_base = [
+            "releaseApi": [
+                    blockcanary_no_op,
+            ],
+            "debugApi"  : [
+                    blockcanary,
+            ],
+            "api"       : [
+                    material,
+                    constraintlayout,
+                    recyclerview,
+                    lifecycle_runtime,
+                    lifecycle_runtime_ktx,
+                    lifecycle_livedata_ktx,
+                    lifecycle_viewmodel_ktx,
+                    lifecycleProcess,
+                    fragment_ktx,
+                    activity_ktx,
+                    easypermissions,
+                    databinding_runtime,
+                    mmkv,
+                    glide,
+                    paging,
+                    flex,
+                    navigation_fragment_ktx,
+                    navigation_ui_ktx,
+                    navigation_dynamic_features_fragment,
+                    leakcanary,
+                    arouter,
+            ],
+            "project"   : [
+                    ":lib_common",
+                    ":lib_network",
+            ]
+    ]
+
+    lib_network = [
+            "api"    : [
+                    retrofit2,
+                    retrofit2_converter_gson,
+                    retrofit2_adapter_rxjava,
+                    retrofit2_converter_scalars,
+                    okhttp3_logging_interceptor,
+                    retrofit2_converter_moshi,
+                    moshi_kotlin,
+            ],
+            "project": [
+                    ":lib_common"
+            ]
+    ]
+
+    lib_common = [
+            "implementation": [
+                    startup,
+            ],
+            "api"           : [
+                    core_ktx,
+                    appcompat,
+                    coroutines_core,
+                    coroutines_android,
+                    annotation,
+                    legacy,
+                    utilcode,
+            ],
+            "testApi"       : [
+                    junit,
+            ],
+            "androidTestApi": [
+                    extjunit,
+                    espresso,
+            ],
+    ]
+}

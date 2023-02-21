@@ -3,6 +3,7 @@ package com.cmj.wanandroid
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.alibaba.android.arouter.launcher.ARouter
 import com.tencent.mmkv.MMKV
 
 class WanAndroidApp: Application() {
@@ -24,5 +25,10 @@ class WanAndroidApp: Application() {
     override fun onCreate() {
         super.onCreate()
         MMKV.initialize(context)
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()
+            ARouter.openDebug()
+        }
+        ARouter.init(this)
     }
 }
