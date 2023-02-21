@@ -1,6 +1,8 @@
 package com.cmj.wanandroid.lib.base.kt
 
 import android.content.Context
+import com.alibaba.android.arouter.launcher.ARouter
+import com.cmj.wanandroid.lib.base.router.RouterPath
 import com.cmj.wanandroid.lib.network.bean.WAndroidResponse
 import com.cmj.wanandroid.lib.network.bean.WAndroidResponse.Companion.CODE_UN_LOGGED_IN
 import com.cmj.wanandroid.lib.network.kt.toastError
@@ -21,8 +23,7 @@ fun <T> Result<T>.handleIfError(context: Context): Boolean {
 fun handleError(context: Context, exception: Throwable): Boolean {
     if (exception is WAndroidResponse.ServiceException) {
         if (exception.errorCode == CODE_UN_LOGGED_IN) {
-            // to do
-//            context.startActivity(Intent(context, UserActivity::class.java))
+            ARouter.getInstance().build(RouterPath.ROUTER_FEATURE_LOGIN).navigation()
         }
     }
     toastError(context, exception)

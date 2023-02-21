@@ -7,9 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import com.alibaba.android.arouter.launcher.ARouter
 import com.cmj.wanandroid.data.content.bean.Content
 import com.cmj.wanandroid.data.content.databinding.ActivityContentMenuBinding
+import com.cmj.wanandroid.lib.base.Constant
 import com.cmj.wanandroid.lib.base.kt.handleIfError
+import com.cmj.wanandroid.lib.base.router.RouterPath
 import com.cmj.wanandroid.lib.base.web.AbsWebActivity
 import kotlinx.coroutines.launch
 
@@ -67,11 +70,13 @@ class ContentWebActivity : AbsWebActivity<ContentViewModel>() {
         val translateY = if (show) 0 else menuBinding.bottomMenu.height
         menuBinding.bottomMenu.animate().translationY(translateY.toFloat()).start()
         menuBinding.authorOrShareUser.setOnClickListener {
-            // to do
-//            startActivity(Intent(this, SearchActivity::class.java).apply {
-//                putExtra(SearchActivity.EXTRA_SEARCH_HOTKEY, menuBinding.authorOrShareUser.text)
-//                putExtra(SearchActivity.EXTRA_SEARCH_PERFORM, true)
-//            })
+            ARouter.getInstance().build(RouterPath.ROUTER_FEATURE_SEARCH)
+                .withString(
+                    Constant.Search.EXTRA_SEARCH_HOTKEY,
+                    menuBinding.authorOrShareUser.text.toString()
+                )
+                .withBoolean(Constant.Search.EXTRA_SEARCH_PERFORM, true)
+                .navigation()
         }
     }
 }

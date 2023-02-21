@@ -84,5 +84,9 @@ ext {
     // flex UI
     flex = 'com.google.android:flexbox:1.0.0'
 
+    //aRouter
+    arouter = 'com.alibaba:arouter-api:1.5.2'
+    aroutercompiler = 'com.alibaba:arouter-compiler:1.5.2'
+
     apply from: "dependencies.gradle"
 }

@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
+import com.alibaba.android.arouter.launcher.ARouter
 import com.cmj.wanandroid.feature.mine.databinding.FragmentMineBinding
 import com.cmj.wanandroid.feature.mine.databinding.UserInfoLayoutBinding
 import com.cmj.wanandroid.feature.mine.message.MessageActivity
@@ -17,6 +18,7 @@ import com.cmj.wanandroid.feature.mine.private.PrivateArticleFragment
 import com.cmj.wanandroid.feature.mine.star.StarArticleFragment
 import com.cmj.wanandroid.lib.base.AbsDecorFragment
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
+import com.cmj.wanandroid.lib.base.router.RouterPath
 import com.cmj.wanandroid.lib.base.ui.TabMediator
 import com.cmj.wanandroid.lib.network.kt.getOrToastError
 import com.google.android.material.tabs.TabLayout
@@ -40,8 +42,7 @@ class MineFragment : AbsDecorFragment<ViewModel, UserViewModel, FragmentMineBind
             refresh()
         }
         binding.login.setOnClickListener {
-            // to do
-//            startActivity(Intent(requireContext(), UserActivity::class.java))
+            ARouter.getInstance().build(RouterPath.ROUTER_FEATURE_LOGIN).navigation()
         }
         binding.logout.setOnClickListener {
             viewLifecycleScope.launch {

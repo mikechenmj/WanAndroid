@@ -13,6 +13,7 @@ import com.cmj.wanandroid.lib.base.ChildFragment
 import com.cmj.wanandroid.lib.base.ui.ScaleInTransformer
 import com.cmj.wanandroid.lib.base.ui.TabMediator
 
+//@Route(path = RouterTable.ROUTER_TEST)
 class MessageActivity : BaseActivity<ViewModel, ActivityMessageBinding>() {
 
     companion object {

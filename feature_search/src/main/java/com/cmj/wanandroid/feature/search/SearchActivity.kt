@@ -7,20 +7,19 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.lib.base.kt.findNavigationById
 import com.cmj.wanandroid.common.kt.nullOrValid
 import com.cmj.wanandroid.feature.search.databinding.ActivitySearchBinding
+import com.cmj.wanandroid.lib.base.Constant
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
+import com.cmj.wanandroid.lib.base.router.RouterPath
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
+@Route(path = RouterPath.ROUTER_FEATURE_SEARCH)
 class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
-
-    companion object {
-        const val EXTRA_SEARCH_HOTKEY = "extra_search_hotkey"
-        const val EXTRA_SEARCH_PERFORM = "extra_search_perform"
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,9 +29,9 @@ class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
             binding.search.isEnabled = destination.id != R.id.searchResultFragment
         }
 
-        val hotkey = intent.getStringExtra(EXTRA_SEARCH_HOTKEY).nullOrValid()
+        val hotkey = intent.getStringExtra(Constant.Search.EXTRA_SEARCH_HOTKEY).nullOrValid()
         if (hotkey != null) {
-            if (intent.getBooleanExtra(EXTRA_SEARCH_PERFORM, false)) {
+            if (intent.getBooleanExtra(Constant.Search.EXTRA_SEARCH_PERFORM, false)) {
                 viewModel.queryKey(hotkey)
             }
             lifecycleScope.launchWhenResumed {
@@ -51,7 +50,7 @@ class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
                 val option = NavOptions.Builder()
                     .setPopUpTo(
                         R.id.searchKeyFragment,
-                        intent.getBooleanExtra(EXTRA_SEARCH_PERFORM, false)
+                        intent.getBooleanExtra(Constant.Search.EXTRA_SEARCH_PERFORM, false)
                     )
                     .build()
                 navController?.navigate(

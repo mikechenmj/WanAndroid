@@ -6,6 +6,7 @@ if (isLibrary) {
     apply plugin: 'com.android.application'
 }
 apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk rootProject.ext.compileSdk
@@ -53,6 +54,12 @@ android {
 
     resourcePrefix "feature_login_"
 
+}
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
 }
 
 dependencies {

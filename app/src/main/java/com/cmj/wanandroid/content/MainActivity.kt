@@ -25,6 +25,7 @@ import com.cmj.wanandroid.lib.base.ui.ITabLayoutHolder
 import com.cmj.wanandroid.lib.base.ui.ScaleInTransformer
 import com.cmj.wanandroid.feature.mine.MineFragment
 import com.cmj.wanandroid.feature.search.SearchViewModel
+import com.cmj.wanandroid.lib.base.Constant
 import com.cmj.wanandroid.lib.base.kt.getOrHandleError
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.collect
@@ -77,7 +78,7 @@ class MainActivity : BaseActivity<SearchViewModel, ActivityMainBinding>(), IColl
         binding.search.apply {
             setOnClickListener {
                 startActivity(Intent(this@MainActivity, com.cmj.wanandroid.feature.search.SearchActivity::class.java).apply {
-                    putExtra(com.cmj.wanandroid.feature.search.SearchActivity.EXTRA_SEARCH_HOTKEY, text.toString())
+                    putExtra(Constant.Search.EXTRA_SEARCH_HOTKEY, text.toString())
                 })
             }
             addRepeatingJob(Lifecycle.State.STARTED) {
