@@ -162,6 +162,7 @@ ext {
                     blockcanary_no_op,
             ],
             "debugApi"  : [
+                    leakcanary,
                     blockcanary,
             ],
             "api"       : [
@@ -184,7 +185,6 @@ ext {
                     navigation_fragment_ktx,
                     navigation_ui_ktx,
                     navigation_dynamic_features_fragment,
-                    leakcanary,
                     arouter,
             ],
             "project"   : [
