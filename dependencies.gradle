@@ -150,7 +150,6 @@ ext {
             ],
             "implementation": [
                     room,
-                    startup
             ]
     ]
 

@@ -8,15 +8,5 @@
             android:name="com.cmj.wanandroid.data.content.ContentWebActivity"
             android:process=":web"
             android:theme="@style/Web" />
-
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            tools:node="merge"
-            android:authorities="${applicationId}.androidx-startup"
-            android:exported="false">
-            <meta-data
-                android:name="com.cmj.wanandroid.common.CommonInitializer"
-                android:value="androidx.startup" />
-        </provider>
     </application>
 </manifest>
