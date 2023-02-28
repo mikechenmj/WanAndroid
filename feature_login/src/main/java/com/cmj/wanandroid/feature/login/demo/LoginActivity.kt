@@ -8,7 +8,7 @@ import com.cmj.wanandroid.feature.login.databinding.ActivityLoginBinding
 import com.cmj.wanandroid.lib.base.kt.findNavigationById
 import com.cmj.wanandroid.lib.base.router.RouterPath
 
-@Route(path = RouterPath.ROUTER_FEATURE_LOGIN)
+@Route(path = RouterPath.ROUTER_LOGIN)
 class LoginActivity : BaseActivity<UserViewModel, ActivityLoginBinding>() {
 
     companion object {

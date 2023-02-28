@@ -42,7 +42,7 @@ class MineFragment : AbsDecorFragment<ViewModel, UserViewModel, FragmentMineBind
             refresh()
         }
         binding.login.setOnClickListener {
-            ARouter.getInstance().build(RouterPath.ROUTER_FEATURE_LOGIN).navigation()
+            ARouter.getInstance().build(RouterPath.ROUTER_LOGIN).navigation()
         }
         binding.logout.setOnClickListener {
             viewLifecycleScope.launch {

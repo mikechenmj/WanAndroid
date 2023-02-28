@@ -70,7 +70,7 @@ class ContentWebActivity : AbsWebActivity<ContentViewModel>() {
         val translateY = if (show) 0 else menuBinding.bottomMenu.height
         menuBinding.bottomMenu.animate().translationY(translateY.toFloat()).start()
         menuBinding.authorOrShareUser.setOnClickListener {
-            ARouter.getInstance().build(RouterPath.ROUTER_FEATURE_SEARCH)
+            ARouter.getInstance().build(RouterPath.ROUTER_SEARCH)
                 .withString(
                     Constant.Search.EXTRA_SEARCH_HOTKEY,
                     menuBinding.authorOrShareUser.text.toString()

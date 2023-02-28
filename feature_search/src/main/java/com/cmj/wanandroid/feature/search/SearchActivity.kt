@@ -18,7 +18,7 @@ import com.cmj.wanandroid.lib.base.router.RouterPath
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
-@Route(path = RouterPath.ROUTER_FEATURE_SEARCH)
+@Route(path = RouterPath.ROUTER_SEARCH)
 class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
