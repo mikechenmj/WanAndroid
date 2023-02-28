@@ -1,6 +1,6 @@
 package com.cmj.wanandroid.data.user.api
 
-import com.cmj.wanandroid.lib.base.bean.Todo
+import com.cmj.wanandroid.data.user.bean.Todo
 import com.cmj.wanandroid.lib.network.bean.PageModule
 import com.cmj.wanandroid.lib.network.bean.WAndroidResponse
 import retrofit2.Call

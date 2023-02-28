@@ -1,8 +1,8 @@
 package com.cmj.wanandroid.data.user.api
 
-import com.cmj.wanandroid.lib.base.bean.LoginInfo
-import com.cmj.wanandroid.lib.base.bean.Message
-import com.cmj.wanandroid.lib.base.bean.User
+import com.cmj.wanandroid.data.user.bean.LoginInfo
+import com.cmj.wanandroid.data.user.bean.Message
+import com.cmj.wanandroid.data.user.bean.User
 import com.cmj.wanandroid.lib.network.bean.PageModule
 import com.cmj.wanandroid.lib.network.bean.WAndroidResponse
 import retrofit2.Call

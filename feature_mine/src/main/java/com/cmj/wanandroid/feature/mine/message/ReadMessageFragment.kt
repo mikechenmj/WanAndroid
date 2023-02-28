@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cmj.wanandroid.lib.base.page.AbsPagingFragment
 import com.cmj.wanandroid.lib.base.web.WebActivity
-import com.cmj.wanandroid.lib.base.bean.Message
+import com.cmj.wanandroid.data.user.bean.Message
 import kotlinx.coroutines.flow.Flow
 
 class ReadMessageFragment: AbsPagingFragment<ViewModel, MessageViewModel, Message>()  {

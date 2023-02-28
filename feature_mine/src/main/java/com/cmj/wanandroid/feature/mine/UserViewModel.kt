@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.cmj.wanandroid.data.user.UserRepository
 import com.cmj.wanandroid.lib.base.BaseViewModel
-import com.cmj.wanandroid.lib.base.bean.LoginInfo
-import com.cmj.wanandroid.lib.base.bean.User
+import com.cmj.wanandroid.data.user.bean.LoginInfo
+import com.cmj.wanandroid.data.user.bean.User
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 

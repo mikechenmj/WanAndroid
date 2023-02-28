@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.lib.base.bean
+package com.cmj.wanandroid.data.user.bean
 
 import android.os.Parcelable
 import com.squareup.moshi.Json

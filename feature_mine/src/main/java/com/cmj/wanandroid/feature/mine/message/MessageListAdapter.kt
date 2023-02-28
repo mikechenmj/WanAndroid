@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.cmj.wanandroid.feature.mine.R
 import com.cmj.wanandroid.feature.mine.databinding.MessageItemBinding
-import com.cmj.wanandroid.lib.base.bean.Message
+import com.cmj.wanandroid.data.user.bean.Message
 
 class MessageListAdapter constructor(
     val context: Context,
