@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.cmj.wanandroid.feature.login.demo.login.LoginFragment"
+        android:name="com.cmj.wanandroid.feature.login.login.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.cmj.wanandroid.feature.login.demo.register.RegisterFragment"
+        android:name="com.cmj.wanandroid.feature.login.register.RegisterFragment"
         android:label="RegisterFragment" />
 
 

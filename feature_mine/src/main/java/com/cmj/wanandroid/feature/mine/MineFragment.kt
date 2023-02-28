@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.addRepeatingJob
 import com.alibaba.android.arouter.launcher.ARouter
+import com.cmj.wanandroid.data.user.UserViewModel
 import com.cmj.wanandroid.feature.mine.databinding.FragmentMineBinding
 import com.cmj.wanandroid.feature.mine.databinding.UserInfoLayoutBinding
 import com.cmj.wanandroid.feature.mine.message.MessageActivity

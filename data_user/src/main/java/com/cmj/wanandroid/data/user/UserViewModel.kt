@@ -1,4 +1,4 @@
-package com.cmj.wanandroid.feature.mine
+package com.cmj.wanandroid.data.user
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope

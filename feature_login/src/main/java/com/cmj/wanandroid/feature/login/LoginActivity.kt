@@ -1,9 +1,9 @@
-package com.cmj.wanandroid.feature.login.demo
+package com.cmj.wanandroid.feature.login
 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.common.log.LogMan
-import com.cmj.wanandroid.feature.login.R
+import com.cmj.wanandroid.data.user.UserViewModel
 import com.cmj.wanandroid.feature.login.databinding.ActivityLoginBinding
 import com.cmj.wanandroid.lib.base.kt.findNavigationById
 import com.cmj.wanandroid.lib.base.router.RouterPath

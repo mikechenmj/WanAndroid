@@ -4,7 +4,7 @@
 
     <application>
 
-        <activity android:name="com.cmj.wanandroid.feature.login.demo.LoginActivity" />
+        <activity android:name="com.cmj.wanandroid.feature.login.LoginActivity" />
 
     </application>
 </manifest>
