@@ -12,8 +12,8 @@ import com.cmj.wanandroid.lib.base.BaseActivity
 import com.cmj.wanandroid.lib.base.ChildFragment
 import com.cmj.wanandroid.lib.base.ui.ScaleInTransformer
 import com.cmj.wanandroid.lib.base.ui.TabMediator
+import com.google.android.material.tabs.TabLayoutMediator
 
-//@Route(path = RouterTable.ROUTER_TEST)
 class MessageActivity : BaseActivity<ViewModel, ActivityMessageBinding>() {
 
     companion object {
@@ -35,7 +35,7 @@ class MessageActivity : BaseActivity<ViewModel, ActivityMessageBinding>() {
             offscreenPageLimit = 1
         }
 
-        TabMediator(binding.tabLayout, binding.messagePager, true) { tab, position ->
+        TabLayoutMediator(binding.tabLayout, binding.messagePager, true) { tab, position ->
             tab.text = getString(CHILD_FRAGMENTS[position].titleRes)
         }.attach()
     }
