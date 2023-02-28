@@ -88,5 +88,9 @@ ext {
     arouter = 'com.alibaba:arouter-api:1.5.2'
     aroutercompiler = 'com.alibaba:arouter-compiler:1.5.2'
 
+    //room
+    room = 'androidx.room:room-ktx:2.4.0'
+    roomKapt = 'androidx.room:room-compiler:2.4.0'
+
     apply from: "dependencies.gradle"
 }

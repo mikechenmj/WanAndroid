@@ -139,21 +139,29 @@ ext {
     ]
 
     data_content = [
-            "project": [
+            "project"  : [
                     ":lib_base",
                     ":lib_common",
                     ":lib_network",
             ],
-            "kapt"   : [
-                    aroutercompiler
+            "kapt"     : [
+                    aroutercompiler,
+                    roomKapt
             ],
+            "implementation": [
+                    room,
+                    startup
+            ]
     ]
 
     data_user = [
-            "project": [
+            "project"  : [
                     ":lib_base",
                     ":lib_common",
                     ":lib_network",
+            ],
+            "implementation": [
+                    room
             ]
     ]
 

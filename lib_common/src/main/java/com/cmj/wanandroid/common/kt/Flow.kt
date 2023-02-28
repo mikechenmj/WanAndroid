@@ -9,17 +9,27 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.ClassCastException
 import kotlin.coroutines.ContinuationInterceptor
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.coroutines.coroutineContext
+
+suspend fun <T, R> FlowCollector<R>.emitFlow(flow: Flow<T>, transform: (T) -> R = { it as R }) {
+    flow.collect {
+        emit(transform(it))
+    }
+}
+
+suspend fun <T> Flow<T>.await(): T? {
+    var result: T? = null
+    collect {
+        result = it
+    }
+    return result
+}
 
 suspend fun <T> Flow<T>.collectOldest(action: suspend (value: T) -> Unit) {
     var job: Job? = null

@@ -3,16 +3,26 @@ package com.cmj.wanandroid.data.content
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.cmj.wanandroid.common.CommonInitializer
 import com.cmj.wanandroid.data.content.api.ContentApi
+import com.cmj.wanandroid.data.content.bean.Banner
 import com.cmj.wanandroid.lib.base.page.NormalPagingSource
 import com.cmj.wanandroid.lib.network.NetworkEngine
 import com.cmj.wanandroid.data.content.bean.Content
+import com.cmj.wanandroid.data.content.db.ContentDatabase
+import com.cmj.wanandroid.lib.network.NetworkUtil
 import com.cmj.wanandroid.lib.network.bean.PageModule
 import com.cmj.wanandroid.lib.network.kt.resultWABodyCall
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.await
 
 object ContentRepository {
+
+    private val database: ContentDatabase =
+        ContentDatabase.getInstance(CommonInitializer.getContext())
+
+    private val bannerDao = database.bannerDao()
 
     private val api = NetworkEngine.createApi(ContentApi::class.java)
 
@@ -21,6 +31,22 @@ object ContentRepository {
         api.unCollectOriginId(content.id).resultWABodyCall().await()
 
     suspend fun banner() = api.banner().resultWABodyCall().await()
+
+    fun bannerFlow(): Flow<Result<List<Banner>>> {
+        return flow {
+            val cache = bannerDao.banners()
+            if (cache.isNotEmpty()) {
+                emit(Result.success(cache.toList()))
+            }
+            if (NetworkUtil.isConnected) {
+                emit(banner().also {
+                    val new = it.getOrNull()?.toTypedArray() ?: return@also
+                    bannerDao.deleteSuspend(*cache)
+                    bannerDao.insertSuspend(*new)
+                })
+            }
+        }
+    }
 
     fun articleListFlow(pageSize: Int = 20, orderType: Int = 0): Flow<PagingData<Content>> {
         return Pager(
