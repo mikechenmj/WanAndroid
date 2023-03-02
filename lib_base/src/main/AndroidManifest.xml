@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
 
-
         <activity android:name="com.cmj.wanandroid.lib.base.FragmentStubActivity" />
+
+        <activity android:name=".web.WebActivity"/>
     </application>
 </manifest>
