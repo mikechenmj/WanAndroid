@@ -1,9 +1,15 @@
 package com.cmj.wanandroid.lib.network
 
+import android.util.Log
 import android.webkit.CookieManager
 import com.cmj.wanandroid.common.CommonInitializer
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.tencent.mmkv.MMKV
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import okhttp3.Cache
 import okhttp3.Cookie
 import okhttp3.CookieJar
@@ -19,11 +25,16 @@ import java.util.concurrent.TimeUnit
 object NetworkEngine {
 
     private val TAG = NetworkEngine::class.java.simpleName
+
+    private const val KEY_COOKIES = "key_cookies"
     private const val DEFAULT_TIMEOUT = 30L
+
     const val BASE_URL = "https://www.wanandroid.com"
     private const val TOKEN_PASS_WA = "token_pass_wanandroid_com"
 
     private val okhttp = createOkhttpClient()
+
+    private val kv = MMKV.defaultMMKV()
 
     private val apiBuilder by lazy {
         Retrofit.Builder()
@@ -46,6 +57,13 @@ object NetworkEngine {
 //            .addCallAdapterFactory(WASafeFactory())
             .client(okhttp)
             .build()
+    }
+
+    init {
+        val manager = CookieManager.getInstance()
+        kv.decodeString(KEY_COOKIES).also {
+            manager.setCookie(BASE_URL, it)
+        }
     }
 
     fun <T> createApi(apiClass: Class<T>): T = apiBuilder.create(apiClass)
@@ -88,6 +106,7 @@ object NetworkEngine {
                     cookies.forEach {
                         manager.setCookie(url.toString(), it.toString())
                     }
+                    kv.encode(KEY_COOKIES, manager.getCookie(BASE_URL))
                 }
 
             })
