@@ -159,8 +159,11 @@ ext {
                     ":lib_common",
                     ":lib_network",
             ],
+            "kapt"     : [
+                    roomKapt
+            ],
             "implementation": [
-                    room
+                    room,
             ]
     ]
 
@@ -185,7 +188,6 @@ ext {
                     activity_ktx,
                     easypermissions,
                     databinding_runtime,
-                    mmkv,
                     glide,
                     paging,
                     flex,
@@ -227,6 +229,7 @@ ext {
                     annotation,
                     legacy,
                     utilcode,
+                    mmkv
             ],
             "testApi"       : [
                     junit,

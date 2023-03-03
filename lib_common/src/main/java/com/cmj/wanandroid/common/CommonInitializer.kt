@@ -3,6 +3,8 @@ package com.cmj.wanandroid.common
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.startup.Initializer
+import com.tencent.mmkv.MMKV
+
 
 class CommonInitializer : Initializer<Unit> {
 
@@ -17,6 +19,7 @@ class CommonInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         globalContext = context
+        MMKV.initialize(context)
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {

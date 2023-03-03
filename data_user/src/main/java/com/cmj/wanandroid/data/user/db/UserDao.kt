@@ -6,15 +6,15 @@ import com.cmj.wanandroid.data.user.bean.User
 @Dao
 interface UserDao {
 
-    @Query("SELECT * FROM User")
-    suspend fun query(): User?
+    @Query("SELECT * FROM User WHERE id = :id")
+    suspend fun query(id: Int): User?
 
     @Update
     suspend fun updateSuspend(user: User): Int
 
     @Insert
-    suspend fun insertSuspend(user: User): Int
+    suspend fun insertSuspend(user: User): Long
 
     @Delete
-    suspend fun deleteSuspend(): Int
+    suspend fun deleteSuspend(user: User): Int
 }

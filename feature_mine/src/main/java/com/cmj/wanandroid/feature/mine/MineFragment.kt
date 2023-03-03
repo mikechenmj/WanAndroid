@@ -23,6 +23,7 @@ import com.cmj.wanandroid.lib.base.router.RouterPath
 import com.cmj.wanandroid.lib.base.ui.TabMediator
 import com.cmj.wanandroid.lib.network.kt.getOrToastError
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MineFragment : AbsDecorFragment<ViewModel, UserViewModel, FragmentMineBinding>() {
@@ -64,11 +65,10 @@ class MineFragment : AbsDecorFragment<ViewModel, UserViewModel, FragmentMineBind
         }
     }
 
-    private suspend fun refresh() {
+    private fun refresh() {
         val isLoggedIn = activityViewModel.isLoggedIn()
         binding.itemContainer.isVisible = isLoggedIn
         binding.login.isVisible = !isLoggedIn
-        collapsingBinding.refresh()
     }
 
     private fun initUserInfo(): View {
@@ -91,36 +91,36 @@ class MineFragment : AbsDecorFragment<ViewModel, UserViewModel, FragmentMineBind
             userId.visibility = View.GONE
             coinInfo.visibility = View.GONE
             username.text = getString(R.string.username_un_logged_in_label)
-            userIcon.setImageResource(R.drawable.ic_user)
         } else {
-            val info = activityViewModel.userInfoAsync().await()
-                .getOrHandleError(requireContext()) ?: return
-            userId.visibility = View.VISIBLE
-            coinInfo.visibility = View.VISIBLE
-            username.text = Html.fromHtml(
-                getString(
-                    R.string.username_label,
-                    info.userInfo.username
+            activityViewModel.userInfoFlow.collect {
+                val info = it.getOrHandleError(requireContext()) ?:return@collect
+                userId.visibility = View.VISIBLE
+                coinInfo.visibility = View.VISIBLE
+                username.text = Html.fromHtml(
+                    getString(
+                        R.string.username_label,
+                        info.userInfo.username
+                    )
                 )
-            )
-            userId.text = getString(
-                R.string.id_label,
-                info.userInfo.id.toString()
-            )
-            coin.text = getString(
-                R.string.coin_label,
-                info.coinInfo.coinCount.toString()
-            )
-            level.text =
-                getString(
-                    R.string.level_label,
-                    info.coinInfo.level.toString()
+                userId.text = getString(
+                    R.string.id_label,
+                    info.userInfo.id.toString()
                 )
-            rank.text =
-                getString(
-                    R.string.rank_label,
-                    info.coinInfo.rank.toString()
+                coin.text = getString(
+                    R.string.coin_label,
+                    info.coinInfo.coinCount.toString()
                 )
+                level.text =
+                    getString(
+                        R.string.level_label,
+                        info.coinInfo.level.toString()
+                    )
+                rank.text =
+                    getString(
+                        R.string.rank_label,
+                        info.coinInfo.rank.toString()
+                    )
+            }
         }
     }
 }
